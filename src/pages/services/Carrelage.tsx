@@ -46,9 +46,14 @@ const Carrelage = () => {
             </div>
             <div className="rounded-lg overflow-hidden shadow-lg">
               <img 
-                src="https://images.unsplash.com/photo-1594540639346-4c1a34490368?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80" 
+                src="/assets/images/carrelage-expertise.jpg" 
                 alt="Pose de carrelage professionnelle" 
                 className="w-full h-auto object-cover"
+                onError={(e) => {
+                  // Fallback image if the custom image fails to load
+                  const target = e.target as HTMLImageElement;
+                  target.src = "https://images.unsplash.com/photo-1594540639346-4c1a34490368?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80";
+                }}
               />
             </div>
           </div>
