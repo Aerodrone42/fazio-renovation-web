@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -39,6 +38,7 @@ const Index = () => {
     <>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-20">
+        
         <div 
           className="absolute inset-0 bg-cover bg-center z-0"
           style={{ 
@@ -75,6 +75,7 @@ const Index = () => {
       
       {/* Nos services */}
       <section className="section bg-fazio-cream">
+        
         <div className="container">
           <div className="section-title animate-on-scroll">
             <h2 className="text-fazio-dark-green">Nos services spécialisés</h2>
@@ -166,6 +167,7 @@ const Index = () => {
 
       {/* Pourquoi nous choisir */}
       <section className="section bg-white">
+        
         <div className="container">
           <div className="section-title animate-on-scroll">
             <h2 className="text-fazio-dark-green">Pourquoi nous choisir ?</h2>
@@ -252,6 +254,7 @@ const Index = () => {
 
       {/* Zone d'intervention */}
       <section className="section bg-fazio-green text-white">
+        
         <div className="container">
           <div className="section-title animate-on-scroll">
             <h2 className="text-white">Notre zone d'intervention</h2>
@@ -327,7 +330,7 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-            {/* Témoignage 1 */}
+            {/* Témoignage 1 - Sébastien */}
             <div className="animate-on-scroll p-6 rounded-lg border border-gray-200 bg-fazio-cream/30 hover:shadow-md transition-shadow">
               <div className="flex space-x-1 mb-4">
                 <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
@@ -337,25 +340,4 @@ const Index = () => {
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                 </svg>
                 <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                </svg>
-                <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                </svg>
-                <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118l-2.8-2.034c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                </svg>
-              </div>
-              <p className="italic text-gray-600 mb-4">
-                "Excellent travail pour notre salle de bain. Le carrelage est parfaitement posé, avec une finition impeccable. Je recommande vivement !"
-              </p>
-              <div className="font-semibold">Marie L. - Lyon</div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
-};
-
-export default Index;
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8
