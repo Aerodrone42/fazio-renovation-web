@@ -47,11 +47,11 @@ const headquarters: [number, number] = [45.85, 5.1]; // Example coordinates for 
 
 const InterventionMap: React.FC<InterventionMapProps> = ({ height = 300, className = '' }) => {
   return (
-    <div className={`rounded-lg overflow-hidden border-none h-[${height}px] ${className}`}>
+    <div className={`rounded-lg overflow-hidden border-none ${className}`} style={{ height: `${height}px` }}>
       <MapContainer 
         center={[44.9, 6.0]} 
         zoom={6} 
-        style={{ height: height, width: '100%', borderRadius: '0.5rem' }}
+        style={{ height: '100%', width: '100%', borderRadius: '0.5rem' }}
         scrollWheelZoom={false}
       >
         <TileLayer
