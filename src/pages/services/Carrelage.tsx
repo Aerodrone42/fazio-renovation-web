@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -50,7 +49,7 @@ const Carrelage = () => {
             <div className="rounded-lg overflow-hidden shadow-lg">
               <AspectRatio ratio={16/9}>
                 <img 
-                  src="/lovable-uploads/9114248b-e86d-4d6d-961a-23538b98512a.png" 
+                  src="/lovable-uploads/1b3b9e35-ec04-42c4-b14a-4fdfe2d6b954.png" 
                   alt="Pose de carrelage cuisine moderne" 
                   className="w-full h-full object-cover"
                   onLoad={() => setImageError(false)}
