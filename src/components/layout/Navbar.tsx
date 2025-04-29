@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
@@ -26,6 +26,8 @@ const services = [
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,20 +40,32 @@ export const Navbar = () => {
     };
   }, []);
 
+  // Determine background and text colors based on page and scroll state
+  const navbarBg = isScrolled || !isHomePage
+    ? "bg-white/95 backdrop-blur-sm shadow-md"
+    : "bg-transparent";
+  
+  const textColor = isScrolled || !isHomePage
+    ? "text-foreground"
+    : "text-white";
+
+  const textHoverColor = isScrolled || !isHomePage
+    ? "hover:text-fazio-red"
+    : "hover:text-fazio-cream";
+
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled
-          ? "bg-white/95 backdrop-blur-sm shadow-md py-3"
-          : "bg-transparent py-5"
+        navbarBg,
+        isScrolled ? "py-3" : "py-5"
       )}
     >
       <div className="container flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <span className={cn(
             "text-xl font-serif font-bold",
-            isScrolled ? "text-fazio-red" : "text-white"
+            isScrolled || !isHomePage ? "text-fazio-red" : "text-white"
           )}>
             SARL FAZIO Lorenzo
           </span>
@@ -63,7 +77,8 @@ export const Navbar = () => {
             to="/"
             className={cn(
               "transition-colors",
-              isScrolled ? "text-foreground hover:text-fazio-red" : "text-white hover:text-fazio-cream"
+              textColor,
+              textHoverColor
             )}
           >
             Accueil
@@ -74,7 +89,8 @@ export const Navbar = () => {
               <NavigationMenuItem>
                 <NavigationMenuTrigger className={cn(
                   "bg-transparent hover:bg-transparent",
-                  isScrolled ? "hover:text-fazio-red" : "text-white hover:text-fazio-cream"
+                  textColor,
+                  textHoverColor
                 )}>
                   Nos services
                 </NavigationMenuTrigger>
@@ -104,7 +120,8 @@ export const Navbar = () => {
             to="/about"
             className={cn(
               "transition-colors",
-              isScrolled ? "text-foreground hover:text-fazio-red" : "text-white hover:text-fazio-cream"
+              textColor,
+              textHoverColor
             )}
           >
             À propos
@@ -114,7 +131,8 @@ export const Navbar = () => {
             to="/contact"
             className={cn(
               "transition-colors",
-              isScrolled ? "text-foreground hover:text-fazio-red" : "text-white hover:text-fazio-cream"
+              textColor,
+              textHoverColor
             )}
           >
             Contact
@@ -132,7 +150,7 @@ export const Navbar = () => {
           type="button"
           className={cn(
             "md:hidden",
-            isScrolled ? "text-foreground" : "text-white"
+            textColor
           )}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
