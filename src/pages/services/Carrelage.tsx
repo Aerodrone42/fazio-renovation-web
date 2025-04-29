@@ -50,8 +50,8 @@ const Carrelage = () => {
             <div className="rounded-lg overflow-hidden shadow-lg">
               <AspectRatio ratio={16/9}>
                 <img 
-                  src="https://images.unsplash.com/photo-1594540639346-4c1a34490368?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80" 
-                  alt="Pose de carrelage professionnelle" 
+                  src="/lovable-uploads/9114248b-e86d-4d6d-961a-23538b98512a.png" 
+                  alt="Pose de carrelage cuisine moderne" 
                   className="w-full h-full object-cover"
                   onLoad={() => setImageError(false)}
                   onError={() => setImageError(true)}
