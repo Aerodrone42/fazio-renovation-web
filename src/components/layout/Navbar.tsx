@@ -49,7 +49,10 @@ export const Navbar = () => {
     >
       <div className="container flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <span className="text-xl font-serif font-bold text-fazio-red">
+          <span className={cn(
+            "text-xl font-serif font-bold",
+            isScrolled ? "text-fazio-red" : "text-white"
+          )}>
             SARL FAZIO Lorenzo
           </span>
         </Link>
@@ -58,7 +61,10 @@ export const Navbar = () => {
         <nav className="hidden md:flex items-center gap-6">
           <Link
             to="/"
-            className="text-foreground hover:text-fazio-red transition-colors"
+            className={cn(
+              "transition-colors",
+              isScrolled ? "text-foreground hover:text-fazio-red" : "text-white hover:text-fazio-cream"
+            )}
           >
             Accueil
           </Link>
@@ -66,7 +72,10 @@ export const Navbar = () => {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent hover:bg-transparent hover:text-fazio-red">
+                <NavigationMenuTrigger className={cn(
+                  "bg-transparent hover:bg-transparent",
+                  isScrolled ? "hover:text-fazio-red" : "text-white hover:text-fazio-cream"
+                )}>
                   Nos services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -93,14 +102,20 @@ export const Navbar = () => {
 
           <Link
             to="/about"
-            className="text-foreground hover:text-fazio-red transition-colors"
+            className={cn(
+              "transition-colors",
+              isScrolled ? "text-foreground hover:text-fazio-red" : "text-white hover:text-fazio-cream"
+            )}
           >
             À propos
           </Link>
 
           <Link
             to="/contact"
-            className="text-foreground hover:text-fazio-red transition-colors"
+            className={cn(
+              "transition-colors",
+              isScrolled ? "text-foreground hover:text-fazio-red" : "text-white hover:text-fazio-cream"
+            )}
           >
             Contact
           </Link>
@@ -115,7 +130,10 @@ export const Navbar = () => {
         {/* Bouton menu mobile */}
         <button
           type="button"
-          className="md:hidden text-foreground"
+          className={cn(
+            "md:hidden",
+            isScrolled ? "text-foreground" : "text-white"
+          )}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? (
