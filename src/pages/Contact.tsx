@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { toast } from '@/components/ui/use-toast';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import InterventionMap from '@/components/maps/InterventionMap';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -132,17 +133,9 @@ const Contact = () => {
                 </CardContent>
               </Card>
 
-              {/* Carte Google Maps */}
+              {/* Carte des zones d'intervention */}
               <Card className="overflow-hidden shadow-lg border-none h-[400px]">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2787.5446739984776!2d5.0807483!3d45.8369713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4b78ea5c8743b%3A0x6af5e01ce4841577!2s94%20Rue%20de%20Montaplan%2C%2001120%20Dagneux!5e0!3m2!1sfr!2sfr!4v1667047429444!5m2!1sfr!2sfr" 
-                  width="100%" 
-                  height="400" 
-                  style={{ border: 0 }}
-                  loading="lazy" 
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="SARL FAZIO Lorenzo - 94 Rue de Montaplan, 01120 Dagneux"
-                ></iframe>
+                <InterventionMap height={400} />
               </Card>
             </div>
 
