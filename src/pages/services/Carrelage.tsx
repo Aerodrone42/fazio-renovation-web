@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -316,8 +315,8 @@ const Carrelage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="rounded-lg overflow-hidden shadow-md">
               <img 
-                src="/lovable-uploads/01315a3b-12b9-43fa-9b22-9c66a93cbe40.png" 
-                alt="Salle de bain contemporaine" 
+                src="https://images.unsplash.com/photo-1603825491103-bd638b1873b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80" 
+                alt="Salle de bain carrelée" 
                 className="w-full h-64 object-cover"
               />
               <div className="p-4 bg-white">
