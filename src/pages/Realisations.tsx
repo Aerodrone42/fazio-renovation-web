@@ -35,8 +35,9 @@ const Realisations = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const projectsPerPage = 9;
   
-  // Données des projets
+  // Données des projets - réorganisées par type
   const projectImages: ProjectImage[] = [
+    // INTÉRIEUR
     {
       id: 1,
       src: "/lovable-uploads/5d3243b6-cbe4-4f2a-b3be-3da901e6813c.png",
@@ -78,20 +79,22 @@ const Realisations = () => {
       description: "Rénovation d'escalier et pose de carrelage coordonné"
     },
     {
+      id: 18, 
+      src: "/lovable-uploads/36440686-aa00-49e9-80b3-99eea678cbeb.png", 
+      alt: "Espace séjour avec carrelage gris moderne", 
+      location: "Meximieux (01)", 
+      type: "interieur",
+      description: "Séjour avec grand carrelage gris pour ambiance contemporaine"
+    },
+    
+    // PRÉPARATION
+    {
       id: 6, 
       src: "/lovable-uploads/e60a9143-3c88-43f6-a154-06352a434418.png", 
       alt: "Rénovation sol avec ancien carrelage et chape", 
       location: "Miribel (01)", 
-      type: "interieur",
+      type: "preparation",
       description: "Travaux de rénovation avec dépose d'ancien carrelage et pose de nouvelle chape"
-    },
-    {
-      id: 7, 
-      src: "/lovable-uploads/c7105d05-b6ca-4f7e-974c-aacb4a70074b.png", 
-      alt: "Pose de carrelage imitation béton ciré", 
-      location: "Meximieux (01)", 
-      type: "interieur",
-      description: "Carrelage grand format aspect béton ciré dans un séjour contemporain"
     },
     {
       id: 8, 
@@ -102,6 +105,16 @@ const Realisations = () => {
       description: "Préparation de sol avec chape liquide autolissante"
     },
     {
+      id: 19, 
+      src: "/lovable-uploads/a9dedbe2-d559-4176-b2d2-c55ab9d231f8.png", 
+      alt: "Pose de carrelage en cours dans un couloir", 
+      location: "Trévoux (01)", 
+      type: "preparation",
+      description: "Travaux de préparation et pose de carrelage en cours"
+    },
+    
+    // SALLE DE BAIN
+    {
       id: 9, 
       src: "/lovable-uploads/12444f2a-8cb8-4ed8-8e57-a2073415add5.png", 
       alt: "Salle de bain avec carrelage beige", 
@@ -109,6 +122,8 @@ const Realisations = () => {
       type: "salleDeBain",
       description: "Carrelage grand format travertin pour salle de bain"
     },
+    
+    // EXTÉRIEUR
     {
       id: 10, 
       src: "/lovable-uploads/7ec42741-e0d0-45ae-9f50-24c2ed8d66c7.png", 
@@ -133,6 +148,8 @@ const Realisations = () => {
       type: "exterieur",
       description: "Pose de carrelage extérieur aspect pierre naturelle"
     },
+    
+    // PISCINE
     {
       id: 13, 
       src: "/lovable-uploads/ade1f5bb-0fc9-4dff-b9a4-a06121bfae54.png", 
@@ -165,6 +182,16 @@ const Realisations = () => {
       type: "piscine",
       description: "Préparation pour carrelage de piscine avec étanchéité"
     },
+    
+    // CUISINE
+    {
+      id: 7, 
+      src: "/lovable-uploads/c7105d05-b6ca-4f7e-974c-aacb4a70074b.png", 
+      alt: "Pose de carrelage imitation béton ciré", 
+      location: "Meximieux (01)", 
+      type: "cuisine",
+      description: "Carrelage grand format aspect béton ciré dans une cuisine moderne"
+    },
     {
       id: 17, 
       src: "/lovable-uploads/097562b5-104f-42e7-bab6-cb232151037c.png", 
@@ -172,22 +199,6 @@ const Realisations = () => {
       location: "Miribel (01)", 
       type: "cuisine",
       description: "Cuisine contemporaine avec carrelage grand format"
-    },
-    {
-      id: 18, 
-      src: "/lovable-uploads/36440686-aa00-49e9-80b3-99eea678cbeb.png", 
-      alt: "Espace séjour avec carrelage gris moderne", 
-      location: "Meximieux (01)", 
-      type: "interieur",
-      description: "Séjour avec grand carrelage gris pour ambiance contemporaine"
-    },
-    {
-      id: 19, 
-      src: "/lovable-uploads/a9dedbe2-d559-4176-b2d2-c55ab9d231f8.png", 
-      alt: "Pose de carrelage en cours dans un couloir", 
-      location: "Trévoux (01)", 
-      type: "preparation",
-      description: "Travaux de préparation et pose de carrelage en cours"
     }
   ];
   
@@ -208,11 +219,11 @@ const Realisations = () => {
     setCurrentPage(1);
   };
   
-  // Mettre en évidence les projets sélectionnés pour le diaporama
+  // Projets mis en avant pour le diaporama - sélection des meilleurs exemples
   const [selectedProjects, setSelectedProjects] = useState<ProjectImage[]>([
     projectImages[12], // Piscine
     projectImages[9], // Terrasse extérieure
-    projectImages[1] // Intérieur salon
+    projectImages[0] // Intérieur salon
   ]);
 
   return (
