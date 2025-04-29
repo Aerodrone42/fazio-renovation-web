@@ -340,7 +340,7 @@ const Carrelage = () => {
 
             <div className="rounded-lg overflow-hidden shadow-md">
               <img 
-                src="https://images.unsplash.com/photo-1604014833931-4d3c161618ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" 
+                src="/lovable-uploads/5195b6f4-5b5d-4610-b957-1b37a61f7fa0.png" 
                 alt="Terrasse carrelée" 
                 className="w-full h-64 object-cover"
               />
