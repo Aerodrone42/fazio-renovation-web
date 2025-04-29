@@ -2,9 +2,9 @@
 import React from 'react';
 import { MapContainer, TileLayer, Polygon, Tooltip, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Icon } from 'lucide-react';
 import { divIcon } from 'leaflet';
 import { MapPin } from 'lucide-react';
+import './InterventionMap.module.css';
 
 // Fix for Leaflet marker icons
 import L from 'leaflet';
@@ -49,10 +49,7 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
   className = "",
   height = 400
 }) => {
-  const createCustomIcon = (iconName: React.ReactNode) => {
-    const iconHtml = document.createElement('div');
-    iconHtml.className = 'flex items-center justify-center bg-fazio-red text-white rounded-full p-1.5 shadow-md';
-    
+  const createCustomIcon = () => {
     // Return a leaflet divIcon
     return divIcon({
       html: `<div class="flex items-center justify-center bg-fazio-red text-white rounded-full p-1.5 shadow-md w-6 h-6">
@@ -67,14 +64,14 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
   return (
     <div className={`rounded-lg overflow-hidden border-none h-[${height}px] ${className}`}>
       <MapContainer 
-        center={[44.9, 6.0]} 
-        zoom={6} 
+        defaultCenter={[44.9, 6.0]} 
+        defaultZoom={6} 
         style={{ height: height, width: '100%', borderRadius: '0.5rem' }}
         scrollWheelZoom={false}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         
         {/* Rhône-Alpes region */}
@@ -88,7 +85,7 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
             opacity: 0.8
           }}
         >
-          <Tooltip direction="center" permanent>
+          <Tooltip sticky>
             Rhône-Alpes
           </Tooltip>
         </Polygon>
@@ -104,7 +101,7 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
             opacity: 0.8
           }}
         >
-          <Tooltip direction="center" permanent>
+          <Tooltip sticky>
             Var (83)
           </Tooltip>
         </Polygon>
@@ -120,7 +117,7 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
             opacity: 0.8
           }}
         >
-          <Tooltip direction="center" permanent>
+          <Tooltip sticky>
             Alpes-Maritimes (06)
           </Tooltip>
         </Polygon>
@@ -128,9 +125,9 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         {/* Marker for company headquarters */}
         <Marker 
           position={headquarters}
-          icon={createCustomIcon(<MapPin size={16} />)}
+          icon={createCustomIcon()}
         >
-          <Tooltip direction="top" permanent>
+          <Tooltip sticky>
             Siège - Dagneux (01)
           </Tooltip>
         </Marker>
