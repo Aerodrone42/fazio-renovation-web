@@ -64,8 +64,8 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
   return (
     <div className={`rounded-lg overflow-hidden border-none h-[${height}px] ${className}`}>
       <MapContainer 
-        center={[44.9, 6.0]} 
-        zoom={6} 
+        defaultCenter={[44.9, 6.0]} 
+        defaultZoom={6} 
         style={{ height: height, width: '100%', borderRadius: '0.5rem' }}
         scrollWheelZoom={false}
       >
@@ -85,7 +85,7 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
             opacity: 0.8
           }}
         >
-          <Tooltip direction="center" permanent>
+          <Tooltip permanent>
             Rhône-Alpes
           </Tooltip>
         </Polygon>
@@ -101,7 +101,7 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
             opacity: 0.8
           }}
         >
-          <Tooltip direction="center" permanent>
+          <Tooltip permanent>
             Var (83)
           </Tooltip>
         </Polygon>
@@ -117,17 +117,14 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
             opacity: 0.8
           }}
         >
-          <Tooltip direction="center" permanent>
+          <Tooltip permanent>
             Alpes-Maritimes (06)
           </Tooltip>
         </Polygon>
 
         {/* Marker for company headquarters */}
-        <Marker 
-          position={headquarters}
-          icon={createCustomIcon()}
-        >
-          <Tooltip direction="top" permanent>
+        <Marker position={headquarters}>
+          <Tooltip permanent>
             Siège - Dagneux (01)
           </Tooltip>
         </Marker>

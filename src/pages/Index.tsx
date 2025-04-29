@@ -107,11 +107,11 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            {/* Service 2 */}
+            {/* Service 2 - Image mise à jour ici */}
             <Card className="animate-on-scroll bg-white hover:shadow-lg transition-shadow overflow-hidden">
               <div className="h-48 overflow-hidden">
                 <img 
-                  src="https://images.unsplash.com/photo-1599619585752-c3edb42a414c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80" 
+                  src="/lovable-uploads/cc48449d-6d49-435c-a849-42988925b2d7.png" 
                   alt="Douche à l'italienne" 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
