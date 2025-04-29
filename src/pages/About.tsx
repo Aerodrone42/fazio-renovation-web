@@ -40,11 +40,11 @@ const About = () => {
                 </p>
               </div>
             </div>
-            <div className="rounded-lg overflow-hidden shadow-lg">
+            <div className="rounded-lg overflow-hidden shadow-lg flex items-center justify-center p-8 bg-white">
               <img 
-                src="https://images.unsplash.com/photo-1613152184920-bc1c4ab118d1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" 
-                alt="Artisan carreleur au travail" 
-                className="w-full h-auto object-cover"
+                src="/lovable-uploads/3f50bd39-e720-4137-a2c1-2b1f154d2f64.png" 
+                alt="Logo FAZIO Lorenzo" 
+                className="w-full h-auto object-contain max-h-80"
               />
             </div>
           </div>
