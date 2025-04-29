@@ -63,12 +63,11 @@ export const Navbar = () => {
     >
       <div className="container flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <span className={cn(
-            "text-xl font-serif font-bold",
-            isScrolled || !isHomePage ? "text-fazio-red" : "text-white"
-          )}>
-            SARL FAZIO Lorenzo
-          </span>
+          <img 
+            src="/lovable-uploads/46061452-2c41-486c-947a-2a029a3ffa18.png" 
+            alt="Logo FAZIO Lorenzo" 
+            className="h-12 w-auto"
+          />
         </Link>
 
         {/* Navigation desktop */}
