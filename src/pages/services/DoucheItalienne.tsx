@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -51,14 +52,16 @@ const DoucheItalienne = () => {
                 </Button>
               </div>
             </div>
-            <div className="h-full flex items-center">
-              <AspectRatio ratio={4/5} className="rounded-lg overflow-hidden shadow-xl w-full max-w-md mx-auto">
-                <img 
-                  src="/lovable-uploads/233c6240-522f-406b-b216-7e2dfc7197b0.png" 
-                  alt="Douche à l'italienne avec carrelage moderne" 
-                  className="w-full h-full object-cover"
-                />
-              </AspectRatio>
+            <div className="flex items-center justify-center">
+              <div className="w-full max-w-sm mx-auto">
+                <AspectRatio ratio={3/4} className="rounded-lg overflow-hidden shadow-xl">
+                  <img 
+                    src="/lovable-uploads/233c6240-522f-406b-b216-7e2dfc7197b0.png" 
+                    alt="Douche à l'italienne avec carrelage moderne" 
+                    className="w-full h-full object-cover"
+                  />
+                </AspectRatio>
+              </div>
             </div>
           </div>
         </div>
