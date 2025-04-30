@@ -2,6 +2,8 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Card } from '@/components/ui/card';
 
 const Mosaique = () => {
   return (
@@ -39,13 +41,15 @@ const Mosaique = () => {
                 </Link>
               </Button>
             </div>
-            <div className="rounded-lg overflow-hidden shadow-xl">
-              <img 
-                src="/lovable-uploads/1d97a0be-2c5e-464b-b251-9aa1dcea7ef1.png" 
-                alt="Pose de mosaïque dans une piscine - Carrelage bleu-vert en piscine" 
-                className="w-full h-auto"
-              />
-            </div>
+            <Card className="overflow-hidden shadow-xl h-full">
+              <AspectRatio ratio={4/5} className="bg-muted">
+                <img 
+                  src="/lovable-uploads/1f93f581-6aee-4ef0-9e21-4cfcc2ff55f0.png" 
+                  alt="Pose de mosaïque dans un couloir - Carrelage à motifs géométriques" 
+                  className="w-full h-full object-cover"
+                />
+              </AspectRatio>
+            </Card>
           </div>
         </div>
       </section>
