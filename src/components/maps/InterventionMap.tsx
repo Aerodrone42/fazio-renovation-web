@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import { Icon, LatLngExpression } from 'leaflet';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './InterventionMap.module.css';
 
@@ -14,7 +14,7 @@ interface MarkerData {
 }
 
 // Create a custom icon for our markers
-const customIcon = new Icon({
+const customIcon = new L.Icon({
   iconUrl: '/lovable-uploads/1b3b9e35-ec04-42c4-b14a-4fdfe2d6b954.png',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
@@ -22,7 +22,7 @@ const customIcon = new Icon({
 });
 
 // Component to set the view when selected marker changes
-const ChangeView = ({ center, zoom }: { center: LatLngExpression, zoom: number }) => {
+const ChangeView = ({ center, zoom }: { center: L.LatLngExpression, zoom: number }) => {
   const map = useMap();
   map.setView(center, zoom);
   return null;
@@ -118,18 +118,19 @@ const InterventionMap: React.FC = () => {
       <MapContainer 
         className="rounded-lg border-2 border-gray-200"
         style={{ height: '400px', width: '100%', zIndex: 1 }}
-        center={defaultCenter}
-        zoom={9}
+        scrollWheelZoom={false}
+        key={center.toString()}
       >
         <ChangeView center={center} zoom={zoom} />
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         {markers.map(marker => (
           <Marker 
             key={marker.id} 
             position={marker.position}
+            icon={customIcon}
             eventHandlers={{
               click: () => {
                 setActiveMarker(marker.id);
