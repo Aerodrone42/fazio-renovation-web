@@ -19,6 +19,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   const [imgError, setImgError] = useState(false);
   
   const handleImageError = () => {
+    console.log(`Image failed to load: ${imageSrc}`);
     setImgError(true);
   };
 

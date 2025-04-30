@@ -18,6 +18,7 @@ const ApplicationItem: React.FC<ApplicationItemProps> = ({
   const [imgError, setImgError] = useState(false);
   
   const handleImageError = () => {
+    console.log(`Image failed to load: ${imageSrc}`);
     setImgError(true);
   };
 

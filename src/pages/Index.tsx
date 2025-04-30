@@ -11,10 +11,12 @@ const Index = () => {
   const [cardsImgErrors, setCardsImgErrors] = useState<{[key: number]: boolean}>({});
   
   const handleHeroImageError = () => {
+    console.log("Hero image failed to load");
     setHeroImgError(true);
   };
   
   const handleCardImageError = (index: number) => {
+    console.log(`Card image ${index} failed to load`);
     setCardsImgErrors(prev => ({...prev, [index]: true}));
   };
 

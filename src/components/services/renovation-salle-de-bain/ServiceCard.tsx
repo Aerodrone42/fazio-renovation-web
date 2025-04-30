@@ -12,6 +12,7 @@ const ServiceCard = ({ image, title, description, imageAlt }: ServiceCardProps) 
   const [imgError, setImgError] = useState(false);
   
   const handleImageError = () => {
+    console.log(`Image failed to load: ${image}`);
     setImgError(true);
   };
 
