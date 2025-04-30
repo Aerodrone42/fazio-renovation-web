@@ -1,14 +1,14 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Card } from '@/components/ui/card';
 import { Helmet } from 'react-helmet-async';
+import ServicePageHeader from '@/components/services/ServicePageHeader';
 
 const Mosaique = () => {
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-16">
       <Helmet>
         <title>Pose de Mosaïque | Expert mosaïste dans l'Ain et la Côte d'Azur | SARL FAZIO Lorenzo</title>
         <meta 
@@ -22,18 +22,13 @@ const Mosaique = () => {
         <link rel="canonical" href="https://www.carrelage-fazio.fr/services/mosaique" />
       </Helmet>
       
-      {/* Hero section */}
-      <section className="bg-fazio-cream py-12">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-fazio-dark-green mb-4">Pose de mosaïque</h1>
-            <p className="text-lg text-gray-700">
-              La mosaïque apporte élégance et originalité à vos espaces. Découvrez notre expertise en pose de mosaïque pour sublimer votre intérieur.
-            </p>
-          </div>
-        </div>
-      </section>
-
+      {/* En-tête avec image */}
+      <ServicePageHeader 
+        title="Pose de mosaïque"
+        description="La mosaïque apporte élégance et originalité à vos espaces. Découvrez notre expertise en pose de mosaïque pour sublimer votre intérieur."
+        imagePath="/lovable-uploads/cdfc9eb7-b9b7-4c7f-b8a5-143288a35b85.png"
+      />
+      
       {/* Description du service */}
       <section className="py-16">
         <div className="container">

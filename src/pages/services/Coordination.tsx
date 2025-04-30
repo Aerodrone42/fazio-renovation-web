@@ -1,12 +1,12 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import ServicePageHeader from '@/components/services/ServicePageHeader';
 
 const Coordination = () => {
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-16">
       <Helmet>
         <title>Coordination Tous Corps d'État | Rénovation simplifiée | SARL FAZIO Lorenzo</title>
         <meta 
@@ -20,17 +20,12 @@ const Coordination = () => {
         <link rel="canonical" href="https://www.carrelage-fazio.fr/services/coordination" />
       </Helmet>
       
-      {/* Hero section */}
-      <section className="bg-fazio-cream py-12">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-fazio-dark-green mb-4">Coordination tous corps d'état</h1>
-            <p className="text-lg text-gray-700">
-              Un interlocuteur unique pour gérer l'ensemble de votre projet de rénovation du début à la fin.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* En-tête avec image */}
+      <ServicePageHeader 
+        title="Coordination tous corps d'état"
+        description="Un interlocuteur unique pour gérer l'ensemble de votre projet de rénovation du début à la fin."
+        imagePath="/lovable-uploads/c7105d05-b6ca-4f7e-974c-aacb4a70074b.png"
+      />
 
       {/* Description du service */}
       <section className="py-16">
