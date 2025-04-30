@@ -2,6 +2,8 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Card, CardContent } from '@/components/ui/card';
 
 const RenovationSalleDeBain = () => {
   return (
@@ -21,7 +23,7 @@ const RenovationSalleDeBain = () => {
       {/* Description du service */}
       <section className="py-16">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-fazio-dark-green mb-6">Une rénovation complète clé en main</h2>
               <p className="text-gray-700 mb-4">
@@ -39,12 +41,23 @@ const RenovationSalleDeBain = () => {
                 </Link>
               </Button>
             </div>
-            <div className="rounded-lg overflow-hidden shadow-xl">
-              <img 
-                src="/lovable-uploads/ad4258c5-00b0-4740-8bb5-c6df5a6d0d4e.png" 
-                alt="Salle de bain rénovée avec carrelage beige" 
-                className="w-full h-auto"
-              />
+            <div className="md:max-w-sm mx-auto">
+              <Card className="overflow-hidden shadow-lg border-none">
+                <CardContent className="p-0">
+                  <div className="relative w-full">
+                    <AspectRatio ratio={4/3}>
+                      <img 
+                        src="/lovable-uploads/ad4258c5-00b0-4740-8bb5-c6df5a6d0d4e.png" 
+                        alt="Salle de bain rénovée avec carrelage beige" 
+                        className="w-full h-full object-cover rounded-t-lg"
+                      />
+                    </AspectRatio>
+                  </div>
+                  <div className="bg-white p-3 text-center text-sm text-gray-600">
+                    Exemple de salle de bain rénovée par notre équipe
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
