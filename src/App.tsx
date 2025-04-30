@@ -12,6 +12,7 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Realisations from "./pages/Realisations";
 import MentionsLegales from "./pages/MentionsLegales";
+import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 
 // Services
 import Carrelage from "./pages/services/Carrelage";
@@ -72,6 +73,7 @@ const App = () => (
               <Route path="/contact" element={<Contact />} />
               <Route path="/realisations" element={<Realisations />} />
               <Route path="/mentions-legales" element={<MentionsLegales />} />
+              <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
               
               {/* Services */}
               <Route path="/services/carrelage" element={<Carrelage />} />
