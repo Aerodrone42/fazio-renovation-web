@@ -21,28 +21,28 @@ const Index = () => {
 
   const services = [
     {
-      src: "/lovable-uploads/0999599b-9349-4441-a449-6d59f5098978.png",
+      src: "/lovable-uploads/8bfe4682-ae69-48cc-8f91-a4bdaf3d9e5e.png",
       alt: "Pose de carrelage",
       title: "Pose de carrelage",
       description: "Carrelage intérieur et extérieur, tous formats et tous types de pose.",
       link: "/services/carrelage"
     },
     {
-      src: "/lovable-uploads/4954140c-c991-4456-a506-a299159f1555.png",
+      src: "/lovable-uploads/3844515b-3e9f-4f4b-8748-cb0661a01d14.png",
       alt: "Pose de mosaïque",
       title: "Pose de mosaïque",
       description: "Mosaïque décorative pour personnaliser vos espaces.",
       link: "/services/mosaique"
     },
     {
-      src: "/lovable-uploads/96199561-9921-4591-a943-c90192124c59.png",
+      src: "/lovable-uploads/5c59aae7-1cbc-4919-96be-8466e388c35b.png",
       alt: "Pose de pierre naturelle et marbre",
       title: "Pierre naturelle et marbre",
       description: "Pose de pierre naturelle et marbre pour un rendu élégant et authentique.",
       link: "/services/pierre-marbre"
     },
     {
-      src: "/lovable-uploads/5bd69944-5989-491f-a991-59949616654b.png",
+      src: "/lovable-uploads/bda2aeec-32ad-4860-a658-0f0015ceb618.png",
       alt: "Création de douche à l'italienne",
       title: "Douche à l'italienne",
       description: "Conception et réalisation de douches à l'italienne sur mesure.",
@@ -54,13 +54,6 @@ const Index = () => {
       title: "Rénovation de salle de bain",
       description: "Rénovation complète de salle de bain, de la conception à la réalisation.",
       link: "/services/renovation-salle-de-bain"
-    },
-    {
-      src: "/lovable-uploads/4532987a-4591-4533-a19c-9a1a294a0a21.png",
-      alt: "Travaux de plomberie",
-      title: "Plomberie",
-      description: "Travaux de plomberie générale, installation et remplacement de sanitaires.",
-      link: "/services/plomberie"
     }
   ];
   

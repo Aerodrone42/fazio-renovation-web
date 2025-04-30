@@ -17,7 +17,6 @@ import Mosaique from "./pages/services/Mosaique";
 import PierreMarbre from "./pages/services/PierreMarbre";
 import DoucheItalienne from "./pages/services/DoucheItalienne";
 import RenovationSalleDeBain from "./pages/services/RenovationSalleDeBain";
-import Plomberie from "./pages/services/Plomberie";
 import Coordination from "./pages/services/Coordination";
 
 const queryClient = new QueryClient();
@@ -41,7 +40,6 @@ const App = () => (
             <Route path="/services/pierre-marbre" element={<PierreMarbre />} />
             <Route path="/services/douche-italienne" element={<DoucheItalienne />} />
             <Route path="/services/renovation-salle-de-bain" element={<RenovationSalleDeBain />} />
-            <Route path="/services/plomberie" element={<Plomberie />} />
             <Route path="/services/coordination" element={<Coordination />} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
