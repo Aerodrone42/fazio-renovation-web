@@ -1,202 +1,243 @@
 
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
-import L from 'leaflet';
+import React, { useEffect, useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap, Rectangle, Circle } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './InterventionMap.module.css';
+import L from 'leaflet';
+import { useMobile } from '@/hooks/use-mobile';
 
-// Override default icon paths
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
+// Fix the icon paths for Leaflet markers
+// This is necessary because Leaflet's default marker path is broken in many build environments
+const icon = L.icon({
+  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png'
-});
-
-// Custom Icon
-const customIcon = L.icon({
-  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
-  tooltipAnchor: [16, -28],
-  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-  shadowSize: [41, 41],
-  shadowAnchor: [12, 41]
+  shadowSize: [41, 41]
 });
 
-// Fazio Icon
+// Create custom icon for the Fazio location
 const fazioIcon = L.icon({
-  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTQiIGZpbGw9IiNDNjNDM0MiLz4KPHBhdGggZD0iTTExIDEyTDEzIDIwSDE5TDIxIDEyIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8cGF0aCBkPSJNOCAxNkgyMyIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+Cg==',
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-  popupAnchor: [0, -32],
-  tooltipAnchor: [16, -16],
+  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
 });
 
-interface InterventionLocation {
-  name: string;
-  coordinates: [number, number];
-  isFazio?: boolean;
+// Define main locations
+const rhoneAlpesLocation = {
+  name: 'Rhône-Alpes',
+  coordinates: [45.750000, 4.850000] as [number, number], // Lyon as center
+  description: 'Zone principale d\'intervention'
+};
+
+const alpesMaritimesLocation = {
+  name: 'Alpes-Maritimes (06)',
+  coordinates: [43.7102, 7.2620] as [number, number], // Nice
+  description: 'Zone d\'intervention secondaire'
+};
+
+const varLocation = {
+  name: 'Var (83)',
+  coordinates: [43.1244, 5.9279] as [number, number], // Toulon
+  description: 'Zone d\'intervention secondaire'
+};
+
+// Fazio Enterprise location
+const fazioLocation = {
+  name: 'Fazio Entreprise',
+  coordinates: [45.750000, 4.850000] as [number, number], // Placeholder - replace with actual
+  description: 'Notre siège social'
+};
+
+// Define intervention areas (approximative departmental boundaries)
+const rhone = {
+  name: 'Rhône (69)',
+  bounds: [[45.457, 4.252], [46.057, 5.072]] as [[number, number], [number, number]], 
+  color: '#e3242b' // Red for Rhône
+};
+
+const ain = {
+  name: 'Ain (01)',
+  bounds: [[45.608, 4.730], [46.508, 6.170]] as [[number, number], [number, number]],
+  color: '#e3242b' // Red for Ain
+};
+
+const alpesMaritimes = {
+  name: 'Alpes-Maritimes (06)',
+  bounds: [[43.450, 6.750], [44.350, 7.750]] as [[number, number], [number, number]],
+  color: '#2874A6' // Blue for Alpes-Maritimes
+};
+
+const var83 = {
+  name: 'Var (83)',
+  bounds: [[42.980, 5.650], [43.950, 6.950]] as [[number, number], [number, number]],
+  color: '#2874A6' // Blue for Var
+};
+
+// Component to set map view
+interface SetViewProps {
+  center: [number, number];
+  zoom: number;
 }
+
+const SetView: React.FC<SetViewProps> = ({ center, zoom }) => {
+  const map = useMap();
+  map.setView(center, zoom);
+  return null;
+};
 
 interface InterventionMapProps {
-  locations?: InterventionLocation[];
-  centerLocation?: [number, number];
-  initialZoom?: number;
-  height?: number;
   className?: string;
+  height?: number;
+  initialLocation?: 'rhone-alpes' | 'cote-azur';
 }
 
-const InterventionMap: React.FC<InterventionMapProps> = ({
-  locations = [],
-  centerLocation = [45.7640, 4.8357], // Default: Lyon
-  initialZoom = 8,
+const InterventionMap: React.FC<InterventionMapProps> = ({ 
+  className = '', 
   height = 500,
-  className = '',
+  initialLocation = 'rhone-alpes'
 }) => {
-  // Add Fazio location
-  const fazioLocation: InterventionLocation = {
-    name: 'Fazio Entreprise',
-    coordinates: [45.7640, 4.8357], // Lyon
-    isFazio: true
-  };
+  const isMobile = useMobile();
+  const initialZoom = isMobile ? 7 : 8;
   
-  const allLocations = [...locations];
-  
+  const centerLocation = initialLocation === 'cote-azur' 
+    ? [43.5000, 6.5000] // Between Nice and Toulon
+    : rhoneAlpesLocation.coordinates;
+
   return (
     <MapContainer 
       className={`${className} ${styles['leaflet-container']}`}
       style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
-      center={centerLocation as any}
+      center={centerLocation}
       zoom={initialZoom}
     >
       <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+
+      {/* Intervention areas */}
+      <Rectangle bounds={rhone.bounds} pathOptions={{ color: rhone.color, fillOpacity: 0.2, weight: 2 }}>
+        <Popup>
+          <div className="font-bold">{rhone.name}</div>
+          <div>Zone principale d'intervention</div>
+        </Popup>
+      </Rectangle>
       
-      {/* Client intervention zones */}
-      {allLocations.map((location, index) => (
-        <Marker 
-          key={`${location.name}-${index}`}
-          position={location.coordinates}
-        >
-          <Tooltip>
-            {location.name}
-          </Tooltip>
-        </Marker>
-      ))}
-      
-      {/* Major cities in Rhône department */}
-      <Marker position={[45.7640, 4.8357]}>
-        <Tooltip>
-          <strong>Lyon</strong> - Capitale des Gaules, métropole du Rhône
-        </Tooltip>
+      <Rectangle bounds={ain.bounds} pathOptions={{ color: ain.color, fillOpacity: 0.2, weight: 2 }}>
+        <Popup>
+          <div className="font-bold">{ain.name}</div>
+          <div>Zone principale d'intervention</div>
+        </Popup>
+      </Rectangle>
+
+      <Rectangle bounds={alpesMaritimes.bounds} pathOptions={{ color: alpesMaritimes.color, fillOpacity: 0.2, weight: 2 }}>
+        <Popup>
+          <div className="font-bold">{alpesMaritimes.name}</div>
+          <div>Zone secondaire d'intervention</div>
+        </Popup>
+      </Rectangle>
+
+      <Rectangle bounds={var83.bounds} pathOptions={{ color: var83.color, fillOpacity: 0.2, weight: 2 }}>
+        <Popup>
+          <div className="font-bold">{var83.name}</div>
+          <div>Zone secondaire d'intervention</div>
+        </Popup>
+      </Rectangle>
+
+      {/* City markers */}
+      {/* Lyon marker */}
+      <Marker position={[45.750000, 4.850000]} icon={icon}>
+        <Popup>
+          <div className="font-bold">Lyon</div>
+          <div>Capitale des Gaules</div>
+        </Popup>
       </Marker>
       
-      <Marker position={[45.7659, 4.8320]}>
-        <Tooltip>
-          <strong>Lyon Centre</strong> - Centre historique et commercial
-        </Tooltip>
+      {/* Villeurbanne marker */}
+      <Marker position={[45.766944, 4.8775]} icon={icon}>
+        <Popup>
+          <div className="font-bold">Villeurbanne</div>
+          <div>Ville limitrophe de Lyon</div>
+        </Popup>
+      </Marker>
+
+      {/* Villefranche-sur-Saône marker */}
+      <Marker position={[45.983333, 4.716667]} icon={icon}>
+        <Popup>
+          <div className="font-bold">Villefranche-sur-Saône</div>
+          <div>Capitale du Beaujolais</div>
+        </Popup>
+      </Marker>
+
+      {/* Bourg-en-Bresse marker */}
+      <Marker position={[46.205, 5.2278]} icon={icon}>
+        <Popup>
+          <div className="font-bold">Bourg-en-Bresse</div>
+          <div>Préfecture de l'Ain</div>
+        </Popup>
+      </Marker>
+
+      {/* Oyonnax marker */}
+      <Marker position={[46.2536, 5.6558]} icon={icon}>
+        <Popup>
+          <div className="font-bold">Oyonnax</div>
+          <div>Centre industriel</div>
+        </Popup>
+      </Marker>
+
+      {/* Ambérieu-en-Bugey marker */}
+      <Marker position={[45.9572, 5.3592]} icon={icon}>
+        <Popup>
+          <div className="font-bold">Ambérieu-en-Bugey</div>
+          <div>Porte du Bugey</div>
+        </Popup>
+      </Marker>
+
+      {/* Nice marker */}
+      <Marker position={[43.7102, 7.2620]} icon={icon}>
+        <Popup>
+          <div className="font-bold">Nice</div>
+          <div>Chef-lieu des Alpes-Maritimes</div>
+        </Popup>
+      </Marker>
+
+      {/* Cannes marker */}
+      <Marker position={[43.5515, 7.0134]} icon={icon}>
+        <Popup>
+          <div className="font-bold">Cannes</div>
+          <div>Ville du Festival</div>
+        </Popup>
+      </Marker>
+
+      {/* Toulon marker */}
+      <Marker position={[43.1244, 5.9279]} icon={icon}>
+        <Popup>
+          <div className="font-bold">Toulon</div>
+          <div>Préfecture du Var</div>
+        </Popup>
       </Marker>
       
-      <Marker position={[45.7728, 4.8577]}>
-        <Tooltip>
-          <strong>Villeurbanne</strong> - 2ème ville du Rhône
-        </Tooltip>
-      </Marker>
-      
-      <Marker position={[45.6875, 4.9377]}>
-        <Tooltip>
-          <strong>Saint-Priest</strong> - Zone industrielle et résidentielle
-        </Tooltip>
-      </Marker>
-      
-      <Marker position={[45.7710, 4.7762]}>
-        <Tooltip>
-          <strong>Écully</strong> - Zone résidentielle premium
-        </Tooltip>
-      </Marker>
-      
-      <Marker position={[45.8938, 4.6386]}>
-        <Tooltip>
-          <strong>Villefranche-sur-Saône</strong> - Capitale du Beaujolais
-        </Tooltip>
-      </Marker>
-      
-      {/* Major cities in Ain department */}
-      <Marker position={[46.2044, 5.2286]}>
-        <Tooltip>
-          <strong>Bourg-en-Bresse</strong> - Préfecture de l'Ain
-        </Tooltip>
-      </Marker>
-      
-      <Marker position={[46.0078, 4.7197]}>
-        <Tooltip>
-          <strong>Oyonnax</strong> - Centre industriel de la Plastics Vallée
-        </Tooltip>
-      </Marker>
-      
-      <Marker position={[45.8275, 5.2258]}>
-        <Tooltip>
-          <strong>Ambérieu-en-Bugey</strong> - Carrefour ferroviaire
-        </Tooltip>
-      </Marker>
-      
-      <Marker position={[45.8978, 5.9456]}>
-        <Tooltip>
-          <strong>Belley</strong> - Sous-préfecture de l'Ain
-        </Tooltip>
-      </Marker>
-      
-      <Marker position={[46.3108, 5.6444]}>
-        <Tooltip>
-          <strong>Nantua</strong> - Porte du Haut-Bugey
-        </Tooltip>
-      </Marker>
-      
-      <Marker position={[45.9097, 5.3485]}>
-        <Tooltip>
-          <strong>Lagnieu</strong> - Ville de la plaine de l'Ain
-        </Tooltip>
-      </Marker>
-      
-      {/* Department 06 - Alpes-Maritimes */}
-      <Marker position={[43.7102, 7.2620]}>
-        <Tooltip>
-          <strong>Nice (06)</strong> - Côte d'Azur
-        </Tooltip>
-      </Marker>
-      
-      <Marker position={[43.5513, 7.0128]}>
-        <Tooltip>
-          <strong>Cannes (06)</strong> - Ville du Festival
-        </Tooltip>
-      </Marker>
-      
-      {/* Department 83 - Var */}
-      <Marker position={[43.1246, 5.9280]}>
-        <Tooltip>
-          <strong>Toulon (83)</strong> - Port militaire
-        </Tooltip>
-      </Marker>
-      
-      <Marker position={[43.4260, 6.7630]}>
-        <Tooltip>
-          <strong>Saint-Tropez (83)</strong> - Station balnéaire
-        </Tooltip>
+      {/* Saint-Tropez marker */}
+      <Marker position={[43.2728, 6.6389]} icon={icon}>
+        <Popup>
+          <div className="font-bold">Saint-Tropez</div>
+          <div>Station balnéaire</div>
+        </Popup>
       </Marker>
       
       {/* Fazio location */}
-      <Marker position={fazioLocation.coordinates} icon={fazioIcon as any}>
+      <Marker position={fazioLocation.coordinates} icon={fazioIcon}>
         <Popup>
           <div className="font-bold">Fazio Entreprise</div>
           <div>Votre expert en carrelage et rénovation</div>
-          <div>Intervention dans le Rhône, l'Ain et sur la Côte d'Azur</div>
         </Popup>
-        <Tooltip>
-          {fazioLocation.name}
-        </Tooltip>
       </Marker>
     </MapContainer>
   );
