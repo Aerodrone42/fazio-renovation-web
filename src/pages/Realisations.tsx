@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -34,7 +35,7 @@ const Realisations = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const projectsPerPage = 9;
   
-  // Données des projets - réorganisées par type avec descriptions corrigées
+  // Données des projets - réorganisées par type avec descriptions corrigées et nouvelles images
   const projectImages: ProjectImage[] = [
     // INTÉRIEUR
     {
@@ -79,8 +80,8 @@ const Realisations = () => {
     },
     {
       id: 18, 
-      src: "/lovable-uploads/36440686-aa00-49e9-80b3-99eea678cbeb.png", 
-      alt: "Espace séjour avec carrelage gris moderne", 
+      src: "/lovable-uploads/997be8cb-5d81-4360-a6c5-0a3e89e21e34.png", 
+      alt: "Séjour avec carrelage gris moderne en cours de finition", 
       location: "Meximieux (01)", 
       type: "interieur",
       description: "Séjour contemporain avec carrelage grand format gris"
@@ -115,8 +116,8 @@ const Realisations = () => {
     // SALLE DE BAIN
     {
       id: 9, 
-      src: "/lovable-uploads/12444f2a-8cb8-4ed8-8e57-a2073415add5.png", 
-      alt: "Salle de bain avec carrelage beige", 
+      src: "/lovable-uploads/192adf6c-67df-4e17-9ed5-dadfcf27e6c4.png", 
+      alt: "Salle de bain avec carrelage effet bois et baignoire moderne", 
       location: "Beynost (01)", 
       type: "salleDeBain",
       description: "Salle de bain avec carrelage effet travertin et vasque élégante"
@@ -193,8 +194,8 @@ const Realisations = () => {
     },
     {
       id: 17, 
-      src: "/lovable-uploads/097562b5-104f-42e7-bab6-cb232151037c.png", 
-      alt: "Cuisine moderne avec carrelage gris", 
+      src: "/lovable-uploads/e1cb8c60-48e3-4bcf-a6b1-99fa8a2eceab.png", 
+      alt: "Cuisine ouverte moderne avec îlot central et carrelage clair", 
       location: "Miribel (01)", 
       type: "cuisine",
       description: "Cuisine contemporaine avec îlot central et carrelage grand format"
