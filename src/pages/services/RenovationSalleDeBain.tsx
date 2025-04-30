@@ -41,8 +41,8 @@ const RenovationSalleDeBain = () => {
             </div>
             <div className="rounded-lg overflow-hidden shadow-xl">
               <img 
-                src="/lovable-uploads/b901621b-834f-405f-af1f-64d68558e04d.png" 
-                alt="Salle de bain rénovée avec pierre naturelle" 
+                src="/lovable-uploads/ad4258c5-00b0-4740-8bb5-c6df5a6d0d4e.png" 
+                alt="Salle de bain rénovée avec carrelage beige" 
                 className="w-full h-auto"
               />
             </div>
@@ -59,8 +59,8 @@ const RenovationSalleDeBain = () => {
             <div className="bg-white rounded-lg overflow-hidden shadow-md">
               <div className="h-64">
                 <img 
-                  src="/lovable-uploads/12444f2a-8cb8-4ed8-8e57-a2073415add5.png" 
-                  alt="Douche à l'italienne rénovée" 
+                  src="/lovable-uploads/233c6240-522f-406b-b216-7e2dfc7197b0.png" 
+                  alt="Douche avec carrelage moderne" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -75,8 +75,8 @@ const RenovationSalleDeBain = () => {
             <div className="bg-white rounded-lg overflow-hidden shadow-md">
               <div className="h-64">
                 <img 
-                  src="/lovable-uploads/e60a9143-3c88-43f6-a154-06352a434418.png" 
-                  alt="Rénovation complète avec préparation du sol" 
+                  src="/lovable-uploads/a710474f-3d48-4f86-9471-7f3cb371435d.png" 
+                  alt="Préparation des installations de plomberie" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -91,8 +91,8 @@ const RenovationSalleDeBain = () => {
             <div className="bg-white rounded-lg overflow-hidden shadow-md">
               <div className="h-64">
                 <img 
-                  src="/lovable-uploads/774bee80-c9ce-43c6-a2f7-10d29e6b382e.png" 
-                  alt="Plomberie et installations sanitaires" 
+                  src="/lovable-uploads/94579f05-2e9d-4f94-98dc-9513524b38b6.png" 
+                  alt="Pose de carrelage mural moderne" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -185,15 +185,15 @@ const RenovationSalleDeBain = () => {
             <div className="bg-white rounded-lg overflow-hidden shadow-md">
               <div className="h-64">
                 <img 
-                  src="/lovable-uploads/9e86a2e7-034b-4072-a42f-0d941c742d6c.png" 
-                  alt="Chape liquide avant pose de carrelage" 
+                  src="/lovable-uploads/a710474f-3d48-4f86-9471-7f3cb371435d.png" 
+                  alt="Préparation des installations plomberie" 
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-fazio-dark-green mb-2">Préparation technique</h3>
                 <p className="text-gray-700">
-                  La réalisation d'une chape liquide pour garantir une surface parfaitement plane avant la pose du revêtement.
+                  Installation des réseaux de plomberie et préparation des murs pour une finition parfaite.
                 </p>
               </div>
             </div>
@@ -201,8 +201,8 @@ const RenovationSalleDeBain = () => {
             <div className="bg-white rounded-lg overflow-hidden shadow-md">
               <div className="h-64">
                 <img 
-                  src="/lovable-uploads/12444f2a-8cb8-4ed8-8e57-a2073415add5.png" 
-                  alt="Salle de bain terminée" 
+                  src="/lovable-uploads/ad4258c5-00b0-4740-8bb5-c6df5a6d0d4e.png" 
+                  alt="Salle de bain terminée avec carrelage beige" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -236,3 +236,4 @@ const RenovationSalleDeBain = () => {
 };
 
 export default RenovationSalleDeBain;
+

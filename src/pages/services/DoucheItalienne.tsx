@@ -41,8 +41,8 @@ const DoucheItalienne = () => {
             </div>
             <div className="rounded-lg overflow-hidden shadow-xl">
               <img 
-                src="/lovable-uploads/12444f2a-8cb8-4ed8-8e57-a2073415add5.png" 
-                alt="Douche à l'italienne avec carrelage beige" 
+                src="/lovable-uploads/233c6240-522f-406b-b216-7e2dfc7197b0.png" 
+                alt="Douche à l'italienne avec carrelage moderne" 
                 className="w-full h-auto"
               />
             </div>
@@ -91,7 +91,7 @@ const DoucheItalienne = () => {
             <div className="bg-white rounded-lg overflow-hidden shadow-md">
               <div className="h-64">
                 <img 
-                  src="/lovable-uploads/a9dedbe2-d559-4176-b2d2-c55ab9d231f8.png" 
+                  src="/lovable-uploads/a710474f-3d48-4f86-9471-7f3cb371435d.png" 
                   alt="Préparation d'une douche à l'italienne" 
                   className="w-full h-full object-cover"
                 />
@@ -107,7 +107,7 @@ const DoucheItalienne = () => {
             <div className="bg-white rounded-lg overflow-hidden shadow-md">
               <div className="h-64">
                 <img 
-                  src="/lovable-uploads/b901621b-834f-405f-af1f-64d68558e04d.png" 
+                  src="/lovable-uploads/94579f05-2e9d-4f94-98dc-9513524b38b6.png" 
                   alt="Douche à l'italienne finalisée" 
                   className="w-full h-full object-cover"
                 />
@@ -171,3 +171,4 @@ const DoucheItalienne = () => {
 };
 
 export default DoucheItalienne;
+
