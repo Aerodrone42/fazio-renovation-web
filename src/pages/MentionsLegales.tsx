@@ -52,9 +52,9 @@ const MentionsLegales = () => {
               Hébergement
             </h2>
             <p>
-              Le site www.carrelage-fazio.fr est hébergé par la société [Nom de l'hébergeur], 
-              dont le siège social est situé à [Adresse de l'hébergeur], 
-              joignable par téléphone au [Téléphone de l'hébergeur].
+              Le site www.carrelage-fazio.fr est hébergé par GitHub Pages, un service d'hébergement fourni par GitHub Inc., 
+              dont le siège social est situé au 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, United States.
+              GitHub Inc. est une filiale de Microsoft Corporation.
             </p>
           </section>
 
