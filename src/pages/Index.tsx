@@ -1,13 +1,20 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import InterventionMap from '@/components/maps/InterventionMap';
 import { Card, CardContent } from '@/components/ui/card';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { toast } from 'sonner';
 
 const Index = () => {
   console.log("Rendering Index page");
+  
+  // État pour suivre les images qui n'ont pas pu être chargées
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
+  
+  // Image de secours par défaut
+  const fallbackImage = "/placeholder.svg";
   
   // Liste des services avec les chemins d'images
   const services = [
@@ -54,10 +61,16 @@ const Index = () => {
       link: "/services/plomberie"
     }
   ];
+
+  // Fonction pour gérer les erreurs de chargement d'image
+  const handleImageError = (src: string) => {
+    console.error(`Erreur de chargement de l'image: ${src}`);
+    setFailedImages(prev => ({ ...prev, [src]: true }));
+  };
   
-  // Afficher les chemins des images dans la console pour vérification
-  console.log("Images paths:", services.map(s => s.src));
-  console.log("Hero image path:", "/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png");
+  // Image héro avec fallback
+  const heroImagePath = "/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png";
+  const heroImageSrc = failedImages[heroImagePath] ? fallbackImage : heroImagePath;
 
   return (
     <div>
@@ -80,11 +93,11 @@ const Index = () => {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png"
+                src={heroImageSrc}
                 alt="Pose de carrelage grand format dans une salle de bain moderne"
                 className="rounded-lg shadow-lg w-full h-auto"
                 onLoad={() => console.log("Hero image loaded successfully")}
-                onError={() => console.error("Error loading hero image")}
+                onError={() => handleImageError(heroImagePath)}
               />
             </div>
           </div>
@@ -100,11 +113,11 @@ const Index = () => {
               <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
                 <AspectRatio ratio={16/9}>
                   <img
-                    src={service.src}
+                    src={failedImages[service.src] ? fallbackImage : service.src}
                     alt={service.alt}
                     className="w-full h-full object-cover"
                     onLoad={() => console.log(`Service image ${index} loaded successfully`)}
-                    onError={() => console.error(`Error loading service image ${index}: ${service.src}`)}
+                    onError={() => handleImageError(service.src)}
                   />
                 </AspectRatio>
                 <CardContent className="p-4">
