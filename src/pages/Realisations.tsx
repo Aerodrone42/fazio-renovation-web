@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -139,14 +138,6 @@ const Realisations = () => {
       location: "Ambérieu-en-Bugey (01)", 
       type: "exterieur",
       description: "Terrasse extérieure avant rénovation avec espace barbecue"
-    },
-    {
-      id: 12, 
-      src: "/lovable-uploads/4c4393c3-b291-40e2-bc09-ceb7cde532fb.png", 
-      alt: "Terrasse extérieure rénovée", 
-      location: "Dagneux (01)", 
-      type: "exterieur",
-      description: "Terrasse extérieure avec nouveau carrelage aspect pierre naturelle"
     },
     
     // PISCINE
