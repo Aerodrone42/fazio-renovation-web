@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -141,38 +140,38 @@ const Realisations = () => {
       description: "Terrasse avec carrelage extérieur anti-dérapant résistant au gel"
     },
     
-    // PISCINE
+    // PISCINE - Mise à jour des photos selon l'ordre des pièces jointes
     {
       id: 13, 
-      src: "/lovable-uploads/ade1f5bb-0fc9-4dff-b9a4-a06121bfae54.png", 
-      alt: "Piscine avec carrelage bleu-vert", 
+      src: "/lovable-uploads/fcc1db62-008f-4ddc-874e-60ac9b03d0e7.png", 
+      alt: "Construction de piscine en cours avec carrelage gris-bleu", 
       location: "Bourg-en-Bresse (01)", 
       type: "piscine",
-      description: "Revêtement de piscine en grès cérame aspect pierre naturelle"
+      description: "Construction de piscine avec carrelage gris-bleu de qualité"
     },
     {
       id: 14, 
-      src: "/lovable-uploads/db60e51d-8d3a-4140-aced-8ce2b2d86c3a.png", 
-      alt: "Construction de piscine avec carrelage", 
+      src: "/lovable-uploads/16176561-4a80-4fb9-b8dc-ff5a72bcae36.png", 
+      alt: "Piscine en construction avec vue maison", 
       location: "Villefranche-sur-Saône (69)", 
       type: "piscine",
-      description: "Construction de piscine avec pose de carrelage spécial piscine"
+      description: "Aménagement de piscine avec carrelage haut de gamme"
     },
     {
       id: 15, 
-      src: "/lovable-uploads/cdfc9eb7-b9b7-4c7f-b8a5-143288a35b85.png", 
-      alt: "Escalier de piscine carrelé", 
+      src: "/lovable-uploads/e36a5d1b-40aa-4ee5-a3ac-302c636247d5.png", 
+      alt: "Escalier de piscine avec carrelage bleu-gris", 
       location: "Lyon Ouest (69)", 
       type: "piscine",
-      description: "Escalier de piscine avec carrelage antidérapant pour sécurité"
+      description: "Détail d'escalier de piscine avec carrelage antidérapant"
     },
     {
       id: 16, 
-      src: "/lovable-uploads/948490c9-85f1-426b-b2e0-702964500e36.png", 
-      alt: "Construction de piscine avant carrelage", 
+      src: "/lovable-uploads/452a9d4b-4010-4b3e-b733-0b5862256484.png", 
+      alt: "Piscine à débordement avec finition de qualité", 
       location: "Montluel (01)", 
       type: "piscine",
-      description: "Préparation et étanchéité avant pose de carrelage de piscine"
+      description: "Piscine à débordement avec revêtement en pierre naturelle"
     },
     
     // CUISINE
@@ -215,11 +214,11 @@ const Realisations = () => {
   const [selectedProjects, setSelectedProjects] = useState<ProjectImage[]>([
     {
       id: 13,
-      src: "/lovable-uploads/ade1f5bb-0fc9-4dff-b9a4-a06121bfae54.png", 
-      alt: "Piscine avec carrelage bleu-vert", 
+      src: "/lovable-uploads/fcc1db62-008f-4ddc-874e-60ac9b03d0e7.png", 
+      alt: "Construction de piscine en cours avec carrelage gris-bleu", 
       location: "Bourg-en-Bresse (01)", 
       type: "piscine",
-      description: "Revêtement de piscine en grès cérame aspect pierre naturelle"
+      description: "Construction de piscine avec carrelage gris-bleu de qualité"
     },
     {
       id: 10, 
