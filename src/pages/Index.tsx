@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -6,6 +5,7 @@ import InterventionMap from '@/components/maps/InterventionMap';
 import { Card, CardContent } from '@/components/ui/card';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { toast } from 'sonner';
+import { PhoneIcon } from 'lucide-react';
 
 const Index = () => {
   console.log("Rendering Index page");
@@ -73,37 +73,49 @@ const Index = () => {
   const heroImageSrc = failedImages[heroImagePath] ? fallbackImage : heroImagePath;
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="bg-fazio-cream py-24">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div className="order-2 md:order-1">
-              <h1 className="text-5xl font-bold text-fazio-dark-green mb-6 font-serif">
-                Votre expert carreleur à Lyon et dans l'Ain
-              </h1>
-              <p className="text-lg text-gray-700 mb-8">
-                Spécialistes de la pose de carrelage, faïence, mosaïque, pierre naturelle et chape liquide, nous intervenons sur tous types de projets, en neuf comme en rénovation.
-              </p>
+    <div className="relative min-h-screen">
+      {/* Hero Section avec image de fond */}
+      <div 
+        className="relative min-h-screen bg-cover bg-center flex items-center"
+        style={{ 
+          backgroundImage: "url('/lovable-uploads/587e0239-3060-4eb1-a34c-eec8b8f49042.png')", 
+          backgroundColor: "#1E2A3A" // Couleur de secours si l'image ne charge pas
+        }}
+      >
+        {/* Overlay foncé pour améliorer la lisibilité du texte */}
+        <div className="absolute inset-0 bg-black/50"></div>
+        
+        {/* Contenu principal */}
+        <div className="container relative z-10 text-white">
+          <div className="max-w-2xl">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold mb-6">
+              Carrelage & rénovation<br />
+              clé en main
+            </h1>
+            <p className="text-xl mb-8">
+              Dans l'Ouest Lyonnais et l'Ain, nous transformons vos 
+              espaces avec expertise et passion.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="bg-fazio-red hover:bg-fazio-light-red">
                 <Link to="/contact">
                   Demander un devis gratuit
                 </Link>
               </Button>
-            </div>
-            <div className="order-1 md:order-2">
-              <img
-                src={heroImageSrc}
-                alt="Pose de carrelage grand format dans une salle de bain moderne"
-                className="rounded-lg shadow-lg w-full h-auto"
-                onLoad={() => console.log("Hero image loaded successfully")}
-                onError={() => handleImageError(heroImagePath)}
-              />
+              <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
+                <a href="tel:+33123456789" className="flex items-center gap-2">
+                  <PhoneIcon className="h-5 w-5" />
+                  Nous appeler
+                </a>
+              </Button>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
+      {/* Nous n'incluons pas les autres sections ici car elles ne sont pas visibles sur l'image de référence */}
+      
+      {/* Les sections suivantes (Services, Zone d'intervention, CTA) seront accessibles en scrollant */}
       {/* Services Section */}
       <section className="py-16 bg-gray-50">
         <div className="container">
