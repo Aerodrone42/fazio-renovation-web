@@ -5,19 +5,19 @@ import ServiceCard from './ServiceCard';
 const ServicesSection: React.FC = () => {
   const services = [
     {
-      imageSrc: "/lovable-uploads/9999590f-4999-4949-a099-e999e999e999.png",
+      imageSrc: "/lovable-uploads/f2bf46f8-9e15-44ae-87c3-a5d1dfda74e6.png",
       imageAlt: "Pose de marbre dans une salle de bain luxueuse réalisée à Lyon",
       title: "Pose de marbre",
       description: "Nous réalisons la pose de marbre avec une précision inégalée, pour un rendu luxueux et durable dans toute la région lyonnaise. Idéal pour sols, murs et plans de travail haut de gamme."
     },
     {
-      imageSrc: "/lovable-uploads/11111111-1111-1111-1111-111111111111.png",
+      imageSrc: "/lovable-uploads/81703d3e-1afb-4529-99b1-8201b582ddaa.png",
       imageAlt: "Installation de crédence en pierre naturelle dans une cuisine moderne à Villeurbanne",
       title: "Pose de crédence en pierre",
       description: "Nos artisans installent des crédences en pierre naturelle qui allient esthétique et fonctionnalité dans votre cuisine. Intervention dans le Rhône et l'Ain pour des réalisations uniques."
     },
     {
-      imageSrc: "/lovable-uploads/22222222-2222-2222-2222-222222222222.png",
+      imageSrc: "/lovable-uploads/5e39027f-a913-40e5-9930-1f34bb26a709.png",
       imageAlt: "Création de terrasse en pierre naturelle avec différentes textures à Bourg-en-Bresse",
       title: "Terrasse en pierre naturelle",
       description: "Nous aménageons des terrasses en pierre naturelle qui invitent à la détente et à la convivialité, avec des matériaux résistants aux intempéries adaptés au climat de la région Rhône-Alpes."
