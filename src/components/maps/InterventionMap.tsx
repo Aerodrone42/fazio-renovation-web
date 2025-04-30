@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap, Polygon } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './InterventionMap.module.css';
@@ -10,6 +11,14 @@ interface MarkerData {
   position: [number, number];
   title: string;
   content?: string;
+}
+
+// Define types for our zone data
+interface ZoneData {
+  id: string;
+  name: string;
+  color: string;
+  positions: [number, number][];
 }
 
 // Component to set the view when selected marker changes
@@ -90,6 +99,54 @@ const InterventionMap: React.FC = () => {
     }
   ];
 
+  // Define our zones
+  const zones: ZoneData[] = [
+    {
+      id: "ain",
+      name: "Ain",
+      color: "#C63C3C",
+      positions: [
+        [46.3, 5.0], // NW corner
+        [46.3, 5.6], // NE corner
+        [45.7, 5.6], // SE corner
+        [45.7, 5.0]  // SW corner
+      ]
+    },
+    {
+      id: "ouest-lyonnais",
+      name: "Ouest Lyonnais",
+      color: "#2C5F4D",
+      positions: [
+        [45.9, 4.6], // NW corner
+        [45.9, 4.8], // NE corner
+        [45.7, 4.8], // SE corner
+        [45.7, 4.6]  // SW corner
+      ]
+    },
+    {
+      id: "alpes-maritimes",
+      name: "Alpes-Maritimes",
+      color: "#9b87f5",
+      positions: [
+        [44.0, 6.9], // NW corner
+        [44.0, 7.2], // NE corner
+        [43.5, 7.2], // SE corner
+        [43.5, 6.9]  // SW corner
+      ]
+    },
+    {
+      id: "var",
+      name: "Var",
+      color: "#7E69AB",
+      positions: [
+        [43.5, 6.2], // NW corner
+        [43.5, 6.7], // NE corner
+        [43.1, 6.7], // SE corner
+        [43.1, 6.2]  // SW corner
+      ]
+    }
+  ];
+
   // Update center and zoom when activeMarker changes
   useEffect(() => {
     if (activeMarker) {
@@ -114,6 +171,30 @@ const InterventionMap: React.FC = () => {
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        
+        {/* Render zones as polygons */}
+        {zones.map(zone => (
+          <Polygon
+            key={zone.id}
+            pathOptions={{ 
+              fillColor: zone.color, 
+              fillOpacity: 0.2, 
+              weight: 2, 
+              color: zone.color,
+              opacity: 0.6 
+            }}
+            positions={zone.positions}
+          >
+            <Popup>
+              <div>
+                <h3 className="font-bold text-lg">{zone.name}</h3>
+                <p className="text-sm">Zone d'intervention</p>
+              </div>
+            </Popup>
+          </Polygon>
+        ))}
+        
+        {/* Render markers */}
         {markers.map(marker => (
           <Marker 
             key={marker.id} 
