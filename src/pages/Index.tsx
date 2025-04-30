@@ -36,7 +36,7 @@ const Index = () => {
     },
     {
       src: "/lovable-uploads/5c59aae7-1cbc-4919-96be-8466e388c35b.png",
-      alt: "Pose de pierre naturelle et marbre",
+      alt: "Pierre naturelle et marbre",
       title: "Pierre naturelle et marbre",
       description: "Pose de pierre naturelle et marbre pour un rendu élégant et authentique.",
       link: "/services/pierre-marbre"
@@ -67,12 +67,12 @@ const Index = () => {
       <div 
         className="relative min-h-screen bg-cover bg-center flex items-center"
         style={{ 
-          backgroundImage: "url('/lovable-uploads/5e39027f-a913-40e5-9930-1f34bb26a709.png')", 
+          backgroundImage: "url('/lovable-uploads/6496c38f-b1d4-42ee-81f9-b6921b9e1d45.png')", 
           backgroundColor: "#1E2A3A" // Couleur de secours si l'image ne charge pas
         }}
       >
         {/* Overlay foncé pour améliorer la lisibilité du texte */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/50"></div>
         
         {/* Contenu principal */}
         <div className="container relative z-10 text-white">
