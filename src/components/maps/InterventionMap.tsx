@@ -93,11 +93,19 @@ const InterventionMap: React.FC = () => {
 
   return (
     <div className="relative z-0 w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-lg">
+      {/* Fallback content in case map doesn't load */}
+      <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+        <div className="text-center p-4">
+          <p className="font-bold text-fazio-dark-green">Carte des zones d'intervention</p>
+          <p className="text-sm">Nous intervenons dans la Région Rhône-Alpes et sur la Côte d'Azur</p>
+        </div>
+      </div>
+
       <MapContainer
         className={styles.map}
         center={[45.5, 5.3]}
         zoom={isMobile ? 5 : 6}
-        style={{ height: '100%', width: '100%' }}
+        style={{ height: '100%', width: '100%', position: 'relative', zIndex: 5 }}
         attributionControl={false}
       >
         <TileLayer

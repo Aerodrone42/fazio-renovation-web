@@ -32,7 +32,7 @@ const PierreMarbre: React.FC = () => {
         imagePath="/lovable-uploads/bda2aeec-32ad-4860-a658-0f0015ceb618.png"
       />
       
-      <div className="bg-white">
+      <div className="bg-white w-full">
         <IntroSection />
         <ServicesSection />
         <ApplicationsSection />
