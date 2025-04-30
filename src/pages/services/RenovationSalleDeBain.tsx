@@ -5,6 +5,7 @@ import IntroSection from '@/components/services/renovation-salle-de-bain/IntroSe
 import ServicesSection from '@/components/services/renovation-salle-de-bain/ServicesSection';
 import ProcessSection from '@/components/services/renovation-salle-de-bain/ProcessSection';
 import ProjectShowcaseSection from '@/components/services/renovation-salle-de-bain/ProjectShowcaseSection';
+import FaqSection from '@/components/services/renovation-salle-de-bain/FaqSection';
 import CtaSection from '@/components/services/renovation-salle-de-bain/CtaSection';
 import { Helmet } from 'react-helmet-async';
 
@@ -29,6 +30,7 @@ const RenovationSalleDeBain = () => {
       <ServicesSection />
       <ProcessSection />
       <ProjectShowcaseSection />
+      <FaqSection />
       <CtaSection />
     </div>
   );
