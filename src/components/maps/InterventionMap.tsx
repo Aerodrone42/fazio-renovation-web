@@ -68,7 +68,7 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
     <MapContainer 
       className={`${className} ${styles['leaflet-container']}`}
       style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
-      center={centerLocation}
+      center={centerLocation as any}
       zoom={initialZoom}
     >
       <TileLayer
@@ -188,7 +188,7 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
       </Marker>
       
       {/* Fazio location */}
-      <Marker position={fazioLocation.coordinates} icon={fazioIcon}>
+      <Marker position={fazioLocation.coordinates} icon={fazioIcon as any}>
         <Popup>
           <div className="font-bold">Fazio Entreprise</div>
           <div>Votre expert en carrelage et rénovation</div>
