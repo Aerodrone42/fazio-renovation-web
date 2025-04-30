@@ -1,24 +1,22 @@
 
 import React from 'react';
 import AdvantageItem from './AdvantageItem';
+import { Clock, Palette, Sparkles, Home, Leaf, Recycle, Thermometer } from 'lucide-react';
 
 const AdvantagesSection: React.FC = () => {
   const advantages = [
     {
-      iconSrc: "/lovable-uploads/bfd5c952-83cc-456d-b3b1-fe9d20898976.png",
-      iconAlt: "Durabilité",
+      icon: Sparkles,
       title: "Durabilité exceptionnelle",
       description: "La pierre naturelle est un matériau extrêmement durable qui résiste aux chocs, aux rayures et aux intempéries, parfaitement adapté au climat de Lyon et de la région Rhône-Alpes. Un investissement pour plusieurs générations."
     },
     {
-      iconSrc: "/lovable-uploads/bfd5c952-83cc-456d-b3b1-fe9d20898976.png",
-      iconAlt: "Esthétique",
+      icon: Palette,
       title: "Esthétique intemporelle",
       description: "La pierre naturelle offre une esthétique unique et chaleureuse qui s'adapte à tous les styles d'intérieur et d'extérieur. Dans les demeures historiques de Lyon comme dans les villas modernes de Bourg-en-Bresse, elle apporte une élégance rare."
     },
     {
-      iconSrc: "/lovable-uploads/bfd5c952-83cc-456d-b3b1-fe9d20898976.png",
-      iconAlt: "Facilité d'entretien",
+      icon: Clock,
       title: "Facilité d'entretien",
       description: "Contrairement aux idées reçues, la pierre naturelle est facile à entretenir et ne nécessite pas de traitements spécifiques pour conserver sa beauté. Nos clients de Villeurbanne à Ambérieu-en-Bugey apprécient cette qualité au quotidien."
     }
@@ -57,8 +55,7 @@ const AdvantagesSection: React.FC = () => {
           {advantages.map((advantage, index) => (
             <AdvantageItem
               key={index}
-              iconSrc={advantage.iconSrc}
-              iconAlt={advantage.iconAlt}
+              icon={advantage.icon}
               title={advantage.title}
               description={advantage.description}
             />
