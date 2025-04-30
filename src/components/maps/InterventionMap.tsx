@@ -1,213 +1,168 @@
 
-import React, { useState, useCallback, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap, Circle } from 'react-leaflet';
+import React, { useState, useEffect } from 'react';
+import { MapContainer, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
+import 'leaflet-defaulticon-compatibility';
 import styles from './InterventionMap.module.css';
 import L from 'leaflet';
-import { useMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Define marker icon to fix missing icon issue
-const defaultIcon = L.icon({
-  iconUrl: '/placeholder.svg',
-  iconSize: [25, 25],
-  iconAnchor: [12, 12],
-  popupAnchor: [0, -10]
+const customIcon = L.icon({
+  iconUrl: '/lovable-uploads/d257e238-9d3b-4c73-ad09-d54768c4358c.png',
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32],
 });
 
-// Replace default Leaflet markers
-L.Marker.prototype.options.icon = defaultIcon;
-
-// Custom icon for the primary city
-const primaryIcon = L.icon({
-  iconUrl: '/lovable-uploads/5195b6f4-5b5d-4610-b957-1b37a61f7fa0.png',
-  iconSize: [30, 30],
-  iconAnchor: [15, 15],
-  popupAnchor: [0, -15],
-});
-
-interface City {
-  id: number;
-  name: string;
-  position: [number, number];
-  department: string;
-  isMainCity?: boolean;
-  color?: string;
-}
-
+// Define types for our intervention zones
 interface InterventionZone {
   id: number;
-  center: [number, number];
-  radius: number;
-  color: string;
-  fillColor: string;
   name: string;
+  center: [number, number];
+  radiusKm: number;
+  color: string;
 }
 
-interface InterventionMapProps {
-  cities?: City[];
-  zones?: InterventionZone[];
-  primaryCityId?: number;
-  height?: string;
-  initialZoom?: number;
-  centerPosition?: [number, number];
-  showZoneLegend?: boolean;
+// Define types for our markers
+interface LocationMarker {
+  id: number;
+  position: [number, number];
+  title: string;
+  description: string;
 }
 
-// Component to fit map bounds to all markers
-const FitBoundsToMarkers = ({ cities }: { cities: City[] }) => {
-  const map = useMap();
-
-  React.useEffect(() => {
-    if (cities && cities.length > 0) {
-      const bounds = L.latLngBounds(cities.map(city => city.position));
-      map.fitBounds(bounds, { padding: [50, 50] });
+const InterventionMap: React.FC = () => {
+  const isMobile = useIsMobile();
+  
+  // Define intervention zones
+  const interventionZones: InterventionZone[] = [
+    {
+      id: 1,
+      name: "Région Rhône-Alpes",
+      center: [45.5, 5.3],
+      radiusKm: 100,
+      color: "#34873C" // fazio-dark-green
+    },
+    {
+      id: 2,
+      name: "Côte d'Azur",
+      center: [43.6, 7.1],
+      radiusKm: 70,
+      color: "#E74747" // fazio-red
     }
-  }, [cities, map]);
+  ];
 
-  return null;
-};
-
-// Component for handling selected city centering
-const CenterMapOnSelectedCity = ({ 
-  selectedCity, 
-  zoom 
-}: { 
-  selectedCity: City | null, 
-  zoom: number 
-}) => {
-  const map = useMap();
-
-  React.useEffect(() => {
-    if (selectedCity) {
-      map.setView(selectedCity.position, zoom);
+  // Define location markers
+  const locationMarkers: LocationMarker[] = [
+    { 
+      id: 1, 
+      position: [45.76, 4.84], 
+      title: "Lyon", 
+      description: "Nos services dans le Rhône (69)" 
+    },
+    { 
+      id: 2, 
+      position: [46.2, 5.22], 
+      title: "Bourg-en-Bresse", 
+      description: "Nos services dans l'Ain (01)" 
+    },
+    { 
+      id: 3, 
+      position: [43.7, 7.25], 
+      title: "Nice", 
+      description: "Nos services dans les Alpes-Maritimes (06)" 
+    },
+    { 
+      id: 4, 
+      position: [43.12, 5.93], 
+      title: "Toulon", 
+      description: "Nos services dans le Var (83)" 
     }
-  }, [selectedCity, map, zoom]);
+  ];
 
-  return null;
-};
+  const [activeMarker, setActiveMarker] = useState<number | null>(null);
 
-const InterventionMap: React.FC<InterventionMapProps> = ({
-  cities = [],
-  zones = [],
-  primaryCityId,
-  height = "500px",
-  initialZoom = 9,
-  centerPosition = [45.899247, 6.129384], // Default to a position in France
-  showZoneLegend = false,
-}) => {
-  const { isMobile } = useMobile();
-  const [selectedCity, setSelectedCity] = useState<City | null>(null);
+  const handleMarkerClick = (markerId: number) => {
+    setActiveMarker(markerId);
+  };
 
-  const mapHeight = isMobile ? "350px" : height;
-
-  // Find primary city
-  const primaryCity = useMemo(() => {
-    if (!primaryCityId) return null;
-    return cities.find(city => city.id === primaryCityId) || null;
-  }, [cities, primaryCityId]);
-
-  // Set center position to primary city if available
-  const mapCenter = useMemo(() => {
-    if (primaryCity) return primaryCity.position;
-    return centerPosition;
-  }, [primaryCity, centerPosition]);
-
-  // Handle city click
-  const handleCityClick = useCallback((city: City) => {
-    setSelectedCity(city);
+  useEffect(() => {
+    // Add zoom controls to the map
+    const map = document.querySelector('.leaflet-container');
+    if (map) {
+      const zoomControl = document.createElement('div');
+      zoomControl.className = 'leaflet-control-zoom leaflet-bar leaflet-control';
+      map.appendChild(zoomControl);
+    }
   }, []);
 
-  // Custom CSS classes for the map
-  const mapClassName = `rounded-lg overflow-hidden border border-gray-300 ${styles.leafletContainer}`;
-
-  // Get unique colors for legend
-  const uniqueZoneColors = useMemo(() => {
-    const colorMap = new Map<string, string>();
-    
-    zones.forEach(zone => {
-      if (!colorMap.has(zone.color)) {
-        colorMap.set(zone.color, zone.name);
-      }
-    });
-    
-    return Array.from(colorMap).map(([color, name]) => ({ color, name }));
-  }, [zones]);
+  // Convert kilometers to meters for the circle radius
+  const kmToMeters = (km: number) => km * 1000;
 
   return (
-    <div className="w-full">
-      <div className={mapClassName} style={{ height: mapHeight }}>
-        <MapContainer
-          center={mapCenter}
-          zoom={initialZoom}
-          style={{ height: "100%", width: "100%" }}
-          attributionControl={false}
-        >
-          {/* Map tile layer */}
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
+    <div className="relative z-0 w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-lg">
+      <MapContainer
+        className={styles.map}
+        center={[45.5, 5.3]} 
+        zoom={isMobile ? 5 : 6}
+        style={{ height: '100%', width: '100%' }}
+        attributionControl={false}
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        />
+        
+        {/* Render intervention zones */}
+        {interventionZones.map((zone) => (
+          <Circle
+            key={zone.id}
+            center={zone.center}
+            radius={kmToMeters(zone.radiusKm)}
+            pathOptions={{
+              color: zone.color,
+              fillColor: zone.color,
+              fillOpacity: 0.1,
+            }}
+          >
+            <Popup>{zone.name}</Popup>
+          </Circle>
+        ))}
 
-          {/* Render intervention zones */}
-          {zones.map((zone) => (
-            <Circle
-              key={zone.id}
-              center={zone.center}
-              radius={zone.radius}
-              pathOptions={{
-                color: zone.color,
-                fillColor: zone.fillColor,
-                fillOpacity: 0.2,
-              }}
-            >
-              <Popup>{zone.name}</Popup>
-            </Circle>
-          ))}
-
-          {/* Render city markers */}
-          {cities.map((city) => (
-            <Marker
-              key={city.id}
-              position={city.position}
-              icon={city.id === primaryCityId ? primaryIcon : defaultIcon}
-              eventHandlers={{
-                click: () => handleCityClick(city),
-              }}
-            >
-              <Popup>
-                <div className="text-center">
-                  <strong>{city.name}</strong>
-                  <div className="text-sm text-gray-600">{city.department}</div>
-                </div>
-              </Popup>
-            </Marker>
-          ))}
-
-          {/* Fit map to markers and handle centering */}
-          <FitBoundsToMarkers cities={cities} />
-          {selectedCity && (
-            <CenterMapOnSelectedCity selectedCity={selectedCity} zoom={11} />
-          )}
-        </MapContainer>
-      </div>
-      
-      {/* Zone color legend */}
-      {showZoneLegend && uniqueZoneColors.length > 0 && (
-        <div className="mt-3 bg-white p-3 rounded-lg border border-gray-200 shadow-sm">
-          <h4 className="text-sm font-semibold mb-2">Zones d'intervention</h4>
-          <div className="grid grid-cols-2 gap-2">
-            {uniqueZoneColors.map(({color, name}, index) => (
-              <div key={index} className="flex items-center text-sm">
-                <div
-                  className="w-3 h-3 rounded-full mr-1"
-                  style={{ backgroundColor: color }}
-                ></div>
-                <span>{name}</span>
+        {/* Render location markers */}
+        {locationMarkers.map((marker) => (
+          <Marker
+            key={marker.id}
+            position={marker.position}
+            icon={customIcon}
+            eventHandlers={{
+              click: () => handleMarkerClick(marker.id),
+            }}
+          >
+            <Popup>
+              <div className="text-center">
+                <h3 className="font-bold text-fazio-dark-green">{marker.title}</h3>
+                <p className="text-sm">{marker.description}</p>
               </div>
-            ))}
-          </div>
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+      
+      {/* Map legend */}
+      <div className="absolute bottom-3 left-3 bg-white p-2 rounded shadow z-[1000] text-xs">
+        <h3 className="font-bold mb-1 text-fazio-dark-green">Zones d'intervention</h3>
+        <div className="flex items-center mb-1">
+          <div className="w-3 h-3 rounded-full mr-1" style={{backgroundColor: "#34873C"}}></div>
+          <span>Rhône-Alpes</span>
         </div>
-      )}
+        <div className="flex items-center">
+          <div className="w-3 h-3 rounded-full mr-1" style={{backgroundColor: "#E74747"}}></div>
+          <span>Côte d'Azur</span>
+        </div>
+      </div>
     </div>
   );
 };

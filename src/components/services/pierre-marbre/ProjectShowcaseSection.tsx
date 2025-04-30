@@ -30,7 +30,7 @@ const ProjectShowcaseSection: React.FC = () => {
 
           <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 fade-in-section">
             <img 
-              src="/lovable-uploads/b74850a7-e9f4-4558-af38-274a5f536394.png" 
+              src="/lovable-uploads/94579f05-2e9d-4f94-98dc-9513524b38b6.png" 
               alt="Sol en travertin" 
               className="w-full h-64 object-cover"
             />
@@ -42,7 +42,7 @@ const ProjectShowcaseSection: React.FC = () => {
 
           <div className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 fade-in-section">
             <img 
-              src="/lovable-uploads/d7522d60-663c-483c-b02b-c9a30bdb0330.png" 
+              src="/lovable-uploads/4c4393c3-b291-40e2-bc09-ceb7cde532fb.png" 
               alt="Habillage mural en pierre naturelle" 
               className="w-full h-64 object-cover"
             />
