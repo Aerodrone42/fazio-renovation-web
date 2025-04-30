@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { PhoneIcon, MapPin } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import InterventionMap from '@/components/maps/InterventionMap';
 import { Card, CardContent } from '@/components/ui/card';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
@@ -108,6 +109,19 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen">
+      <Helmet>
+        <title>SARL FAZIO Lorenzo | Carrelage et rénovation clé en main dans l'Ain et la Côte d'Azur</title>
+        <meta 
+          name="description" 
+          content="Entreprise de carrelage et rénovation dans l'Ain, l'Ouest Lyonnais, les Alpes-Maritimes et le Var. Pose de carrelage, douche à l'italienne, rénovation complète de salle de bain." 
+        />
+        <meta 
+          name="keywords" 
+          content="carreleur Ain, carreleur Côte d'Azur, pose carrelage, rénovation salle de bain, douche italienne, mosaïque, pierre naturelle, marbre, Dagneux, Nice, Cannes, Toulon" 
+        />
+        <link rel="canonical" href="https://www.carrelage-fazio.fr/" />
+      </Helmet>
+      
       {/* Hero Section avec animation de fade-in */}
       <div 
         className="relative min-h-screen bg-cover bg-center flex items-center transition-opacity duration-1000"

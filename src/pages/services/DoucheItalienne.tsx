@@ -2,10 +2,24 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const DoucheItalienne = () => {
   return (
     <div className="pt-24 pb-16">
+      <Helmet>
+        <title>Douche à l'Italienne | Installation et Rénovation | SARL FAZIO Lorenzo</title>
+        <meta 
+          name="description" 
+          content="Création de douches à l'italienne sur mesure. Étanchéité garantie, design contemporain, accessibilité PMR. Expert dans l'Ain, l'Ouest Lyonnais et la Côte d'Azur." 
+        />
+        <meta 
+          name="keywords" 
+          content="douche italienne, douche à l'italienne, salle de bain, douche plain-pied, douche sans seuil, douche PMR, étanchéité douche, Ain, Côte d'Azur" 
+        />
+        <link rel="canonical" href="https://www.carrelage-fazio.fr/services/douche-italienne" />
+      </Helmet>
+      
       {/* Hero section */}
       <section className="bg-fazio-cream py-12">
         <div className="container">
@@ -171,4 +185,3 @@ const DoucheItalienne = () => {
 };
 
 export default DoucheItalienne;
-

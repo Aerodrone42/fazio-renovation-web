@@ -4,12 +4,26 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Check } from 'lucide-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Helmet } from 'react-helmet-async';
 
 const Carrelage = () => {
   const [imageError, setImageError] = useState(false);
   
   return (
     <div className="pt-24 pb-16">
+      <Helmet>
+        <title>Pose de Carrelage | Expert carreleur dans l'Ain et la Côte d'Azur | SARL FAZIO Lorenzo</title>
+        <meta 
+          name="description" 
+          content="Pose de carrelage professionnelle par SARL FAZIO Lorenzo. Intérieur, extérieur, tous formats et tous types de pose. Expertise dans l'Ain, l'Ouest Lyonnais et la Côte d'Azur." 
+        />
+        <meta 
+          name="keywords" 
+          content="pose carrelage, carreleur professionnel, carrelage intérieur, carrelage extérieur, carrelage Ain, carrelage Côte d'Azur, grands formats, faïence, mosaïque" 
+        />
+        <link rel="canonical" href="https://www.carrelage-fazio.fr/services/carrelage" />
+      </Helmet>
+      
       {/* Hero section */}
       <section className="bg-fazio-cream py-12">
         <div className="container">

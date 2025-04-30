@@ -4,10 +4,24 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Card } from '@/components/ui/card';
+import { Helmet } from 'react-helmet-async';
 
 const Mosaique = () => {
   return (
     <div className="pt-24 pb-16">
+      <Helmet>
+        <title>Pose de Mosaïque | Expert mosaïste dans l'Ain et la Côte d'Azur | SARL FAZIO Lorenzo</title>
+        <meta 
+          name="description" 
+          content="Pose de mosaïque décorative par SARL FAZIO Lorenzo. Piscines, salles de bain, crédences de cuisine. Expertise artisanale dans l'Ain, l'Ouest Lyonnais et la Côte d'Azur." 
+        />
+        <meta 
+          name="keywords" 
+          content="pose mosaïque, mosaïste, mosaïque piscine, mosaïque salle de bain, mosaïque décorative, émaux de Briare, mosaïque verre, Ain, Côte d'Azur" 
+        />
+        <link rel="canonical" href="https://www.carrelage-fazio.fr/services/mosaique" />
+      </Helmet>
+      
       {/* Hero section */}
       <section className="bg-fazio-cream py-12">
         <div className="container">

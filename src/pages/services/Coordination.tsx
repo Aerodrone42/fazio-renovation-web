@@ -2,10 +2,24 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const Coordination = () => {
   return (
     <div className="pt-24 pb-16">
+      <Helmet>
+        <title>Coordination Tous Corps d'État | Rénovation simplifiée | SARL FAZIO Lorenzo</title>
+        <meta 
+          name="description" 
+          content="Coordination de chantier tous corps d'état par SARL FAZIO Lorenzo. Un seul interlocuteur pour tous vos travaux de rénovation dans l'Ain, l'Ouest Lyonnais et la Côte d'Azur." 
+        />
+        <meta 
+          name="keywords" 
+          content="coordination travaux, maître d'œuvre, tous corps d'état, rénovation clé en main, gestion de chantier, plomberie, électricité, plâtrerie, Ain, Côte d'Azur" 
+        />
+        <link rel="canonical" href="https://www.carrelage-fazio.fr/services/coordination" />
+      </Helmet>
+      
       {/* Hero section */}
       <section className="bg-fazio-cream py-12">
         <div className="container">
