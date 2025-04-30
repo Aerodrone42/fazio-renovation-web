@@ -1,13 +1,13 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import ServicePageHeader from '@/components/services/ServicePageHeader';
 
 const DoucheItalienne = () => {
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-16">
       <Helmet>
         <title>Douche à l'Italienne | Installation et Rénovation | SARL FAZIO Lorenzo</title>
         <meta 
@@ -21,17 +21,12 @@ const DoucheItalienne = () => {
         <link rel="canonical" href="https://www.carrelage-fazio.fr/services/douche-italienne" />
       </Helmet>
       
-      {/* Hero section */}
-      <section className="bg-fazio-cream py-12">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-fazio-dark-green mb-4">Création de douches à l'italienne</h1>
-            <p className="text-lg text-gray-700">
-              L'élégance et le confort d'une douche à l'italienne pour une salle de bain moderne et accessible.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* En-tête avec image */}
+      <ServicePageHeader 
+        title="Création de douches à l'italienne"
+        description="L'élégance et le confort d'une douche à l'italienne pour une salle de bain moderne et accessible."
+        imagePath="/lovable-uploads/233c6240-522f-406b-b216-7e2dfc7197b0.png"
+      />
 
       {/* Description du service */}
       <section className="py-16">

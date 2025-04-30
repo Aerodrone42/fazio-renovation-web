@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import HeroSection from '@/components/services/carrelage/HeroSection';
+import ServicePageHeader from '@/components/services/ServicePageHeader';
 import IntroSection from '@/components/services/carrelage/IntroSection';
 import ServicesSection from '@/components/services/carrelage/ServicesSection';
 import WhyChooseSection from '@/components/services/carrelage/WhyChooseSection';
@@ -11,7 +11,7 @@ import CtaSection from '@/components/services/carrelage/CtaSection';
 
 const Carrelage = () => {
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-16">
       <Helmet>
         <title>Pose de Carrelage | Expert carreleur dans l'Ain et la Côte d'Azur | SARL FAZIO Lorenzo</title>
         <meta 
@@ -25,7 +25,13 @@ const Carrelage = () => {
         <link rel="canonical" href="https://www.carrelage-fazio.fr/services/carrelage" />
       </Helmet>
       
-      <HeroSection />
+      {/* En-tête avec image */}
+      <ServicePageHeader 
+        title="Pose de carrelage professionnelle"
+        description="L'expertise et le savoir-faire pour tous vos projets de carrelage intérieur et extérieur."
+        imagePath="/lovable-uploads/b990c88c-c430-46de-a2ef-4ac0717a59fc.png"
+      />
+      
       <IntroSection />
       <ServicesSection />
       <WhyChooseSection />

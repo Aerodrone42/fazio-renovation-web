@@ -1,17 +1,17 @@
 
 import React from 'react';
-import HeroSection from '@/components/services/renovation-salle-de-bain/HeroSection';
+import { Helmet } from 'react-helmet-async';
+import ServicePageHeader from '@/components/services/ServicePageHeader';
 import IntroSection from '@/components/services/renovation-salle-de-bain/IntroSection';
 import ServicesSection from '@/components/services/renovation-salle-de-bain/ServicesSection';
 import ProcessSection from '@/components/services/renovation-salle-de-bain/ProcessSection';
 import ProjectShowcaseSection from '@/components/services/renovation-salle-de-bain/ProjectShowcaseSection';
 import FaqSection from '@/components/services/renovation-salle-de-bain/FaqSection';
 import CtaSection from '@/components/services/renovation-salle-de-bain/CtaSection';
-import { Helmet } from 'react-helmet-async';
 
 const RenovationSalleDeBain = () => {
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-16">
       <Helmet>
         <title>Rénovation de Salle de Bain | Transformation clé en main | SARL FAZIO Lorenzo</title>
         <meta 
@@ -25,7 +25,13 @@ const RenovationSalleDeBain = () => {
         <link rel="canonical" href="https://www.carrelage-fazio.fr/services/renovation-salle-de-bain" />
       </Helmet>
       
-      <HeroSection />
+      {/* En-tête avec image */}
+      <ServicePageHeader 
+        title="Rénovation de salle de bain"
+        description="Transformation complète de votre salle de bain, de la conception à la réalisation."
+        imagePath="/lovable-uploads/8bfe4682-ae69-48cc-8f91-a4bdaf3d9e5e.png"
+      />
+      
       <IntroSection />
       <ServicesSection />
       <ProcessSection />

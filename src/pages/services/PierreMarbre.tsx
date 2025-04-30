@@ -1,17 +1,17 @@
 
 import React from 'react';
-import HeroSection from '@/components/services/pierre-marbre/HeroSection';
+import { Helmet } from 'react-helmet-async';
+import ServicePageHeader from '@/components/services/ServicePageHeader';
 import IntroSection from '@/components/services/pierre-marbre/IntroSection';
 import ServicesSection from '@/components/services/pierre-marbre/ServicesSection';
 import ApplicationsSection from '@/components/services/pierre-marbre/ApplicationsSection';
 import AdvantagesSection from '@/components/services/pierre-marbre/AdvantagesSection';
 import ProjectShowcaseSection from '@/components/services/pierre-marbre/ProjectShowcaseSection';
 import CtaSection from '@/components/services/pierre-marbre/CtaSection';
-import { Helmet } from 'react-helmet-async';
 
 const PierreMarbre: React.FC = () => {
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-16">
       <Helmet>
         <title>Pierre Naturelle et Marbre | Expert en matériaux nobles | SARL FAZIO Lorenzo</title>
         <meta 
@@ -25,7 +25,13 @@ const PierreMarbre: React.FC = () => {
         <link rel="canonical" href="https://www.carrelage-fazio.fr/services/pierre-marbre" />
       </Helmet>
       
-      <HeroSection />
+      {/* En-tête avec image */}
+      <ServicePageHeader 
+        title="Pierre naturelle et marbre"
+        description="L'élégance intemporelle des matériaux nobles pour sublimer votre intérieur."
+        imagePath="/lovable-uploads/bda2aeec-32ad-4860-a658-0f0015ceb618.png"
+      />
+      
       <IntroSection />
       <ServicesSection />
       <ApplicationsSection />
