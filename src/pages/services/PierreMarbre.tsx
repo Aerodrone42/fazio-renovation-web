@@ -11,7 +11,7 @@ const PierreMarbre: React.FC = () => {
   // Mettre à jour le titre de la page de façon sécurisée
   React.useEffect(() => {
     const originalTitle = document.title;
-    document.title = "Pierre & Marbre | Expert en pose à Lyon, Bourg-en-Bresse et toute la région Rhône-Alpes";
+    document.title = "Pierre & Marbre | Expert en pose à Lyon, Bourg-en-Bresse, Le Lavandou et toute la région Rhône-Alpes";
     
     // Restaurer le titre original lorsque le composant est démonté
     return () => {

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Rectangle, Circle } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -216,6 +217,14 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
           <Popup>
             <div className="font-bold">Saint-Tropez</div>
             <div>Station balnéaire</div>
+          </Popup>
+        </Marker>
+
+        {/* Add Le Lavandou marker */}
+        <Marker position={[43.1390, 6.3680]}>
+          <Popup>
+            <div className="font-bold">Le Lavandou</div>
+            <div>Station balnéaire du Var</div>
           </Popup>
         </Marker>
         
