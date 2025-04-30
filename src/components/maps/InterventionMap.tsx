@@ -66,8 +66,8 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
   
   return (
     <MapContainer 
-      defaultCenter={centerLocation} 
-      defaultZoom={initialZoom} 
+      center={centerLocation} 
+      zoom={initialZoom} 
       style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
       className={className}
       scrollWheelZoom={false}
