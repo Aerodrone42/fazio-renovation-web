@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { PhoneIcon } from 'lucide-react';
+import { PhoneIcon, MapPin } from 'lucide-react';
 import InterventionMap from '@/components/maps/InterventionMap';
 import { Card, CardContent } from '@/components/ui/card';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
@@ -199,6 +199,66 @@ const Index = () => {
           </p>
           <div className="transform transition-all duration-700 hover:scale-[1.02]">
             <InterventionMap />
+          </div>
+
+          {/* Nouvelle section pour les pages locales */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-bold text-fazio-dark-green mb-4">Dans l'Ain</h3>
+              <ul className="space-y-2">
+                <li className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-fazio-light-red" />
+                  <Link to="/regions/bourgenbresse" className="hover:text-fazio-red transition-colors">
+                    Bourg-en-Bresse et alentours
+                  </Link>
+                </li>
+                <li className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-fazio-light-red" />
+                  <Link to="/regions/amberieuenbugey" className="hover:text-fazio-red transition-colors">
+                    Ambérieu-en-Bugey et alentours
+                  </Link>
+                </li>
+                <li className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-fazio-light-red" />
+                  <Link to="/regions/miribel" className="hover:text-fazio-red transition-colors">
+                    Miribel et alentours
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/regions" className="text-sm text-fazio-red hover:underline ml-6 mt-2 inline-block">
+                    Voir toutes nos zones d'intervention →
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-fazio-dark-green mb-4">Dans l'Ouest Lyonnais</h3>
+              <ul className="space-y-2">
+                <li className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-fazio-light-red" />
+                  <Link to="/regions/tassinlademilune" className="hover:text-fazio-red transition-colors">
+                    Tassin-la-Demi-Lune et alentours
+                  </Link>
+                </li>
+                <li className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-fazio-light-red" />
+                  <Link to="/regions/ecully" className="hover:text-fazio-red transition-colors">
+                    Écully et alentours
+                  </Link>
+                </li>
+                <li className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-fazio-light-red" />
+                  <Link to="/regions/dardilly" className="hover:text-fazio-red transition-colors">
+                    Dardilly et alentours
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/regions" className="text-sm text-fazio-red hover:underline ml-6 mt-2 inline-block">
+                    Voir toutes nos zones d'intervention →
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>

@@ -55,6 +55,11 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/regions" className="hover:text-fazio-beige transition-colors">
+                  Zones d'intervention
+                </Link>
+              </li>
+              <li>
                 <Link to="/about" className="hover:text-fazio-beige transition-colors">
                   À propos
                 </Link>
@@ -67,28 +72,31 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Réseaux sociaux */}
+          {/* Zones d'intervention */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-fazio-beige">Suivez-nous</h3>
-            <div className="flex space-x-4">
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-fazio-light-red transition-colors"
-              >
-                <Facebook className="h-6 w-6" />
-                <span className="sr-only">Facebook</span>
-              </a>
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-fazio-light-red transition-colors"
-              >
-                <Instagram className="h-6 w-6" />
-                <span className="sr-only">Instagram</span>
-              </a>
+            <h3 className="text-xl font-bold mb-4 text-fazio-beige">Zones d'intervention</h3>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+              <Link to="/regions/bourgenbresse" className="hover:text-fazio-beige transition-colors">
+                Bourg-en-Bresse
+              </Link>
+              <Link to="/regions/miribel" className="hover:text-fazio-beige transition-colors">
+                Miribel
+              </Link>
+              <Link to="/regions/amberieuenbugey" className="hover:text-fazio-beige transition-colors">
+                Ambérieu-en-Bugey
+              </Link>
+              <Link to="/regions/meximieux" className="hover:text-fazio-beige transition-colors">
+                Meximieux
+              </Link>
+              <Link to="/regions/ecully" className="hover:text-fazio-beige transition-colors">
+                Écully
+              </Link>
+              <Link to="/regions/tassinlademilune" className="hover:text-fazio-beige transition-colors">
+                Tassin-la-Demi-Lune
+              </Link>
+              <Link to="/regions" className="col-span-2 mt-2 text-fazio-light-red hover:text-fazio-beige transition-colors">
+                Voir toutes nos zones →
+              </Link>
             </div>
           </div>
         </div>
