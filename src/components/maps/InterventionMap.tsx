@@ -44,12 +44,16 @@ interface InterventionMapProps {
   locations?: InterventionLocation[];
   centerLocation?: [number, number];
   initialZoom?: number;
+  height?: number;
+  className?: string;
 }
 
 const InterventionMap: React.FC<InterventionMapProps> = ({
   locations = [],
   centerLocation = [48.8566, 2.3522], // Default: Paris
   initialZoom = 13,
+  height = 500,
+  className = '',
 }) => {
   // Add Fazio location
   const fazioLocation: InterventionLocation = {
@@ -62,9 +66,10 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
   
   return (
     <MapContainer 
-      center={centerLocation} 
-      zoom={initialZoom} 
-      style={{ height: '500px', width: '100%', borderRadius: '0.5rem' }} 
+      defaultCenter={centerLocation} 
+      defaultZoom={initialZoom} 
+      style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
+      className={className}
       scrollWheelZoom={false}
     >
       <TileLayer
@@ -77,7 +82,7 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
           key={`${location.name}-${index}`}
           position={location.coordinates}
         >
-          <Tooltip permanent>
+          <Tooltip>
             {location.name}
           </Tooltip>
         </Marker>

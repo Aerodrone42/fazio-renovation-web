@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -38,11 +39,11 @@ const PierreMarbre = () => {
                 </Link>
               </Button>
             </div>
-            <div className="rounded-lg overflow-hidden shadow-xl">
+            <div className="rounded-lg overflow-hidden shadow-xl mx-auto md:mx-0 max-w-md">
               <img 
                 src="/lovable-uploads/3a0cf80e-32b3-4264-b89d-b5b87fc56e5e.png" 
                 alt="Élégante entrée avec revêtement de sol en pierre et marbre à motifs géométriques" 
-                className="w-full h-auto"
+                className="w-full h-auto object-cover"
               />
             </div>
           </div>
