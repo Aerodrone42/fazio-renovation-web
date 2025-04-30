@@ -95,14 +95,13 @@ const InterventionMap: React.FC = () => {
     <div className="relative z-0 w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-lg">
       <MapContainer
         className={styles.map}
-        center={[45.5, 5.3] as [number, number]} 
+        center={[45.5, 5.3]}
         zoom={isMobile ? 5 : 6}
         style={{ height: '100%', width: '100%' }}
         attributionControl={false}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         
         {/* Render intervention zones */}
@@ -158,4 +157,3 @@ const InterventionMap: React.FC = () => {
 };
 
 export default InterventionMap;
-
