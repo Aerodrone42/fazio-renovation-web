@@ -64,15 +64,13 @@ const Index = () => {
   return (
     <div className="relative min-h-screen">
       {/* Hero Section avec image de fond spécifique */}
-      <div 
-        className="relative min-h-screen bg-cover bg-center flex items-center"
-        style={{ 
-          backgroundImage: "url('/lovable-uploads/6496c38f-b1d4-42ee-81f9-b6921b9e1d45.png')", 
+      <div className="relative min-h-screen bg-cover bg-center flex items-center" 
+        style={{
+          backgroundImage: `url('/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png')`,
           backgroundColor: "#1E2A3A" // Couleur de secours si l'image ne charge pas
-        }}
-      >
+        }}>
         {/* Overlay foncé pour améliorer la lisibilité du texte */}
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-black/30"></div>
         
         {/* Contenu principal */}
         <div className="container relative z-10 text-white">
