@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 
 const CtaSection: React.FC = () => {
   return (
-    <section className="bg-fazio-red text-white py-12">
+    <section className="bg-fazio-red text-white py-16">
       <div className="container text-center">
         <h2 className="text-3xl font-bold mb-6">Prêt à transformer votre espace ?</h2>
         <p className="text-lg mb-8 max-w-2xl mx-auto">
           Contactez-nous dès maintenant pour discuter de votre projet et obtenir un devis personnalisé et gratuit pour votre carrelage.
         </p>
-        <Button asChild size="lg" className="bg-white text-fazio-red hover:bg-fazio-cream">
+        <Button asChild size="lg" className="bg-white text-fazio-red hover:bg-fazio-cream transform transition-transform duration-300 hover:scale-105">
           <Link to="/contact">
             Demander un devis gratuit
           </Link>

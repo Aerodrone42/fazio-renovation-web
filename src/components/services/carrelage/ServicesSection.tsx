@@ -41,7 +41,7 @@ const ServicesSection: React.FC = () => {
     'Ragréage et nivellement',
     'Chape traditionnelle ou liquide',
     'Étanchéité sous carrelage',
-    'Dépose d'ancien carrelage',
+    "Dépose d'ancien carrelage",
   ];
 
   const layoutServices = [
