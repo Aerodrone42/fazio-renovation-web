@@ -6,16 +6,21 @@ interface ServiceCardProps {
   imageAlt: string;
   title: string;
   description: string;
+  onClick?: () => void;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ 
   imageSrc, 
   imageAlt, 
   title, 
-  description 
+  description,
+  onClick
 }) => {
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-md">
+    <div 
+      className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+      onClick={onClick}
+    >
       <div className="h-64 relative">
         <img 
           src={imageSrc} 

@@ -1,15 +1,17 @@
-
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Rectangle, Circle } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './InterventionMap.module.css';
 import L from 'leaflet';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Navigation, MapPin } from 'lucide-react';
 
 // Fix the icon paths for Leaflet markers
-const icon = L.icon({
-  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
@@ -150,70 +152,150 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         </Rectangle>
 
         {/* City markers */}
-        <Marker position={[45.750000, 4.850000]}>
+        <Marker position={[45.750000, 4.850000]} icon={L.icon({
+          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        })}>
           <Popup>
             <div className="font-bold">Lyon</div>
             <div>Capitale des Gaules</div>
           </Popup>
         </Marker>
         
-        <Marker position={[45.766944, 4.8775]}>
+        <Marker position={[45.766944, 4.8775]} icon={L.icon({
+          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        })}>
           <Popup>
             <div className="font-bold">Villeurbanne</div>
             <div>Ville limitrophe de Lyon</div>
           </Popup>
         </Marker>
 
-        <Marker position={[45.983333, 4.716667]}>
+        <Marker position={[45.983333, 4.716667]} icon={L.icon({
+          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        })}>
           <Popup>
             <div className="font-bold">Villefranche-sur-Saône</div>
             <div>Capitale du Beaujolais</div>
           </Popup>
         </Marker>
 
-        <Marker position={[46.205, 5.2278]}>
+        <Marker position={[46.205, 5.2278]} icon={L.icon({
+          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        })}>
           <Popup>
             <div className="font-bold">Bourg-en-Bresse</div>
             <div>Préfecture de l'Ain</div>
           </Popup>
         </Marker>
 
-        <Marker position={[46.2536, 5.6558]}>
+        <Marker position={[46.2536, 5.6558]} icon={L.icon({
+          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        })}>
           <Popup>
             <div className="font-bold">Oyonnax</div>
             <div>Centre industriel</div>
           </Popup>
         </Marker>
 
-        <Marker position={[45.9572, 5.3592]}>
+        <Marker position={[45.9572, 5.3592]} icon={L.icon({
+          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        })}>
           <Popup>
             <div className="font-bold">Ambérieu-en-Bugey</div>
             <div>Porte du Bugey</div>
           </Popup>
         </Marker>
 
-        <Marker position={[43.7102, 7.2620]}>
+        <Marker position={[43.7102, 7.2620]} icon={L.icon({
+          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        })}>
           <Popup>
             <div className="font-bold">Nice</div>
             <div>Chef-lieu des Alpes-Maritimes</div>
           </Popup>
         </Marker>
 
-        <Marker position={[43.5515, 7.0134]}>
+        <Marker position={[43.5515, 7.0134]} icon={L.icon({
+          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        })}>
           <Popup>
             <div className="font-bold">Cannes</div>
             <div>Ville du Festival</div>
           </Popup>
         </Marker>
 
-        <Marker position={[43.1244, 5.9279]}>
+        <Marker position={[43.1244, 5.9279]} icon={L.icon({
+          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        })}>
           <Popup>
             <div className="font-bold">Toulon</div>
             <div>Préfecture du Var</div>
           </Popup>
         </Marker>
         
-        <Marker position={[43.2728, 6.6389]}>
+        <Marker position={[43.2728, 6.6389]} icon={L.icon({
+          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        })}>
           <Popup>
             <div className="font-bold">Saint-Tropez</div>
             <div>Station balnéaire</div>
@@ -221,7 +303,15 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         </Marker>
 
         {/* Add Le Lavandou marker */}
-        <Marker position={[43.1390, 6.3680]}>
+        <Marker position={[43.1390, 6.3680]} icon={L.icon({
+          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        })}>
           <Popup>
             <div className="font-bold">Le Lavandou</div>
             <div>Station balnéaire du Var</div>
@@ -229,7 +319,15 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         </Marker>
         
         {/* Fazio location */}
-        <Marker position={fazioLocation.coordinates}>
+        <Marker position={fazioLocation.coordinates} icon={L.icon({
+          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        })}>
           <Popup>
             <div className="font-bold">Fazio Entreprise</div>
             <div>Votre expert en carrelage et rénovation</div>
