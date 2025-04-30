@@ -28,12 +28,24 @@ const ChangeView = ({ center, zoom }: { center: [number, number], zoom: number }
   return null;
 };
 
+// Création d'une icône personnalisée pour éviter le problème "Mark"
+const createCustomIcon = () => {
+  return L.divIcon({
+    className: "custom-marker-icon",
+    iconSize: [25, 25],
+    iconAnchor: [12, 25],
+    popupAnchor: [0, -25],
+    html: `<div class="w-4 h-4 rounded-full bg-fazio-red border-2 border-white"></div>`
+  });
+};
+
 const InterventionMap: React.FC = () => {
   // Define initial center of map (Lyon, France)
   const defaultCenter: [number, number] = [45.764043, 4.835659];
   const [activeMarker, setActiveMarker] = useState<string | null>(null);
   const [center, setCenter] = useState<[number, number]>(defaultCenter);
   const [zoom, setZoom] = useState(9);
+  const customIcon = createCustomIcon();
 
   // Define our markers
   const markers: MarkerData[] = [
@@ -166,6 +178,9 @@ const InterventionMap: React.FC = () => {
       <MapContainer 
         className="rounded-lg border-2 border-gray-200"
         style={{ height: '400px', width: '100%', zIndex: 1 }}
+        center={defaultCenter}
+        zoom={zoom}
+        scrollWheelZoom={false}
       >
         <ChangeView center={center} zoom={zoom} />
         <TileLayer
@@ -194,11 +209,12 @@ const InterventionMap: React.FC = () => {
           </Polygon>
         ))}
         
-        {/* Render markers */}
+        {/* Render markers with custom icon */}
         {markers.map(marker => (
           <Marker 
             key={marker.id} 
             position={marker.position}
+            icon={customIcon}
             eventHandlers={{
               click: () => {
                 setActiveMarker(marker.id);
@@ -214,6 +230,19 @@ const InterventionMap: React.FC = () => {
           </Marker>
         ))}
       </MapContainer>
+
+      {/* Légende pour les zones */}
+      <div className="mt-4 flex flex-wrap gap-4 justify-center text-sm">
+        {zones.map(zone => (
+          <div key={zone.id} className="flex items-center">
+            <div 
+              className="w-4 h-4 mr-2" 
+              style={{ backgroundColor: zone.color, opacity: 0.6 }}
+            ></div>
+            <span>{zone.name}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Check } from 'lucide-react';
+import InterventionMap from '@/components/maps/InterventionMap';
 
 const InterventionZoneSection: React.FC = () => {
   const locations = [
@@ -51,15 +52,7 @@ const InterventionZoneSection: React.FC = () => {
             </div>
           </div>
           <div className="rounded-lg overflow-hidden shadow-lg">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d353935.3339607201!2d4.650619563876107!3d45.99486222342283!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4c5d74535be21%3A0x408ab2ae4bfb830!2sAin!5e0!3m2!1sfr!2sfr!4v1667398771132!5m2!1sfr!2sfr" 
-              width="100%" 
-              height="450" 
-              style={{ border: 0 }}
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Zone d'intervention - Ain et Ouest Lyonnais"
-            ></iframe>
+            <InterventionMap />
           </div>
         </div>
       </div>
