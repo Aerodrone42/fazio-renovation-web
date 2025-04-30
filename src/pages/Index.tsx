@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { PhoneIcon } from 'lucide-react';
@@ -11,7 +11,23 @@ const Index = () => {
   console.log("Rendering Index page");
   
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
+  const [backgroundLoaded, setBackgroundLoaded] = useState(false);
   const fallbackImage = "/placeholder.svg";
+  const heroImagePath = "/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png";
+
+  // Précharger l'image d'arrière-plan
+  useEffect(() => {
+    const img = new Image();
+    img.src = heroImagePath;
+    img.onload = () => {
+      console.log("Background image loaded successfully");
+      setBackgroundLoaded(true);
+    };
+    img.onerror = () => {
+      console.error("Failed to load background image");
+      setFailedImages(prev => ({ ...prev, [heroImagePath]: true }));
+    };
+  }, [heroImagePath]);
 
   // Fonction pour gérer les erreurs de chargement d'image
   const handleImageError = (src: string) => {
@@ -56,21 +72,26 @@ const Index = () => {
       link: "/services/renovation-salle-de-bain"
     }
   ];
-  
-  // Image héro avec fallback
-  const heroImagePath = "/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png";
-  const heroImageSrc = failedImages[heroImagePath] ? fallbackImage : heroImagePath;
 
   return (
     <div className="relative min-h-screen">
       {/* Hero Section avec image de fond spécifique */}
-      <div className="relative min-h-screen bg-cover bg-center flex items-center" 
+      <div 
+        className="relative min-h-screen bg-cover bg-center flex items-center"
         style={{
-          backgroundImage: `url('/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png')`,
+          backgroundImage: backgroundLoaded ? `url('${heroImagePath}')` : 'none',
           backgroundColor: "#1E2A3A" // Couleur de secours si l'image ne charge pas
-        }}>
+        }}
+      >
+        {/* Image de fond en tant qu'élément img pour meilleure compatibilité */}
+        {!backgroundLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center bg-fazio-dark-green">
+            <p className="text-white">Chargement de l'image...</p>
+          </div>
+        )}
+        
         {/* Overlay foncé pour améliorer la lisibilité du texte */}
-        <div className="absolute inset-0 bg-black/30"></div>
+        <div className="absolute inset-0 bg-black/40"></div>
         
         {/* Contenu principal */}
         <div className="container relative z-10 text-white">
