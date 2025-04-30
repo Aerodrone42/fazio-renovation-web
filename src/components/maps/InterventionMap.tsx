@@ -1,19 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap, Polygon } from 'react-leaflet';
-import L from 'leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Polygon, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 import styles from './InterventionMap.module.css';
 
-// Define types for our marker data
+// Define types for our data
 interface MarkerData {
   id: string;
   position: [number, number];
   title: string;
-  content?: string;
+  popupContent: string;
 }
 
-// Define types for our zone data
 interface ZoneData {
   id: string;
   name: string;
@@ -21,10 +20,13 @@ interface ZoneData {
   positions: [number, number][];
 }
 
-// Component to set the view when selected marker changes
-const ChangeView = ({ center, zoom }: { center: [number, number], zoom: number }) => {
+// ChangeView component to control map behavior
+const ChangeView = ({ center, zoom }: { center: [number, number]; zoom: number }) => {
   const map = useMap();
-  map.setView(center, zoom);
+  useEffect(() => {
+    map.setView(center, zoom);
+  }, [center, zoom, map]);
+  
   return null;
 };
 
@@ -49,163 +51,175 @@ const InterventionMap: React.FC = () => {
 
   // Define our markers
   const markers: MarkerData[] = [
-    {
-      id: "lyon",
-      position: [45.764043, 4.835659],
-      title: "Lyon",
-      content: "Notre équipe de carreleurs intervient dans tout Lyon et son agglomération."
+    // Ain
+    { 
+      id: "bourg-en-bresse", 
+      position: [46.205167, 5.225501], 
+      title: "Bourg-en-Bresse", 
+      popupContent: "Interventions à Bourg-en-Bresse et alentours" 
     },
-    {
-      id: "villefranche",
-      position: [45.9828, 4.7194],
-      title: "Villefranche-sur-Saône",
-      content: "Service de pose de carrelage et rénovation disponible à Villefranche."
+    { 
+      id: "dagneux", 
+      position: [45.851944, 5.091944], 
+      title: "Dagneux", 
+      popupContent: "Interventions à Dagneux et alentours" 
     },
-    {
-      id: "bourg",
-      position: [46.2047, 5.2258],
-      title: "Bourg-en-Bresse",
-      content: "Intervention pour tous vos projets de carrelage à Bourg-en-Bresse."
+    { 
+      id: "trevoux", 
+      position: [45.940000, 4.773889], 
+      title: "Trévoux", 
+      popupContent: "Interventions à Trévoux et alentours" 
     },
-    {
-      id: "amberieu",
-      position: [45.9569, 5.3572],
-      title: "Ambérieu-en-Bugey",
-      content: "Service de pose de carrelage et rénovation."
+    { 
+      id: "oyonnax", 
+      position: [46.254722, 5.657778], 
+      title: "Oyonnax", 
+      popupContent: "Interventions à Oyonnax et alentours" 
     },
-    {
-      id: "meximieux",
-      position: [45.9026, 5.1933],
-      title: "Meximieux",
-      content: "Intervention pour tous vos projets de carrelage."
+    
+    // Ouest Lyonnais
+    { 
+      id: "ecully", 
+      position: [45.783333, 4.766667], 
+      title: "Écully", 
+      popupContent: "Interventions à Écully et alentours" 
     },
-    {
-      id: "miribel",
-      position: [45.8237, 4.9597],
-      title: "Miribel",
-      content: "Service de pose de carrelage et rénovation."
+    { 
+      id: "tassin", 
+      position: [45.763889, 4.731111], 
+      title: "Tassin-la-Demi-Lune", 
+      popupContent: "Interventions à Tassin-la-Demi-Lune et alentours" 
     },
-    {
-      id: "montluel",
-      position: [45.8581, 5.0594],
-      title: "Montluel",
-      content: "Intervention pour tous vos projets de carrelage."
+    { 
+      id: "dardilly", 
+      position: [45.817222, 4.758889], 
+      title: "Dardilly", 
+      popupContent: "Interventions à Dardilly et alentours" 
     },
-    {
-      id: "dagneux",
-      position: [45.8428, 5.0892],
-      title: "Dagneux",
-      content: "Service de pose de carrelage et rénovation."
+    
+    // Alpes-Maritimes
+    { 
+      id: "nice", 
+      position: [43.700000, 7.250000], 
+      title: "Nice", 
+      popupContent: "Interventions à Nice et alentours" 
     },
-    {
-      id: "trevoux",
-      position: [45.9408, 4.7772],
-      title: "Trévoux",
-      content: "Intervention pour tous vos projets de carrelage."
+    { 
+      id: "cannes", 
+      position: [43.550000, 7.016667], 
+      title: "Cannes", 
+      popupContent: "Interventions à Cannes et alentours" 
     },
-    {
-      id: "beynost",
-      position: [45.8336, 4.9872],
-      title: "Beynost",
-      content: "Service de pose de carrelage et rénovation."
-    }
+    { 
+      id: "antibes", 
+      position: [43.583333, 7.116667], 
+      title: "Antibes", 
+      popupContent: "Interventions à Antibes et alentours" 
+    },
+    
+    // Var
+    { 
+      id: "toulon", 
+      position: [43.124228, 5.928000], 
+      title: "Toulon", 
+      popupContent: "Interventions à Toulon et alentours" 
+    },
+    { 
+      id: "frejus", 
+      position: [43.433333, 6.733333], 
+      title: "Fréjus", 
+      popupContent: "Interventions à Fréjus et alentours" 
+    },
+    { 
+      id: "hyeres", 
+      position: [43.116667, 6.116667], 
+      title: "Hyères", 
+      popupContent: "Interventions à Hyères et alentours" 
+    },
   ];
 
-  // Define our zones
+  // Define our service zones
   const zones: ZoneData[] = [
     {
       id: "ain",
-      name: "Ain",
-      color: "#C63C3C",
+      name: "Ain (01)",
+      color: "#C63C3C", // Fazio red
       positions: [
-        [46.3, 5.0], // NW corner
-        [46.3, 5.6], // NE corner
-        [45.7, 5.6], // SE corner
-        [45.7, 5.0]  // SW corner
-      ]
+        [46.4242, 4.7357],
+        [46.4242, 5.9995],
+        [45.6102, 5.9995],
+        [45.6102, 4.7357],
+      ],
     },
     {
       id: "ouest-lyonnais",
       name: "Ouest Lyonnais",
-      color: "#2C5F4D",
+      color: "#2C5F4D", // Fazio green
       positions: [
-        [45.9, 4.6], // NW corner
-        [45.9, 4.8], // NE corner
-        [45.7, 4.8], // SE corner
-        [45.7, 4.6]  // SW corner
-      ]
+        [45.9, 4.45],
+        [45.9, 4.85],
+        [45.65, 4.85],
+        [45.65, 4.45],
+      ],
     },
     {
       id: "alpes-maritimes",
-      name: "Alpes-Maritimes",
-      color: "#9b87f5",
+      name: "Alpes-Maritimes (06)",
+      color: "#D8B48D", // Fazio beige
       positions: [
-        [44.0, 6.9], // NW corner
-        [44.0, 7.2], // NE corner
-        [43.5, 7.2], // SE corner
-        [43.5, 6.9]  // SW corner
-      ]
+        [44.1, 6.63],
+        [44.1, 7.58],
+        [43.48, 7.58],
+        [43.48, 6.63],
+      ],
     },
     {
       id: "var",
-      name: "Var",
-      color: "#7E69AB",
+      name: "Var (83)",
+      color: "#E07557", // Fazio light red
       positions: [
-        [43.5, 6.2], // NW corner
-        [43.5, 6.7], // NE corner
-        [43.1, 6.7], // SE corner
-        [43.1, 6.2]  // SW corner
-      ]
-    }
+        [43.56, 5.65],
+        [43.56, 6.93],
+        [42.98, 6.93],
+        [42.98, 5.65],
+      ],
+    },
   ];
 
-  // Update center and zoom when activeMarker changes
-  useEffect(() => {
-    if (activeMarker) {
-      const marker = markers.find(m => m.id === activeMarker);
-      if (marker) {
-        setCenter(marker.position);
-        setZoom(12);
-      }
-    } else {
-      setCenter(defaultCenter);
-      setZoom(9);
-    }
-  }, [activeMarker]);
-
   return (
-    <div className={styles.mapContainer}>
+    <div className="animate-fade-in">
       <MapContainer 
         className="rounded-lg border-2 border-gray-200"
         style={{ height: '400px', width: '100%', zIndex: 1 }}
-        center={defaultCenter}
-        zoom={zoom}
-        scrollWheelZoom={false}
       >
         <ChangeView center={center} zoom={zoom} />
         <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         
-        {/* Render zones as polygons */}
+        {/* Render service zones */}
         {zones.map(zone => (
-          <Polygon
+          <Polygon 
             key={zone.id}
-            pathOptions={{ 
-              fillColor: zone.color, 
-              fillOpacity: 0.2, 
-              weight: 2, 
-              color: zone.color,
-              opacity: 0.6 
-            }}
             positions={zone.positions}
+            pathOptions={{ 
+              color: zone.color, 
+              fillColor: zone.color,
+              fillOpacity: 0.4,
+              weight: 2
+            }}
+            eventHandlers={{
+              click: () => {
+                const centerY = (Math.min(...zone.positions.map(pos => pos[0])) + 
+                                 Math.max(...zone.positions.map(pos => pos[0]))) / 2;
+                const centerX = (Math.min(...zone.positions.map(pos => pos[1])) + 
+                                 Math.max(...zone.positions.map(pos => pos[1]))) / 2;
+                setCenter([centerY, centerX]);
+                setZoom(9);
+              }
+            }}
           >
-            <Popup>
-              <div>
-                <h3 className="font-bold text-lg">{zone.name}</h3>
-                <p className="text-sm">Zone d'intervention</p>
-              </div>
-            </Popup>
           </Polygon>
         ))}
         
@@ -218,23 +232,27 @@ const InterventionMap: React.FC = () => {
             eventHandlers={{
               click: () => {
                 setActiveMarker(marker.id);
-              },
+                setCenter(marker.position);
+                setZoom(11);
+              }
             }}
           >
             <Popup>
-              <div>
-                <h3 className="font-bold text-lg">{marker.title}</h3>
-                {marker.content && <p className="text-sm mt-1">{marker.content}</p>}
-              </div>
+              <div className="font-semibold">{marker.title}</div>
+              <div>{marker.popupContent}</div>
             </Popup>
           </Marker>
         ))}
       </MapContainer>
 
       {/* Légende pour les zones */}
-      <div className="mt-4 flex flex-wrap gap-4 justify-center text-sm">
-        {zones.map(zone => (
-          <div key={zone.id} className="flex items-center">
+      <div className="mt-4 flex flex-wrap gap-4 justify-center text-sm animate-fade-in">
+        {zones.map((zone, index) => (
+          <div 
+            key={zone.id} 
+            className="flex items-center transition-transform hover:scale-105" 
+            style={{ animationDelay: `${index * 100}ms` }}
+          >
             <div 
               className="w-4 h-4 mr-2" 
               style={{ backgroundColor: zone.color, opacity: 0.6 }}

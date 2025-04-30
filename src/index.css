@@ -123,4 +123,28 @@
   .animate-on-scroll.animate {
     @apply animate-fade-in;
   }
+  
+  /* Animation pour les liens avec effet de soulignement */
+  .link-underline {
+    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-fazio-red after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
+  
+  /* Animation pour les cartes */
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+  
+  /* Animation pour boutons */
+  .btn-animate {
+    @apply transition-all duration-300 hover:scale-105 active:scale-95;
+  }
+  
+  /* Animation pour les sections au défilement */
+  .fade-in-section {
+    @apply opacity-0 translate-y-4 transition-all duration-700;
+  }
+  
+  .fade-in-section.is-visible {
+    @apply opacity-100 translate-y-0;
+  }
 }
