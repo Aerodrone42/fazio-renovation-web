@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -62,12 +63,6 @@ const Index = () => {
       link: "/services/plomberie"
     }
   ];
-
-  // Fonction pour gérer les erreurs de chargement d'image
-  const handleImageError = (src: string) => {
-    console.error(`Erreur de chargement de l'image: ${src}`);
-    setFailedImages(prev => ({ ...prev, [src]: true }));
-  };
   
   // Image héro avec fallback
   const heroImagePath = "/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png";
