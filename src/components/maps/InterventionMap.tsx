@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { MapContainer, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
@@ -88,16 +88,6 @@ const InterventionMap: React.FC = () => {
     setActiveMarker(markerId);
   };
 
-  useEffect(() => {
-    // Add zoom controls to the map
-    const map = document.querySelector('.leaflet-container');
-    if (map) {
-      const zoomControl = document.createElement('div');
-      zoomControl.className = 'leaflet-control-zoom leaflet-bar leaflet-control';
-      map.appendChild(zoomControl);
-    }
-  }, []);
-
   // Convert kilometers to meters for the circle radius
   const kmToMeters = (km: number) => km * 1000;
 
@@ -105,7 +95,7 @@ const InterventionMap: React.FC = () => {
     <div className="relative z-0 w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-lg">
       <MapContainer
         className={styles.map}
-        center={[45.5, 5.3]} 
+        center={[45.5, 5.3] as [number, number]} 
         zoom={isMobile ? 5 : 6}
         style={{ height: '100%', width: '100%' }}
         attributionControl={false}
@@ -120,12 +110,12 @@ const InterventionMap: React.FC = () => {
           <Circle
             key={zone.id}
             center={zone.center}
-            radius={kmToMeters(zone.radiusKm)}
             pathOptions={{
               color: zone.color,
               fillColor: zone.color,
               fillOpacity: 0.1,
             }}
+            radius={kmToMeters(zone.radiusKm)}
           >
             <Popup>{zone.name}</Popup>
           </Circle>
@@ -136,10 +126,10 @@ const InterventionMap: React.FC = () => {
           <Marker
             key={marker.id}
             position={marker.position}
-            icon={customIcon}
             eventHandlers={{
               click: () => handleMarkerClick(marker.id),
             }}
+            icon={customIcon}
           >
             <Popup>
               <div className="text-center">
@@ -168,3 +158,4 @@ const InterventionMap: React.FC = () => {
 };
 
 export default InterventionMap;
+
