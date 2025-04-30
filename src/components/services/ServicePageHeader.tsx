@@ -9,7 +9,7 @@ interface ServicePageHeaderProps {
 
 const ServicePageHeader: React.FC<ServicePageHeaderProps> = ({ title, description, imagePath }) => {
   return (
-    <section className="relative h-[300px] md:h-[400px] overflow-hidden mb-0">
+    <section className="relative h-[300px] md:h-[400px] overflow-hidden">
       {/* Image de fond avec un overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
