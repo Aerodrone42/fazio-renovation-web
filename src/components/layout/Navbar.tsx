@@ -126,17 +126,7 @@ export const Navbar = () => {
             À propos
           </Link>
 
-          <Link
-            to="/contact"
-            className={cn(
-              "transition-colors",
-              textColor,
-              textHoverColor
-            )}
-          >
-            Contact
-          </Link>
-
+          {/* Removed the separate "Contact" link and kept only the "Demander un devis" button that links to the contact page */}
           <Button asChild variant="default" className="bg-fazio-red hover:bg-fazio-light-red">
             <Link to="/contact" className="whitespace-nowrap">
               Demander un devis
@@ -197,14 +187,7 @@ export const Navbar = () => {
               À propos
             </Link>
 
-            <Link
-              to="/contact"
-              className="py-2 text-foreground hover:text-fazio-red transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Contact
-            </Link>
-
+            {/* Removed the separate "Contact" link in mobile menu as well */}
             <Button asChild variant="default" className="bg-fazio-red hover:bg-fazio-light-red w-full">
               <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
                 Demander un devis
