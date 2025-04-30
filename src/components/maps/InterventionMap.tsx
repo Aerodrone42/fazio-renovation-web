@@ -1,120 +1,114 @@
 
 import React from 'react';
-import { MapContainer, TileLayer, Polygon, Marker, Tooltip } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './InterventionMap.module.css';
-import L from 'leaflet';
 
-// Define icon for markers
-const createCustomIcon = () => {
-  return L.icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/512/25/25613.png',
-    iconSize: [38, 38],
-    iconAnchor: [19, 38],
-    popupAnchor: [0, -38],
-  });
-};
+// Override default icon paths
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png'
+});
 
-interface InterventionMapProps {
-  height?: number;
-  className?: string;
+// Custom Icon
+const customIcon = L.icon({
+  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+  shadowSize: [41, 41],
+  shadowAnchor: [12, 41]
+});
+
+// Fazio Icon
+const fazioIcon = L.icon({
+  iconUrl: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTQiIGZpbGw9IiNDNjNDM0MiLz4KPHBhdGggZD0iTTExIDEyTDEzIDIwSDE5TDIxIDEyIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8cGF0aCBkPSJNOCAxNkgyMyIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+Cg==',
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32],
+  tooltipAnchor: [16, -16],
+});
+
+interface InterventionLocation {
+  name: string;
+  coordinates: [number, number];
+  isFazio?: boolean;
 }
 
-// Polygon coordinates for main service areas
-const rhoneAlpes = [
-  [45.9, 4.7], // Northwest corner
-  [45.9, 5.4], // Northeast corner
-  [45.6, 5.4], // Southeast corner
-  [45.6, 4.7], // Southwest corner
-];
+interface InterventionMapProps {
+  locations?: InterventionLocation[];
+  centerLocation?: [number, number];
+  initialZoom?: number;
+}
 
-const var83 = [
-  [43.6, 6.2],
-  [43.6, 6.9],
-  [43.1, 6.9],
-  [43.1, 6.2],
-];
-
-const alpesMaritimes = [
-  [44.1, 7.0],
-  [44.1, 7.6],
-  [43.7, 7.6],
-  [43.7, 7.0],
-];
-
-// Location of headquarters
-const headquarters: [number, number] = [45.85, 5.1]; // Example coordinates for Lyon area
-
-const InterventionMap: React.FC<InterventionMapProps> = ({ height = 300, className = '' }) => {
+const InterventionMap: React.FC<InterventionMapProps> = ({
+  locations = [],
+  centerLocation = [48.8566, 2.3522], // Default: Paris
+  initialZoom = 13,
+}) => {
+  // Add Fazio location
+  const fazioLocation: InterventionLocation = {
+    name: 'Fazio Entreprise',
+    coordinates: [48.8566, 2.3522], // Paris
+    isFazio: true
+  };
+  
+  const allLocations = [...locations];
+  
   return (
-    <div className={`rounded-lg overflow-hidden border-none ${className}`} style={{ height: `${height}px` }}>
-      <MapContainer 
-        center={[44.9, 6.0]} 
-        zoom={6} 
-        style={{ height: '100%', width: '100%', borderRadius: '0.5rem' }}
-        scrollWheelZoom={false}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-        
-        {/* Rhône-Alpes region */}
-        <Polygon 
-          positions={rhoneAlpes}
-          pathOptions={{
-            fillColor: '#315133',
-            fillOpacity: 0.6,
-            weight: 2,
-            opacity: 0.8
-          }}
-        >
-          <Tooltip direction="center">
-            Rhône-Alpes
-          </Tooltip>
-        </Polygon>
-        
-        {/* Var region */}
-        <Polygon 
-          positions={var83}
-          pathOptions={{
-            fillColor: '#db2e42',
-            fillOpacity: 0.5,
-            weight: 2,
-            opacity: 0.8
-          }}
-        >
-          <Tooltip direction="center">
-            Var (83)
-          </Tooltip>
-        </Polygon>
-        
-        {/* Alpes-Maritimes region */}
-        <Polygon 
-          positions={alpesMaritimes}
-          pathOptions={{
-            fillColor: '#db2e42',
-            fillOpacity: 0.5,
-            weight: 2,
-            opacity: 0.8
-          }}
-        >
-          <Tooltip direction="center">
-            Alpes-Maritimes (06)
-          </Tooltip>
-        </Polygon>
-
-        {/* Marker for company headquarters */}
+    <MapContainer 
+      center={centerLocation} 
+      zoom={initialZoom} 
+      style={{ height: '500px', width: '100%', borderRadius: '0.5rem' }} 
+      scrollWheelZoom={false}
+    >
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      
+      {/* Client intervention zones */}
+      {allLocations.map((location, index) => (
         <Marker 
-          position={headquarters}
-          icon={createCustomIcon()}
+          key={`${location.name}-${index}`}
+          position={location.coordinates}
         >
-          <Tooltip direction="top">
-            Siège - Dagneux (01)
+          <Tooltip permanent>
+            {location.name}
           </Tooltip>
         </Marker>
-      </MapContainer>
-    </div>
+      ))}
+      
+      {/* Specific neighborhoods */}
+      <Marker position={[48.8698, 2.3461]}>
+        <Tooltip>
+          9ème arrondissement
+        </Tooltip>
+      </Marker>
+      
+      <Marker position={[48.8550, 2.3254]}>
+        <Tooltip>
+          6ème arrondissement
+        </Tooltip>
+      </Marker>
+      
+      <Marker position={[48.8744, 2.3526]}>
+        <Tooltip>
+          10ème arrondissement
+        </Tooltip>
+      </Marker>
+      
+      {/* Fazio location */}
+      <Marker position={fazioLocation.coordinates}>
+        <Tooltip>
+          {fazioLocation.name}
+        </Tooltip>
+      </Marker>
+    </MapContainer>
   );
 };
 
