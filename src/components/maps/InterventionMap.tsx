@@ -68,8 +68,8 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
     <MapContainer 
       className={`${className} ${styles['leaflet-container']}`}
       style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
-      zoom={initialZoom}
       center={centerLocation}
+      zoom={initialZoom}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -87,60 +87,113 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         </Marker>
       ))}
       
-      {/* Rhône-Alpes region locations */}
-      <Marker position={[45.7485, 4.8467]}>
+      {/* Major cities in Rhône department */}
+      <Marker position={[45.7640, 4.8357]}>
         <Tooltip>
-          Lyon Centre
+          <strong>Lyon</strong> - Capitale des Gaules, métropole du Rhône
         </Tooltip>
       </Marker>
       
-      <Marker position={[45.7633, 4.8628]}>
+      <Marker position={[45.7659, 4.8320]}>
         <Tooltip>
-          Lyon Est
+          <strong>Lyon Centre</strong> - Centre historique et commercial
         </Tooltip>
       </Marker>
       
-      <Marker position={[45.7692, 4.8290]}>
+      <Marker position={[45.7728, 4.8577]}>
         <Tooltip>
-          Lyon Ouest
+          <strong>Villeurbanne</strong> - 2ème ville du Rhône
         </Tooltip>
       </Marker>
       
-      {/* Ain department */}
+      <Marker position={[45.6875, 4.9377]}>
+        <Tooltip>
+          <strong>Saint-Priest</strong> - Zone industrielle et résidentielle
+        </Tooltip>
+      </Marker>
+      
+      <Marker position={[45.7710, 4.7762]}>
+        <Tooltip>
+          <strong>Écully</strong> - Zone résidentielle premium
+        </Tooltip>
+      </Marker>
+      
+      <Marker position={[45.8938, 4.6386]}>
+        <Tooltip>
+          <strong>Villefranche-sur-Saône</strong> - Capitale du Beaujolais
+        </Tooltip>
+      </Marker>
+      
+      {/* Major cities in Ain department */}
       <Marker position={[46.2044, 5.2286]}>
         <Tooltip>
-          Bourg-en-Bresse
+          <strong>Bourg-en-Bresse</strong> - Préfecture de l'Ain
+        </Tooltip>
+      </Marker>
+      
+      <Marker position={[46.0078, 4.7197]}>
+        <Tooltip>
+          <strong>Oyonnax</strong> - Centre industriel de la Plastics Vallée
+        </Tooltip>
+      </Marker>
+      
+      <Marker position={[45.8275, 5.2258]}>
+        <Tooltip>
+          <strong>Ambérieu-en-Bugey</strong> - Carrefour ferroviaire
+        </Tooltip>
+      </Marker>
+      
+      <Marker position={[45.8978, 5.9456]}>
+        <Tooltip>
+          <strong>Belley</strong> - Sous-préfecture de l'Ain
+        </Tooltip>
+      </Marker>
+      
+      <Marker position={[46.3108, 5.6444]}>
+        <Tooltip>
+          <strong>Nantua</strong> - Porte du Haut-Bugey
+        </Tooltip>
+      </Marker>
+      
+      <Marker position={[45.9097, 5.3485]}>
+        <Tooltip>
+          <strong>Lagnieu</strong> - Ville de la plaine de l'Ain
         </Tooltip>
       </Marker>
       
       {/* Department 06 - Alpes-Maritimes */}
       <Marker position={[43.7102, 7.2620]}>
         <Tooltip>
-          Nice (06)
+          <strong>Nice (06)</strong> - Côte d'Azur
         </Tooltip>
       </Marker>
       
       <Marker position={[43.5513, 7.0128]}>
         <Tooltip>
-          Cannes (06)
+          <strong>Cannes (06)</strong> - Ville du Festival
         </Tooltip>
       </Marker>
       
       {/* Department 83 - Var */}
       <Marker position={[43.1246, 5.9280]}>
         <Tooltip>
-          Toulon (83)
+          <strong>Toulon (83)</strong> - Port militaire
         </Tooltip>
       </Marker>
       
       <Marker position={[43.4260, 6.7630]}>
         <Tooltip>
-          Saint-Tropez (83)
+          <strong>Saint-Tropez (83)</strong> - Station balnéaire
         </Tooltip>
       </Marker>
       
       {/* Fazio location */}
       <Marker position={fazioLocation.coordinates} icon={fazioIcon}>
+        <Popup>
+          <div className="font-bold">Fazio Entreprise</div>
+          <div>Votre expert en carrelage et rénovation</div>
+          <div>Intervention dans le Rhône, l'Ain et sur la Côte d'Azur</div>
+        </Popup>
         <Tooltip>
           {fazioLocation.name}
         </Tooltip>
