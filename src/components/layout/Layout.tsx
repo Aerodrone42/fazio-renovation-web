@@ -31,7 +31,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className="flex min-h-screen flex-col">
       <ScrollToTop />
       <Navbar />
-      <main id="main-content" className="flex-1 animate-fade-in">
+      <main id="main-content" className="flex-1 animate-fade-in flex flex-col">
         {children}
       </main>
       <Footer />

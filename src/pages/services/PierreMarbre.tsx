@@ -12,7 +12,7 @@ import CtaSection from '@/components/services/pierre-marbre/CtaSection';
 
 const PierreMarbre: React.FC = () => {
   return (
-    <div className="pt-16">
+    <>
       <Helmet>
         <title>Pierre Naturelle et Marbre | Expert en matériaux nobles | SARL FAZIO Lorenzo</title>
         <meta 
@@ -32,7 +32,7 @@ const PierreMarbre: React.FC = () => {
         imagePath="/lovable-uploads/bda2aeec-32ad-4860-a658-0f0015ceb618.png"
       />
       
-      <div>
+      <div className="bg-white">
         <IntroSection />
         <ServicesSection />
         <ApplicationsSection />
@@ -41,7 +41,7 @@ const PierreMarbre: React.FC = () => {
         <TestimonialsSection />
         <CtaSection />
       </div>
-    </div>
+    </>
   );
 };
 
