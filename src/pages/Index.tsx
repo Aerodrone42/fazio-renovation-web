@@ -13,7 +13,7 @@ const Index = () => {
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
   const fallbackImage = "/placeholder.svg";
-  const heroImagePath = "/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png";
+  const heroImagePath = "/lovable-uploads/b990c88c-c430-46de-a2ef-4ac0717a59fc.png";
 
   // Précharger l'image d'arrière-plan
   useEffect(() => {
@@ -83,7 +83,7 @@ const Index = () => {
           backgroundColor: "#1E2A3A" // Couleur de secours si l'image ne charge pas
         }}
       >
-        {/* Image de fond en tant qu'élément img pour meilleure compatibilité */}
+        {/* Indicateur de chargement */}
         {!backgroundLoaded && (
           <div className="absolute inset-0 flex items-center justify-center bg-fazio-dark-green">
             <p className="text-white">Chargement de l'image...</p>
@@ -91,7 +91,7 @@ const Index = () => {
         )}
         
         {/* Overlay foncé pour améliorer la lisibilité du texte */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
         
         {/* Contenu principal */}
         <div className="container relative z-10 text-white">
