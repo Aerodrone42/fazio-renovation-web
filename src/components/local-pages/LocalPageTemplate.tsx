@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { LocalPageData } from '@/data/localPagesData';
+import LocalPortfolioCarousel from './LocalPortfolioCarousel';
 
 interface LocalPageTemplateProps {
   pageData: LocalPageData;
@@ -66,6 +67,9 @@ const LocalPageTemplate: React.FC<LocalPageTemplateProps> = ({ pageData }) => {
           </div>
         </div>
       </section>
+
+      {/* Portfolio de réalisations - Nouveau composant ajouté ici */}
+      <LocalPortfolioCarousel cityName={ville.nom} />
 
       {/* Services proposés */}
       <section className="py-16 bg-gray-50">
