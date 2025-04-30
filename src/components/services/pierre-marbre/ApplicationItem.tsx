@@ -24,11 +24,6 @@ const ApplicationItem: React.FC<ApplicationItemProps> = ({
           src={imageSrc} 
           alt={imageAlt} 
           className="w-full h-full object-cover"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = "https://via.placeholder.com/600x400?text=Image+non+disponible";
-            target.alt = "Image temporairement indisponible";
-          }}
         />
       </AspectRatio>
     </div>
