@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { PhoneIcon } from 'lucide-react';
@@ -14,6 +14,39 @@ const Index = () => {
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
   const fallbackImage = "/placeholder.svg";
   const heroImagePath = "/lovable-uploads/b990c88c-c430-46de-a2ef-4ac0717a59fc.png";
+
+  // Références pour l'animation au défilement
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  
+  // Observer pour les animations au défilement
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    const servicesElement = servicesRef.current;
+    const mapElement = mapRef.current;
+    const ctaElement = ctaRef.current;
+    
+    if (servicesElement) observer.observe(servicesElement);
+    if (mapElement) observer.observe(mapElement);
+    if (ctaElement) observer.observe(ctaElement);
+    
+    return () => {
+      if (servicesElement) observer.unobserve(servicesElement);
+      if (mapElement) observer.unobserve(mapElement);
+      if (ctaElement) observer.unobserve(ctaElement);
+    };
+  }, []);
 
   // Précharger l'image d'arrière-plan
   useEffect(() => {
@@ -75,12 +108,13 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen">
-      {/* Hero Section avec image de fond spécifique */}
+      {/* Hero Section avec animation de fade-in */}
       <div 
-        className="relative min-h-screen bg-cover bg-center flex items-center"
+        className="relative min-h-screen bg-cover bg-center flex items-center transition-opacity duration-1000"
         style={{
           backgroundImage: backgroundLoaded ? `url('${heroImagePath}')` : 'none',
-          backgroundColor: "#1E2A3A" // Couleur de secours si l'image ne charge pas
+          backgroundColor: "#1E2A3A", // Couleur de secours si l'image ne charge pas
+          opacity: backgroundLoaded ? 1 : 0.8,
         }}
       >
         {/* Indicateur de chargement */}
@@ -93,9 +127,9 @@ const Index = () => {
         {/* Overlay foncé pour améliorer la lisibilité du texte */}
         <div className="absolute inset-0 bg-black/60"></div>
         
-        {/* Contenu principal */}
+        {/* Contenu principal avec animation */}
         <div className="container relative z-10 text-white">
-          <div className="max-w-2xl">
+          <div className="max-w-2xl animate-fade-in">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold mb-6">
               Carrelage & rénovation<br />
               clé en main
@@ -105,12 +139,12 @@ const Index = () => {
               espaces avec expertise et passion.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="bg-fazio-red hover:bg-fazio-light-red">
+              <Button asChild size="lg" className="bg-fazio-red hover:bg-fazio-light-red transform transition-transform duration-300 hover:scale-105">
                 <Link to="/contact">
                   Demander un devis gratuit
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10 bg-transparent">
+              <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10 bg-transparent transform transition-transform duration-300 hover:scale-105">
                 <a href="tel:+33123456789" className="flex items-center gap-2">
                   <PhoneIcon className="h-5 w-5" />
                   Nous appeler
@@ -121,13 +155,17 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Services Section */}
-      <section className="py-16 bg-gray-50">
+      {/* Services Section avec animation au défilement */}
+      <section ref={servicesRef} className="py-16 bg-gray-50 animate-on-scroll">
         <div className="container">
           <h2 className="text-3xl font-bold text-fazio-dark-green mb-8 text-center">Nos Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => (
-              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card 
+                key={index} 
+                className="overflow-hidden hover:shadow-lg transition-shadow transform transition-transform duration-300 hover:-translate-y-2"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
                 <AspectRatio ratio={16/9}>
                   <img
                     src={failedImages[service.src] ? fallbackImage : service.src}
@@ -150,8 +188,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Intervention Zone Section */}
-      <section className="py-16">
+      {/* Intervention Zone Section avec animation */}
+      <section ref={mapRef} className="py-16 animate-on-scroll">
         <div className="container">
           <h2 className="text-3xl font-bold text-fazio-dark-green mb-8 text-center">
             Notre zone d'intervention
@@ -159,18 +197,20 @@ const Index = () => {
           <p className="text-lg text-gray-700 mb-8 text-center">
             Nous intervenons principalement dans l'Ouest Lyonnais et l'Ain pour tous vos projets de carrelage.
           </p>
-          <InterventionMap />
+          <div className="transform transition-all duration-700 hover:scale-[1.02]">
+            <InterventionMap />
+          </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-fazio-red text-white py-12">
+      {/* CTA Section avec animation */}
+      <section ref={ctaRef} className="bg-fazio-red text-white py-12 animate-on-scroll">
         <div className="container text-center">
           <h2 className="text-3xl font-bold mb-6">Prêt à donner vie à votre projet ?</h2>
           <p className="text-lg mb-8 max-w-2xl mx-auto">
             Contactez-nous dès maintenant pour discuter de vos besoins et obtenir un devis personnalisé.
           </p>
-          <Button asChild size="lg" className="bg-white text-fazio-red hover:bg-fazio-cream">
+          <Button asChild size="lg" className="bg-white text-fazio-red hover:bg-fazio-cream transform transition-transform duration-300 hover:scale-110">
             <Link to="/contact">
               Demander un devis gratuit
             </Link>
