@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -74,14 +75,8 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen">
-      {/* Hero Section avec image de fond */}
-      <div 
-        className="relative min-h-screen bg-cover bg-center flex items-center"
-        style={{ 
-          backgroundImage: "url('/lovable-uploads/587e0239-3060-4eb1-a34c-eec8b8f49042.png')", 
-          backgroundColor: "#1E2A3A" // Couleur de secours si l'image ne charge pas
-        }}
-      >
+      {/* Hero Section - UTILISONS L'IMAGE DE FOND GLOBALE */}
+      <div className="relative min-h-screen flex items-center">
         {/* Overlay foncé pour améliorer la lisibilité du texte */}
         <div className="absolute inset-0 bg-black/50"></div>
         
@@ -113,8 +108,6 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Nous n'incluons pas les autres sections ici car elles ne sont pas visibles sur l'image de référence */}
-      
       {/* Les sections suivantes (Services, Zone d'intervention, CTA) seront accessibles en scrollant */}
       {/* Services Section */}
       <section className="py-16 bg-gray-50">
