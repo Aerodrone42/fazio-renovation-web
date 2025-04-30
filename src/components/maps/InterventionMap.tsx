@@ -118,17 +118,18 @@ const InterventionMap: React.FC = () => {
       <MapContainer 
         className="rounded-lg border-2 border-gray-200"
         style={{ height: '400px', width: '100%', zIndex: 1 }}
-        scrollWheelZoom={false}
+        center={defaultCenter}
+        zoom={9}
       >
         <ChangeView center={center} zoom={zoom} />
         <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {markers.map(marker => (
           <Marker 
             key={marker.id} 
             position={marker.position}
-            icon={customIcon}
             eventHandlers={{
               click: () => {
                 setActiveMarker(marker.id);

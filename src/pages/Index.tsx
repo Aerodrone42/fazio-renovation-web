@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -29,7 +30,7 @@ const Index = () => {
               <img
                 src="/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png"
                 alt="Pose de carrelage grand format dans une salle de bain moderne"
-                className="rounded-lg shadow-lg"
+                className="rounded-lg shadow-lg w-full h-auto"
               />
             </div>
           </div>
@@ -43,13 +44,13 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Carrelage */}
             <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="aspect-w-16 aspect-h-9 relative">
+              <AspectRatio ratio={16/9}>
                 <img
                   src="/lovable-uploads/0999599b-9349-4441-a449-6d59f5098978.png"
                   alt="Pose de carrelage"
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </AspectRatio>
               <CardContent className="p-4">
                 <h3 className="font-semibold text-lg mb-1">Pose de carrelage</h3>
                 <p className="text-sm text-gray-600">Carrelage intérieur et extérieur, tous formats et tous types de pose.</p>
@@ -61,13 +62,13 @@ const Index = () => {
 
             {/* Mosaïque */}
             <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="aspect-w-16 aspect-h-9 relative">
+              <AspectRatio ratio={16/9}>
                 <img
                   src="/lovable-uploads/4954140c-c991-4456-a506-a299159f1555.png"
                   alt="Pose de mosaïque"
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </AspectRatio>
               <CardContent className="p-4">
                 <h3 className="font-semibold text-lg mb-1">Pose de mosaïque</h3>
                 <p className="text-sm text-gray-600">Mosaïque décorative pour personnaliser vos espaces.</p>
@@ -79,13 +80,13 @@ const Index = () => {
 
             {/* Pierre naturelle et marbre */}
             <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="aspect-w-16 aspect-h-9 relative">
+              <AspectRatio ratio={16/9}>
                 <img
                   src="/lovable-uploads/96199561-9921-4591-a943-c90192124c59.png"
                   alt="Pose de pierre naturelle et marbre"
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </AspectRatio>
               <CardContent className="p-4">
                 <h3 className="font-semibold text-lg mb-1">Pierre naturelle et marbre</h3>
                 <p className="text-sm text-gray-600">Pose de pierre naturelle et marbre pour un rendu élégant et authentique.</p>
@@ -97,13 +98,13 @@ const Index = () => {
 
             {/* Douche à l'italienne */}
             <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="aspect-w-16 aspect-h-9 relative">
+              <AspectRatio ratio={16/9}>
                 <img
                   src="/lovable-uploads/5bd69944-5989-491f-a991-59949616654b.png"
                   alt="Création de douche à l'italienne"
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </AspectRatio>
               <CardContent className="p-4">
                 <h3 className="font-semibold text-lg mb-1">Douche à l'italienne</h3>
                 <p className="text-sm text-gray-600">Conception et réalisation de douches à l'italienne sur mesure.</p>
@@ -115,13 +116,13 @@ const Index = () => {
 
             {/* Rénovation de salle de bain */}
             <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="aspect-w-16 aspect-h-9 relative">
+              <AspectRatio ratio={16/9}>
                 <img
                   src="/lovable-uploads/0222cdbc-73ea-4cf7-83fb-af4d24eaf2a3.png"
                   alt="Rénovation de salle de bain"
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </AspectRatio>
               <CardContent className="p-4">
                 <h3 className="font-semibold text-lg mb-1">Rénovation de salle de bain</h3>
                 <p className="text-sm text-gray-600">Rénovation complète de salle de bain, de la conception à la réalisation.</p>
@@ -133,13 +134,13 @@ const Index = () => {
 
             {/* Plomberie */}
             <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="aspect-w-16 aspect-h-9 relative">
+              <AspectRatio ratio={16/9}>
                 <img
                   src="/lovable-uploads/4532987a-4591-4533-a19c-9a1a294a0a21.png"
                   alt="Travaux de plomberie"
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </AspectRatio>
               <CardContent className="p-4">
                 <h3 className="font-semibold text-lg mb-1">Plomberie</h3>
                 <p className="text-sm text-gray-600">Travaux de plomberie générale, installation et remplacement de sanitaires.</p>
