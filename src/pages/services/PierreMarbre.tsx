@@ -7,6 +7,7 @@ import ServicesSection from '@/components/services/pierre-marbre/ServicesSection
 import ApplicationsSection from '@/components/services/pierre-marbre/ApplicationsSection';
 import AdvantagesSection from '@/components/services/pierre-marbre/AdvantagesSection';
 import ProjectShowcaseSection from '@/components/services/pierre-marbre/ProjectShowcaseSection';
+import TestimonialsSection from '@/components/services/pierre-marbre/TestimonialsSection';
 import CtaSection from '@/components/services/pierre-marbre/CtaSection';
 
 const PierreMarbre: React.FC = () => {
@@ -37,6 +38,7 @@ const PierreMarbre: React.FC = () => {
       <ApplicationsSection />
       <AdvantagesSection />
       <ProjectShowcaseSection />
+      <TestimonialsSection />
       <CtaSection />
     </div>
   );
