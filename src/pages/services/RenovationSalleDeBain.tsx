@@ -185,8 +185,8 @@ const RenovationSalleDeBain = () => {
             <div className="bg-white rounded-lg overflow-hidden shadow-md">
               <div className="h-64">
                 <img 
-                  src="/lovable-uploads/a710474f-3d48-4f86-9471-7f3cb371435d.png" 
-                  alt="Préparation des installations plomberie" 
+                  src="/lovable-uploads/7d9587ec-d151-4dfd-aec1-f03ee2666d01.png" 
+                  alt="Préparation et pose de carrelage dans une salle de bain" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -201,8 +201,8 @@ const RenovationSalleDeBain = () => {
             <div className="bg-white rounded-lg overflow-hidden shadow-md">
               <div className="h-64">
                 <img 
-                  src="/lovable-uploads/ad4258c5-00b0-4740-8bb5-c6df5a6d0d4e.png" 
-                  alt="Salle de bain terminée avec carrelage beige" 
+                  src="/lovable-uploads/33102d95-12df-4e3e-9959-1778c94dd58c.png" 
+                  alt="Salle de bain terminée avec carrelage gris clair" 
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -236,4 +236,3 @@ const RenovationSalleDeBain = () => {
 };
 
 export default RenovationSalleDeBain;
-
