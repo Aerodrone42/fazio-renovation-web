@@ -92,9 +92,9 @@ const InterventionMap: React.FC = () => {
   const kmToMeters = (km: number) => km * 1000;
 
   return (
-    <div className="relative z-0 w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-lg">
+    <div className="relative z-10 w-full h-full rounded-lg overflow-hidden shadow-lg">
       {/* Fallback content in case map doesn't load */}
-      <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+      <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-0">
         <div className="text-center p-4">
           <p className="font-bold text-fazio-dark-green">Carte des zones d'intervention</p>
           <p className="text-sm">Nous intervenons dans la Région Rhône-Alpes et sur la Côte d'Azur</p>
@@ -149,7 +149,7 @@ const InterventionMap: React.FC = () => {
       </MapContainer>
       
       {/* Map legend */}
-      <div className="absolute bottom-3 left-3 bg-white p-2 rounded shadow z-[1000] text-xs">
+      <div className="absolute bottom-3 left-3 bg-white p-2 rounded shadow z-20 text-xs">
         <h3 className="font-bold mb-1 text-fazio-dark-green">Zones d'intervention</h3>
         <div className="flex items-center mb-1">
           <div className="w-3 h-3 rounded-full mr-1" style={{backgroundColor: "#34873C"}}></div>

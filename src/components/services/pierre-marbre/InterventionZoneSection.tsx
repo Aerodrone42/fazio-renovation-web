@@ -30,7 +30,7 @@ const InterventionZoneSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-          <div className="order-2 md:order-1 rounded-lg overflow-hidden shadow-lg transition-all duration-500 hover:shadow-xl h-[400px] md:h-[500px]">
+          <div className="order-2 md:order-1 rounded-lg shadow-lg transition-all duration-500 hover:shadow-xl h-[400px] md:h-[500px] overflow-hidden">
             <InterventionMap />
           </div>
           <div className="order-1 md:order-2">
