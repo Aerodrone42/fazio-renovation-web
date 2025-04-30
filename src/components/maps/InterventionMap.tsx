@@ -114,7 +114,7 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
     <MapContainer 
       className={`${className} ${styles['leaflet-container']}`}
       style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
-      center={centerLocation as [number, number]} // Fix type by casting
+      center={centerLocation}
       zoom={initialZoom}
     >
       <TileLayer
@@ -152,7 +152,6 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
       </Rectangle>
 
       {/* City markers */}
-      {/* All marker components have been fixed to use the icon prop correctly */}
       <Marker position={[45.750000, 4.850000]} icon={icon}>
         <Popup>
           <div className="font-bold">Lyon</div>
