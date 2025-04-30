@@ -199,7 +199,7 @@ const Coordination = () => {
             <div className="bg-white rounded-lg overflow-hidden shadow-md">
               <div className="h-64">
                 <img 
-                  src="/lovable-uploads/12444f2a-8cb8-4ed8-8e57-a2073415add5.png" 
+                  src="/lovable-uploads/33102d95-12df-4e3e-9959-1778c94dd58c.png" 
                   alt="Rénovation complète de salle de bain" 
                   className="w-full h-full object-cover"
                 />

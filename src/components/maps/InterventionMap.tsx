@@ -118,8 +118,8 @@ const InterventionMap: React.FC = () => {
       <MapContainer 
         className="rounded-lg border-2 border-gray-200"
         style={{ height: '400px', width: '100%', zIndex: 1 }}
-        center={center} 
-        zoom={zoom} 
+        center={defaultCenter}
+        zoom={9} 
         scrollWheelZoom={false}>
         <ChangeView center={center} zoom={zoom} />
         <TileLayer
@@ -130,7 +130,6 @@ const InterventionMap: React.FC = () => {
           <Marker 
             key={marker.id} 
             position={marker.position}
-            icon={customIcon}
             eventHandlers={{
               click: () => {
                 setActiveMarker(marker.id);
