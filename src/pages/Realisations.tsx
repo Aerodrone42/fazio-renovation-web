@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -35,7 +34,7 @@ const Realisations = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const projectsPerPage = 9;
   
-  // Données des projets - réorganisées par type
+  // Données des projets - réorganisées par type avec descriptions corrigées
   const projectImages: ProjectImage[] = [
     // INTÉRIEUR
     {
@@ -52,7 +51,7 @@ const Realisations = () => {
       alt: "Carrelage intérieur salon avec grandes baies vitrées", 
       location: "Villefranche-sur-Saône (69)", 
       type: "interieur",
-      description: "Carrelage sol clair pour espace lumineux avec vue panoramique"
+      description: "Espace lumineux avec carrelage clair et vue panoramique"
     },
     {
       id: 3, 
@@ -60,15 +59,15 @@ const Realisations = () => {
       alt: "Vue séjour avec grandes baies vitrées et carrelage", 
       location: "Lyon Ouest (69)", 
       type: "interieur",
-      description: "Salon rénové avec pose de carrelage et préparation des murs"
+      description: "Séjour avec pose de carrelage grand format et plafond tendu"
     },
     {
       id: 4, 
       src: "/lovable-uploads/7b19e07c-56c5-45b6-a265-60f82f594124.png", 
-      alt: "Espace séjour avec carrelage à rénover", 
+      alt: "Espace séjour avec carrelage rénové", 
       location: "Bourg-en-Bresse (01)", 
       type: "interieur",
-      description: "Préparation et pose de carrelage dans une pièce à vivre"
+      description: "Rénovation d'un séjour avec nouveau carrelage imitation pierre"
     },
     {
       id: 5, 
@@ -76,7 +75,7 @@ const Realisations = () => {
       alt: "Escalier avec carrelage clair", 
       location: "Montluel (01)", 
       type: "interieur",
-      description: "Rénovation d'escalier et pose de carrelage coordonné"
+      description: "Escalier avec carrelage assorti au sol du séjour"
     },
     {
       id: 18, 
@@ -84,7 +83,7 @@ const Realisations = () => {
       alt: "Espace séjour avec carrelage gris moderne", 
       location: "Meximieux (01)", 
       type: "interieur",
-      description: "Séjour avec grand carrelage gris pour ambiance contemporaine"
+      description: "Séjour contemporain avec carrelage grand format gris"
     },
     
     // PRÉPARATION
@@ -94,7 +93,7 @@ const Realisations = () => {
       alt: "Rénovation sol avec ancien carrelage et chape", 
       location: "Miribel (01)", 
       type: "preparation",
-      description: "Travaux de rénovation avec dépose d'ancien carrelage et pose de nouvelle chape"
+      description: "Dépose d'ancien carrelage avant pose de nouvelle chape"
     },
     {
       id: 8, 
@@ -102,7 +101,7 @@ const Realisations = () => {
       alt: "Chape liquide avant pose de carrelage", 
       location: "Trévoux (01)", 
       type: "preparation",
-      description: "Préparation de sol avec chape liquide autolissante"
+      description: "Coulage de chape liquide autolissante pour sol parfaitement plan"
     },
     {
       id: 19, 
@@ -110,7 +109,7 @@ const Realisations = () => {
       alt: "Pose de carrelage en cours dans un couloir", 
       location: "Trévoux (01)", 
       type: "preparation",
-      description: "Travaux de préparation et pose de carrelage en cours"
+      description: "Travaux en cours avec pose progressive de carrelage"
     },
     
     // SALLE DE BAIN
@@ -120,7 +119,7 @@ const Realisations = () => {
       alt: "Salle de bain avec carrelage beige", 
       location: "Beynost (01)", 
       type: "salleDeBain",
-      description: "Carrelage grand format travertin pour salle de bain"
+      description: "Salle de bain avec carrelage effet travertin et vasque élégante"
     },
     
     // EXTÉRIEUR
@@ -130,15 +129,15 @@ const Realisations = () => {
       alt: "Terrasse extérieure avec carrelage beige", 
       location: "Lyon (69)", 
       type: "exterieur",
-      description: "Terrasse extérieure avec carrelage anti-dérapant résistant au gel"
+      description: "Terrasse avec carrelage extérieur anti-dérapant résistant au gel"
     },
     {
       id: 11, 
       src: "/lovable-uploads/30820870-d453-4c67-a900-ba4f32cfa46c.png", 
-      alt: "Ancienne terrasse avec dallage", 
+      alt: "Ancienne terrasse avec dallage à rénover", 
       location: "Ambérieu-en-Bugey (01)", 
       type: "exterieur",
-      description: "Rénovation de terrasse extérieure avec barbecue"
+      description: "Terrasse extérieure avant rénovation avec espace barbecue"
     },
     {
       id: 12, 
@@ -146,7 +145,7 @@ const Realisations = () => {
       alt: "Terrasse extérieure rénovée", 
       location: "Dagneux (01)", 
       type: "exterieur",
-      description: "Pose de carrelage extérieur aspect pierre naturelle"
+      description: "Terrasse extérieure avec nouveau carrelage aspect pierre naturelle"
     },
     
     // PISCINE
@@ -156,7 +155,7 @@ const Realisations = () => {
       alt: "Piscine avec carrelage bleu-vert", 
       location: "Bourg-en-Bresse (01)", 
       type: "piscine",
-      description: "Carrelage de piscine en grès cérame aspect pierre naturelle"
+      description: "Revêtement de piscine en grès cérame aspect pierre naturelle"
     },
     {
       id: 14, 
@@ -164,7 +163,7 @@ const Realisations = () => {
       alt: "Construction de piscine avec carrelage", 
       location: "Villefranche-sur-Saône (69)", 
       type: "piscine",
-      description: "Construction d'une piscine avec carrelage spécial résistant à l'eau"
+      description: "Construction de piscine avec pose de carrelage spécial piscine"
     },
     {
       id: 15, 
@@ -172,7 +171,7 @@ const Realisations = () => {
       alt: "Escalier de piscine carrelé", 
       location: "Lyon Ouest (69)", 
       type: "piscine",
-      description: "Détail d'escalier de piscine avec carrelage antidérapant"
+      description: "Escalier de piscine avec carrelage antidérapant pour sécurité"
     },
     {
       id: 16, 
@@ -180,7 +179,7 @@ const Realisations = () => {
       alt: "Construction de piscine avant carrelage", 
       location: "Montluel (01)", 
       type: "piscine",
-      description: "Préparation pour carrelage de piscine avec étanchéité"
+      description: "Préparation et étanchéité avant pose de carrelage de piscine"
     },
     
     // CUISINE
@@ -190,7 +189,7 @@ const Realisations = () => {
       alt: "Pose de carrelage imitation béton ciré", 
       location: "Meximieux (01)", 
       type: "cuisine",
-      description: "Carrelage grand format aspect béton ciré dans une cuisine moderne"
+      description: "Cuisine moderne avec carrelage aspect béton ciré"
     },
     {
       id: 17, 
@@ -198,7 +197,7 @@ const Realisations = () => {
       alt: "Cuisine moderne avec carrelage gris", 
       location: "Miribel (01)", 
       type: "cuisine",
-      description: "Cuisine contemporaine avec carrelage grand format"
+      description: "Cuisine contemporaine avec îlot central et carrelage grand format"
     }
   ];
   
@@ -219,11 +218,32 @@ const Realisations = () => {
     setCurrentPage(1);
   };
   
-  // Projets mis en avant pour le diaporama - sélection des meilleurs exemples
+  // Projets mis en avant pour le diaporama avec des descriptions corrigées
   const [selectedProjects, setSelectedProjects] = useState<ProjectImage[]>([
-    projectImages[12], // Piscine
-    projectImages[9], // Terrasse extérieure
-    projectImages[0] // Intérieur salon
+    {
+      id: 13,
+      src: "/lovable-uploads/ade1f5bb-0fc9-4dff-b9a4-a06121bfae54.png", 
+      alt: "Piscine avec carrelage bleu-vert", 
+      location: "Bourg-en-Bresse (01)", 
+      type: "piscine",
+      description: "Revêtement de piscine en grès cérame aspect pierre naturelle"
+    },
+    {
+      id: 10, 
+      src: "/lovable-uploads/7ec42741-e0d0-45ae-9f50-24c2ed8d66c7.png", 
+      alt: "Terrasse extérieure avec carrelage beige", 
+      location: "Lyon (69)", 
+      type: "exterieur",
+      description: "Terrasse avec carrelage extérieur anti-dérapant résistant au gel"
+    },
+    {
+      id: 1,
+      src: "/lovable-uploads/5d3243b6-cbe4-4f2a-b3be-3da901e6813c.png",
+      alt: "Pose de carrelage intérieur - Espace salon avec sol en carrelage clair",
+      location: "Dagneux (01)",
+      type: "interieur",
+      description: "Rénovation complète avec pose de carrelage grand format"
+    }
   ]);
 
   return (
