@@ -20,6 +20,7 @@ const Index = () => {
   const servicesRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const presentationRef = useRef<HTMLDivElement>(null);
   
   // Observer pour les animations au défilement
   useEffect(() => {
@@ -37,15 +38,18 @@ const Index = () => {
     const servicesElement = servicesRef.current;
     const mapElement = mapRef.current;
     const ctaElement = ctaRef.current;
+    const presentationElement = presentationRef.current;
     
     if (servicesElement) observer.observe(servicesElement);
     if (mapElement) observer.observe(mapElement);
     if (ctaElement) observer.observe(ctaElement);
+    if (presentationElement) observer.observe(presentationElement);
     
     return () => {
       if (servicesElement) observer.unobserve(servicesElement);
       if (mapElement) observer.unobserve(mapElement);
       if (ctaElement) observer.unobserve(ctaElement);
+      if (presentationElement) observer.unobserve(presentationElement);
     };
   }, []);
 
@@ -168,6 +172,39 @@ const Index = () => {
           </div>
         </div>
       </div>
+
+      {/* Section de présentation SEO avec animation au défilement */}
+      <section ref={presentationRef} className="py-16 bg-white animate-on-scroll">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-fazio-dark-green mb-6 text-center">
+              SARL FAZIO Lorenzo - L'excellence du carrelage et de la rénovation
+            </h2>
+            <div className="prose prose-lg mx-auto text-gray-700">
+              <p className="mb-4">
+                <strong>SARL FAZIO Lorenzo</strong> est une <strong>entreprise artisanale spécialisée en pose de carrelage et rénovation</strong> 
+                présente dans l'<strong>Ain</strong>, l'<strong>Ouest Lyonnais</strong>, les <strong>Alpes-Maritimes</strong> et le <strong>Var</strong>. 
+                Depuis plus de 15 ans, notre équipe d'artisans qualifiés met son savoir-faire au service de votre satisfaction pour tous vos projets 
+                de revêtement de sol et mur, tant pour les particuliers que pour les professionnels.
+              </p>
+              <p className="mb-4">
+                Notre expertise s'étend sur un large éventail de prestations : <strong>pose de carrelage</strong> intérieur et extérieur, 
+                <strong> mosaïque</strong>, <strong>pierre naturelle</strong>, <strong>marbre</strong>, <strong>création de douche à l'italienne</strong> et 
+                <strong> rénovation complète de salle de bain</strong>. Nos artisans carreleurs interviennent dans toutes les principales villes de 
+                l'<strong>Ain (01)</strong> dont <strong>Bourg-en-Bresse</strong>, <strong>Oyonnax</strong> et <strong>Ambérieu-en-Bugey</strong>, 
+                ainsi que dans l'<strong>Ouest Lyonnais</strong> notamment à <strong>Tassin-la-Demi-Lune</strong> et <strong>Écully</strong>.
+              </p>
+              <p>
+                Notre double implantation nous permet également d'apporter notre expertise en carrelage et rénovation dans les départements du 
+                <strong> Var (83)</strong> et des <strong>Alpes-Maritimes (06)</strong>, en intervenant dans des villes comme <strong>Nice</strong>, 
+                <strong> Cannes</strong>, <strong>Antibes</strong>, <strong>Toulon</strong> et <strong>Fréjus</strong>. Notre engagement pour la qualité, 
+                le respect des délais et un service client irréprochable font de SARL FAZIO Lorenzo votre partenaire de confiance pour tous vos projets 
+                de carrelage et rénovation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Services Section avec animation au défilement */}
       <section ref={servicesRef} className="py-16 bg-gray-50 animate-on-scroll">
