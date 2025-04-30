@@ -56,9 +56,9 @@ const TestimonialsSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-8 bg-gray-50">
+    <section className="py-6 bg-gray-50 mt-0">
       <div className="container">
-        <div className="max-w-3xl mx-auto text-center mb-8">
+        <div className="max-w-3xl mx-auto text-center mb-6">
           <h2 className="text-3xl font-bold text-fazio-dark-green mb-4">Ce que nos clients disent de nous</h2>
           <p className="text-lg text-gray-700">
             Satisfaction garantie pour tous nos projets en pierre naturelle et marbre dans la région Rhône-Alpes et sur la Côte d'Azur.
@@ -92,7 +92,7 @@ const TestimonialsSection: React.FC = () => {
           </div>
         </div>
         
-        <div className="mt-6 text-gray-700 mb-2">
+        <div className="mt-6 text-gray-700">
           <p className="text-center">
             Que vous habitiez dans le centre historique de Lyon, dans les quartiers résidentiels de Villeurbanne, dans le vignoble de Villefranche-sur-Saône, au cœur de Bourg-en-Bresse, dans la zone industrielle d'Oyonnax ou aux portes du Bugey à Ambérieu-en-Bugey, notre équipe d'artisans qualifiés saura mettre en valeur votre intérieur avec des revêtements en pierre naturelle et en marbre de la plus haute qualité.
           </p>
