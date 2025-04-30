@@ -66,11 +66,11 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
   
   return (
     <MapContainer 
-      center={centerLocation} 
-      zoom={initialZoom} 
-      style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
-      className={className}
+      className={`${className} ${styles['leaflet-container']}`}
       scrollWheelZoom={false}
+      style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
+      zoom={initialZoom}
+      center={centerLocation}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
