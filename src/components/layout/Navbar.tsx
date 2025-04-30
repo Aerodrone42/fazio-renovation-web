@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -19,7 +18,6 @@ const services = [
   { name: 'Pose de pierre naturelle & marbre', href: '/services/pierre-marbre' },
   { name: "Création de douche à l'italienne", href: '/services/douche-italienne' },
   { name: 'Rénovation complète de salle de bain', href: '/services/renovation-salle-de-bain' },
-  { name: 'Travaux de plomberie', href: '/services/plomberie' },
   { name: "Coordination tous corps d'état", href: '/services/coordination' },
 ];
 
