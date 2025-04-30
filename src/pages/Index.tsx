@@ -31,6 +31,11 @@ const Index = () => {
                 src="/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png"
                 alt="Pose de carrelage grand format dans une salle de bain moderne"
                 className="rounded-lg shadow-lg w-full h-auto"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = "https://via.placeholder.com/600x400?text=Image+non+disponible";
+                  target.alt = "Image temporairement indisponible";
+                }}
               />
             </div>
           </div>
@@ -49,6 +54,11 @@ const Index = () => {
                   src="/lovable-uploads/0999599b-9349-4441-a449-6d59f5098978.png"
                   alt="Pose de carrelage"
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "https://via.placeholder.com/600x400?text=Image+non+disponible";
+                    target.alt = "Image temporairement indisponible";
+                  }}
                 />
               </AspectRatio>
               <CardContent className="p-4">
@@ -67,6 +77,11 @@ const Index = () => {
                   src="/lovable-uploads/4954140c-c991-4456-a506-a299159f1555.png"
                   alt="Pose de mosaïque"
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "https://via.placeholder.com/600x400?text=Image+non+disponible";
+                    target.alt = "Image temporairement indisponible";
+                  }}
                 />
               </AspectRatio>
               <CardContent className="p-4">
@@ -85,6 +100,11 @@ const Index = () => {
                   src="/lovable-uploads/96199561-9921-4591-a943-c90192124c59.png"
                   alt="Pose de pierre naturelle et marbre"
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "https://via.placeholder.com/600x400?text=Image+non+disponible";
+                    target.alt = "Image temporairement indisponible";
+                  }}
                 />
               </AspectRatio>
               <CardContent className="p-4">
@@ -103,6 +123,11 @@ const Index = () => {
                   src="/lovable-uploads/5bd69944-5989-491f-a991-59949616654b.png"
                   alt="Création de douche à l'italienne"
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "https://via.placeholder.com/600x400?text=Image+non+disponible";
+                    target.alt = "Image temporairement indisponible";
+                  }}
                 />
               </AspectRatio>
               <CardContent className="p-4">
@@ -121,6 +146,11 @@ const Index = () => {
                   src="/lovable-uploads/0222cdbc-73ea-4cf7-83fb-af4d24eaf2a3.png"
                   alt="Rénovation de salle de bain"
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "https://via.placeholder.com/600x400?text=Image+non+disponible";
+                    target.alt = "Image temporairement indisponible";
+                  }}
                 />
               </AspectRatio>
               <CardContent className="p-4">
@@ -139,6 +169,11 @@ const Index = () => {
                   src="/lovable-uploads/4532987a-4591-4533-a19c-9a1a294a0a21.png"
                   alt="Travaux de plomberie"
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "https://via.placeholder.com/600x400?text=Image+non+disponible";
+                    target.alt = "Image temporairement indisponible";
+                  }}
                 />
               </AspectRatio>
               <CardContent className="p-4">
