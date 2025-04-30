@@ -91,7 +91,7 @@ const Index = () => {
                   Demander un devis gratuit
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
+              <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10 bg-transparent">
                 <a href="tel:+33123456789" className="flex items-center gap-2">
                   <PhoneIcon className="h-5 w-5" />
                   Nous appeler
