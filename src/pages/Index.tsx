@@ -67,12 +67,12 @@ const Index = () => {
       <div 
         className="relative min-h-screen bg-cover bg-center flex items-center"
         style={{ 
-          backgroundImage: "url('/lovable-uploads/587e0239-3060-4eb1-a34c-eec8b8f49042.png')", 
+          backgroundImage: "url('/lovable-uploads/5e39027f-a913-40e5-9930-1f34bb26a709.png')", 
           backgroundColor: "#1E2A3A" // Couleur de secours si l'image ne charge pas
         }}
       >
         {/* Overlay foncé pour améliorer la lisibilité du texte */}
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-black/40"></div>
         
         {/* Contenu principal */}
         <div className="container relative z-10 text-white">
