@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -129,7 +130,7 @@ const Realisations = () => {
       alt: "Terrasse extérieure avec carrelage beige", 
       location: "Lyon (69)", 
       type: "exterieur",
-      description: "Terrasse avec carrelage extérieur anti-dérapant résistant au gel"
+      description: "Terrasse extérieure avant rénovation avec espace barbecue"
     },
     {
       id: 11, 
@@ -137,7 +138,7 @@ const Realisations = () => {
       alt: "Ancienne terrasse avec dallage à rénover", 
       location: "Ambérieu-en-Bugey (01)", 
       type: "exterieur",
-      description: "Terrasse extérieure avant rénovation avec espace barbecue"
+      description: "Terrasse avec carrelage extérieur anti-dérapant résistant au gel"
     },
     
     // PISCINE
@@ -226,7 +227,7 @@ const Realisations = () => {
       alt: "Terrasse extérieure avec carrelage beige", 
       location: "Lyon (69)", 
       type: "exterieur",
-      description: "Terrasse avec carrelage extérieur anti-dérapant résistant au gel"
+      description: "Terrasse extérieure avant rénovation avec espace barbecue"
     },
     {
       id: 1,
