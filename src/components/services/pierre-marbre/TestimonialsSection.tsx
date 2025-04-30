@@ -56,7 +56,7 @@ const TestimonialsSection: React.FC = () => {
   ];
 
   return (
-    <section className="bg-gray-50 -mt-96 pt-4">
+    <section className="bg-gray-50 py-16">
       <div className="container">
         <div className="max-w-3xl mx-auto text-center mb-6">
           <h2 className="text-3xl font-bold text-fazio-dark-green mb-4">Ce que nos clients disent de nous</h2>

@@ -32,13 +32,15 @@ const PierreMarbre: React.FC = () => {
         imagePath="/lovable-uploads/bda2aeec-32ad-4860-a658-0f0015ceb618.png"
       />
       
-      <IntroSection />
-      <ServicesSection />
-      <ApplicationsSection />
-      <ProjectShowcaseSection />
-      <AdvantagesSection />
-      <TestimonialsSection />
-      <CtaSection />
+      <div className="bg-white">
+        <IntroSection />
+        <ServicesSection />
+        <ApplicationsSection />
+        <AdvantagesSection />
+        <ProjectShowcaseSection />
+        <TestimonialsSection />
+        <CtaSection />
+      </div>
     </div>
   );
 };
