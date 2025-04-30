@@ -11,6 +11,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Realisations from "./pages/Realisations";
+import MentionsLegales from "./pages/MentionsLegales";
 
 // Services
 import Carrelage from "./pages/services/Carrelage";
@@ -70,6 +71,7 @@ const App = () => (
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/realisations" element={<Realisations />} />
+              <Route path="/mentions-legales" element={<MentionsLegales />} />
               
               {/* Services */}
               <Route path="/services/carrelage" element={<Carrelage />} />
