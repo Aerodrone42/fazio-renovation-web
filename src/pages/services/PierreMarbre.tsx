@@ -35,8 +35,8 @@ const PierreMarbre: React.FC = () => {
       <IntroSection />
       <ServicesSection />
       <ApplicationsSection />
-      <AdvantagesSection />
       <ProjectShowcaseSection />
+      <AdvantagesSection />
       <TestimonialsSection />
       <CtaSection />
     </div>
