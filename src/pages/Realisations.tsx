@@ -124,6 +124,14 @@ const Realisations = () => {
     
     // EXTÉRIEUR
     {
+      id: 10, 
+      src: "/lovable-uploads/7ec42741-e0d0-45ae-9f50-24c2ed8d66c7.png", 
+      alt: "Terrasse extérieure avec carrelage beige", 
+      location: "Lyon (69)", 
+      type: "exterieur",
+      description: "Terrasse avec carrelage extérieur anti-dérapant résistant au gel"
+    },
+    {
       id: 11, 
       src: "/lovable-uploads/30820870-d453-4c67-a900-ba4f32cfa46c.png", 
       alt: "Ancienne terrasse avec dallage à rénover", 
@@ -213,20 +221,20 @@ const Realisations = () => {
       description: "Revêtement de piscine en grès cérame aspect pierre naturelle"
     },
     {
+      id: 10, 
+      src: "/lovable-uploads/7ec42741-e0d0-45ae-9f50-24c2ed8d66c7.png", 
+      alt: "Terrasse extérieure avec carrelage beige", 
+      location: "Lyon (69)", 
+      type: "exterieur",
+      description: "Terrasse avec carrelage extérieur anti-dérapant résistant au gel"
+    },
+    {
       id: 1,
       src: "/lovable-uploads/5d3243b6-cbe4-4f2a-b3be-3da901e6813c.png",
       alt: "Pose de carrelage intérieur - Espace salon avec sol en carrelage clair",
       location: "Dagneux (01)",
       type: "interieur",
       description: "Rénovation complète avec pose de carrelage grand format"
-    },
-    {
-      id: 17, 
-      src: "/lovable-uploads/e1cb8c60-48e3-4bcf-a6b1-99fa8a2eceab.png", 
-      alt: "Cuisine ouverte moderne avec îlot central et carrelage clair", 
-      location: "Miribel (01)", 
-      type: "cuisine",
-      description: "Cuisine contemporaine avec îlot central et carrelage grand format"
     }
   ]);
 
