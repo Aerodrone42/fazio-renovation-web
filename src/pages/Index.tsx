@@ -7,19 +7,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const Index = () => {
-  const [heroImgError, setHeroImgError] = useState(false);
-  const [cardsImgErrors, setCardsImgErrors] = useState<{[key: number]: boolean}>({});
-  
-  const handleHeroImageError = () => {
-    console.log("Hero image failed to load");
-    setHeroImgError(true);
-  };
-  
-  const handleCardImageError = (index: number) => {
-    console.log(`Card image ${index} failed to load`);
-    setCardsImgErrors(prev => ({...prev, [index]: true}));
-  };
-
   return (
     <div>
       {/* Hero Section */}
@@ -41,10 +28,9 @@ const Index = () => {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src={heroImgError ? "https://via.placeholder.com/600x400?text=Image+non+disponible" : "/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png"}
+                src="/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png"
                 alt="Pose de carrelage grand format dans une salle de bain moderne"
                 className="rounded-lg shadow-lg w-full h-auto"
-                onError={handleHeroImageError}
               />
             </div>
           </div>
@@ -103,10 +89,9 @@ const Index = () => {
               <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
                 <AspectRatio ratio={16/9}>
                   <img
-                    src={cardsImgErrors[index] ? "https://via.placeholder.com/600x400?text=Image+non+disponible" : service.src}
+                    src={service.src}
                     alt={service.alt}
                     className="w-full h-full object-cover"
-                    onError={() => handleCardImageError(index)}
                   />
                 </AspectRatio>
                 <CardContent className="p-4">
