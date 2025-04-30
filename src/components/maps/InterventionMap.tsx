@@ -114,15 +114,14 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
     <div className={`${className} ${styles['leaflet-container']}`}>
       <MapContainer 
         style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
+        center={centerLocation}
         zoom={initialZoom}
       >
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         
-        <SetView center={centerLocation} zoom={initialZoom} />
-
         {/* Intervention areas */}
         <Rectangle bounds={rhone.bounds} pathOptions={{ color: rhone.color, fillOpacity: 0.2, weight: 2 }}>
           <Popup>
