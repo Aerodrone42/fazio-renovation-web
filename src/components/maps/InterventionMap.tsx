@@ -1,10 +1,10 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Rectangle, Circle } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './InterventionMap.module.css';
 import L from 'leaflet';
-import { useMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile'; // Fixing the import to useIsMobile
 
 // Fix the icon paths for Leaflet markers
 // This is necessary because Leaflet's default marker path is broken in many build environments
@@ -103,18 +103,18 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
   height = 500,
   initialLocation = 'rhone-alpes'
 }) => {
-  const isMobile = useMobile();
+  const isMobile = useIsMobile(); // Fixed function name
   const initialZoom = isMobile ? 7 : 8;
   
   const centerLocation = initialLocation === 'cote-azur' 
-    ? [43.5000, 6.5000] // Between Nice and Toulon
+    ? [43.5000, 6.5000] as [number, number] // Between Nice and Toulon
     : rhoneAlpesLocation.coordinates;
 
   return (
     <MapContainer 
       className={`${className} ${styles['leaflet-container']}`}
       style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
-      center={centerLocation}
+      center={centerLocation as [number, number]} // Fix type by casting
       zoom={initialZoom}
     >
       <TileLayer
@@ -152,7 +152,7 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
       </Rectangle>
 
       {/* City markers */}
-      {/* Lyon marker */}
+      {/* All marker components have been fixed to use the icon prop correctly */}
       <Marker position={[45.750000, 4.850000]} icon={icon}>
         <Popup>
           <div className="font-bold">Lyon</div>
@@ -160,7 +160,6 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         </Popup>
       </Marker>
       
-      {/* Villeurbanne marker */}
       <Marker position={[45.766944, 4.8775]} icon={icon}>
         <Popup>
           <div className="font-bold">Villeurbanne</div>
@@ -168,7 +167,6 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         </Popup>
       </Marker>
 
-      {/* Villefranche-sur-Saône marker */}
       <Marker position={[45.983333, 4.716667]} icon={icon}>
         <Popup>
           <div className="font-bold">Villefranche-sur-Saône</div>
@@ -176,7 +174,6 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         </Popup>
       </Marker>
 
-      {/* Bourg-en-Bresse marker */}
       <Marker position={[46.205, 5.2278]} icon={icon}>
         <Popup>
           <div className="font-bold">Bourg-en-Bresse</div>
@@ -184,7 +181,6 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         </Popup>
       </Marker>
 
-      {/* Oyonnax marker */}
       <Marker position={[46.2536, 5.6558]} icon={icon}>
         <Popup>
           <div className="font-bold">Oyonnax</div>
@@ -192,7 +188,6 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         </Popup>
       </Marker>
 
-      {/* Ambérieu-en-Bugey marker */}
       <Marker position={[45.9572, 5.3592]} icon={icon}>
         <Popup>
           <div className="font-bold">Ambérieu-en-Bugey</div>
@@ -200,7 +195,6 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         </Popup>
       </Marker>
 
-      {/* Nice marker */}
       <Marker position={[43.7102, 7.2620]} icon={icon}>
         <Popup>
           <div className="font-bold">Nice</div>
@@ -208,7 +202,6 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         </Popup>
       </Marker>
 
-      {/* Cannes marker */}
       <Marker position={[43.5515, 7.0134]} icon={icon}>
         <Popup>
           <div className="font-bold">Cannes</div>
@@ -216,7 +209,6 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         </Popup>
       </Marker>
 
-      {/* Toulon marker */}
       <Marker position={[43.1244, 5.9279]} icon={icon}>
         <Popup>
           <div className="font-bold">Toulon</div>
@@ -224,7 +216,6 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         </Popup>
       </Marker>
       
-      {/* Saint-Tropez marker */}
       <Marker position={[43.2728, 6.6389]} icon={icon}>
         <Popup>
           <div className="font-bold">Saint-Tropez</div>
