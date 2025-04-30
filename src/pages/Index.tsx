@@ -183,7 +183,7 @@ const Index = () => {
             <div className="prose prose-lg mx-auto text-gray-700">
               <p className="mb-4">
                 <strong>SARL FAZIO Lorenzo</strong> est une <strong>entreprise artisanale spécialisée en pose de carrelage et rénovation</strong> 
-                présente dans l'<strong>Ain</strong>, l'<strong>Ouest Lyonnais</strong>, les <strong>Alpes-Maritimes</strong> et le <strong>Var</strong>. 
+                <strong> présente</strong> dans l'<strong>Ain</strong>, l'<strong>Ouest Lyonnais</strong>, les <strong>Alpes-Maritimes</strong> et le <strong>Var</strong>. 
                 Depuis plus de 15 ans, notre équipe d'artisans qualifiés met son savoir-faire au service de votre satisfaction pour tous vos projets 
                 de revêtement de sol et mur, tant pour les particuliers que pour les professionnels.
               </p>
