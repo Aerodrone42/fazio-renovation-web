@@ -103,7 +103,7 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
   height = 500,
   initialLocation = 'rhone-alpes'
 }) => {
-  const isMobile = useIsMobile(); // Fixed function name
+  const isMobile = useIsMobile();
   const initialZoom = isMobile ? 7 : 8;
   
   const centerLocation = initialLocation === 'cote-azur' 
@@ -111,125 +111,127 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
     : rhoneAlpesLocation.coordinates;
 
   return (
-    <MapContainer 
-      className={`${className} ${styles['leaflet-container']}`}
-      style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
-      center={centerLocation}
-      zoom={initialZoom}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+    <div className={`${className} ${styles['leaflet-container']}`}>
+      <MapContainer 
+        style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
+        zoom={initialZoom}
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        />
+        
+        <SetView center={centerLocation} zoom={initialZoom} />
 
-      {/* Intervention areas */}
-      <Rectangle bounds={rhone.bounds} pathOptions={{ color: rhone.color, fillOpacity: 0.2, weight: 2 }}>
-        <Popup>
-          <div className="font-bold">{rhone.name}</div>
-          <div>Zone principale d'intervention</div>
-        </Popup>
-      </Rectangle>
-      
-      <Rectangle bounds={ain.bounds} pathOptions={{ color: ain.color, fillOpacity: 0.2, weight: 2 }}>
-        <Popup>
-          <div className="font-bold">{ain.name}</div>
-          <div>Zone principale d'intervention</div>
-        </Popup>
-      </Rectangle>
+        {/* Intervention areas */}
+        <Rectangle bounds={rhone.bounds} pathOptions={{ color: rhone.color, fillOpacity: 0.2, weight: 2 }}>
+          <Popup>
+            <div className="font-bold">{rhone.name}</div>
+            <div>Zone principale d'intervention</div>
+          </Popup>
+        </Rectangle>
+        
+        <Rectangle bounds={ain.bounds} pathOptions={{ color: ain.color, fillOpacity: 0.2, weight: 2 }}>
+          <Popup>
+            <div className="font-bold">{ain.name}</div>
+            <div>Zone principale d'intervention</div>
+          </Popup>
+        </Rectangle>
 
-      <Rectangle bounds={alpesMaritimes.bounds} pathOptions={{ color: alpesMaritimes.color, fillOpacity: 0.2, weight: 2 }}>
-        <Popup>
-          <div className="font-bold">{alpesMaritimes.name}</div>
-          <div>Zone secondaire d'intervention</div>
-        </Popup>
-      </Rectangle>
+        <Rectangle bounds={alpesMaritimes.bounds} pathOptions={{ color: alpesMaritimes.color, fillOpacity: 0.2, weight: 2 }}>
+          <Popup>
+            <div className="font-bold">{alpesMaritimes.name}</div>
+            <div>Zone secondaire d'intervention</div>
+          </Popup>
+        </Rectangle>
 
-      <Rectangle bounds={var83.bounds} pathOptions={{ color: var83.color, fillOpacity: 0.2, weight: 2 }}>
-        <Popup>
-          <div className="font-bold">{var83.name}</div>
-          <div>Zone secondaire d'intervention</div>
-        </Popup>
-      </Rectangle>
+        <Rectangle bounds={var83.bounds} pathOptions={{ color: var83.color, fillOpacity: 0.2, weight: 2 }}>
+          <Popup>
+            <div className="font-bold">{var83.name}</div>
+            <div>Zone secondaire d'intervention</div>
+          </Popup>
+        </Rectangle>
 
-      {/* City markers */}
-      <Marker position={[45.750000, 4.850000]} icon={icon}>
-        <Popup>
-          <div className="font-bold">Lyon</div>
-          <div>Capitale des Gaules</div>
-        </Popup>
-      </Marker>
-      
-      <Marker position={[45.766944, 4.8775]} icon={icon}>
-        <Popup>
-          <div className="font-bold">Villeurbanne</div>
-          <div>Ville limitrophe de Lyon</div>
-        </Popup>
-      </Marker>
+        {/* City markers */}
+        <Marker position={[45.750000, 4.850000]}>
+          <Popup>
+            <div className="font-bold">Lyon</div>
+            <div>Capitale des Gaules</div>
+          </Popup>
+        </Marker>
+        
+        <Marker position={[45.766944, 4.8775]}>
+          <Popup>
+            <div className="font-bold">Villeurbanne</div>
+            <div>Ville limitrophe de Lyon</div>
+          </Popup>
+        </Marker>
 
-      <Marker position={[45.983333, 4.716667]} icon={icon}>
-        <Popup>
-          <div className="font-bold">Villefranche-sur-Saône</div>
-          <div>Capitale du Beaujolais</div>
-        </Popup>
-      </Marker>
+        <Marker position={[45.983333, 4.716667]}>
+          <Popup>
+            <div className="font-bold">Villefranche-sur-Saône</div>
+            <div>Capitale du Beaujolais</div>
+          </Popup>
+        </Marker>
 
-      <Marker position={[46.205, 5.2278]} icon={icon}>
-        <Popup>
-          <div className="font-bold">Bourg-en-Bresse</div>
-          <div>Préfecture de l'Ain</div>
-        </Popup>
-      </Marker>
+        <Marker position={[46.205, 5.2278]}>
+          <Popup>
+            <div className="font-bold">Bourg-en-Bresse</div>
+            <div>Préfecture de l'Ain</div>
+          </Popup>
+        </Marker>
 
-      <Marker position={[46.2536, 5.6558]} icon={icon}>
-        <Popup>
-          <div className="font-bold">Oyonnax</div>
-          <div>Centre industriel</div>
-        </Popup>
-      </Marker>
+        <Marker position={[46.2536, 5.6558]}>
+          <Popup>
+            <div className="font-bold">Oyonnax</div>
+            <div>Centre industriel</div>
+          </Popup>
+        </Marker>
 
-      <Marker position={[45.9572, 5.3592]} icon={icon}>
-        <Popup>
-          <div className="font-bold">Ambérieu-en-Bugey</div>
-          <div>Porte du Bugey</div>
-        </Popup>
-      </Marker>
+        <Marker position={[45.9572, 5.3592]}>
+          <Popup>
+            <div className="font-bold">Ambérieu-en-Bugey</div>
+            <div>Porte du Bugey</div>
+          </Popup>
+        </Marker>
 
-      <Marker position={[43.7102, 7.2620]} icon={icon}>
-        <Popup>
-          <div className="font-bold">Nice</div>
-          <div>Chef-lieu des Alpes-Maritimes</div>
-        </Popup>
-      </Marker>
+        <Marker position={[43.7102, 7.2620]}>
+          <Popup>
+            <div className="font-bold">Nice</div>
+            <div>Chef-lieu des Alpes-Maritimes</div>
+          </Popup>
+        </Marker>
 
-      <Marker position={[43.5515, 7.0134]} icon={icon}>
-        <Popup>
-          <div className="font-bold">Cannes</div>
-          <div>Ville du Festival</div>
-        </Popup>
-      </Marker>
+        <Marker position={[43.5515, 7.0134]}>
+          <Popup>
+            <div className="font-bold">Cannes</div>
+            <div>Ville du Festival</div>
+          </Popup>
+        </Marker>
 
-      <Marker position={[43.1244, 5.9279]} icon={icon}>
-        <Popup>
-          <div className="font-bold">Toulon</div>
-          <div>Préfecture du Var</div>
-        </Popup>
-      </Marker>
-      
-      <Marker position={[43.2728, 6.6389]} icon={icon}>
-        <Popup>
-          <div className="font-bold">Saint-Tropez</div>
-          <div>Station balnéaire</div>
-        </Popup>
-      </Marker>
-      
-      {/* Fazio location */}
-      <Marker position={fazioLocation.coordinates} icon={fazioIcon}>
-        <Popup>
-          <div className="font-bold">Fazio Entreprise</div>
-          <div>Votre expert en carrelage et rénovation</div>
-        </Popup>
-      </Marker>
-    </MapContainer>
+        <Marker position={[43.1244, 5.9279]}>
+          <Popup>
+            <div className="font-bold">Toulon</div>
+            <div>Préfecture du Var</div>
+          </Popup>
+        </Marker>
+        
+        <Marker position={[43.2728, 6.6389]}>
+          <Popup>
+            <div className="font-bold">Saint-Tropez</div>
+            <div>Station balnéaire</div>
+          </Popup>
+        </Marker>
+        
+        {/* Fazio location */}
+        <Marker position={fazioLocation.coordinates}>
+          <Popup>
+            <div className="font-bold">Fazio Entreprise</div>
+            <div>Votre expert en carrelage et rénovation</div>
+          </Popup>
+        </Marker>
+      </MapContainer>
+    </div>
   );
 };
 
