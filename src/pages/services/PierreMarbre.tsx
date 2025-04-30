@@ -26,7 +26,6 @@ const PierreMarbre: React.FC = () => {
         <link rel="canonical" href="https://www.carrelage-fazio.fr/services/pierre-marbre" />
       </Helmet>
       
-      {/* En-tête avec image */}
       <ServicePageHeader 
         title="Pierre naturelle et marbre"
         description="L'élégance intemporelle des matériaux nobles pour sublimer votre intérieur."

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const CtaSection: React.FC = () => {
   return (
-    <section className="bg-fazio-red text-white py-12 mt-0" id="contact-pierre-marbre">
+    <section className="bg-fazio-red text-white py-10 mt-0" id="contact-pierre-marbre">
       <div className="container text-center">
         <h2 className="text-3xl font-bold mb-6">Envie de sublimer votre intérieur avec de la pierre naturelle ou du marbre ?</h2>
         <p className="text-lg mb-8 max-w-2xl mx-auto">
