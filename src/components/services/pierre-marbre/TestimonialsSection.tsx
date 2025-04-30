@@ -56,7 +56,7 @@ const TestimonialsSection: React.FC = () => {
   ];
 
   return (
-    <section className="bg-gray-50 py-16">
+    <section className="py-12 bg-gray-50">
       <div className="container">
         <div className="max-w-3xl mx-auto text-center mb-6">
           <h2 className="text-3xl font-bold text-fazio-dark-green mb-4">Ce que nos clients disent de nous</h2>
@@ -76,26 +76,6 @@ const TestimonialsSection: React.FC = () => {
               className="hover:shadow-lg transition-all duration-300 h-full"
             />
           ))}
-        </div>
-        
-        <div className="text-center mt-8">
-          <div className="inline-flex items-center justify-center bg-fazio-cream px-6 py-4 rounded-lg border-l-4 border-fazio-dark-green">
-            <div className="flex items-center">
-              <svg className="h-8 w-8 text-fazio-dark-green mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <p className="text-gray-700">
-                <strong className="font-bold">Notre expertise régionale en pierre naturelle</strong><br />
-                Chez FAZIO Lorenzo, nous sommes spécialisés dans la sélection et la pose de pierres naturelles parfaitement adaptées au climat et à l'architecture de la région Rhône-Alpes. Notre connaissance approfondie des matériaux et des techniques de pose nous permet de vous proposer des solutions durables et esthétiques pour votre habitat.
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="mt-6 text-gray-700">
-          <p className="text-center">
-            Que vous habitiez dans le centre historique de Lyon, dans les quartiers résidentiels de Villeurbanne, dans le vignoble de Villefranche-sur-Saône, au cœur de Bourg-en-Bresse, dans la zone industrielle d'Oyonnax ou aux portes du Bugey à Ambérieu-en-Bugey, notre équipe d'artisans qualifiés saura mettre en valeur votre intérieur avec des revêtements en pierre naturelle et en marbre de la plus haute qualité.
-          </p>
         </div>
       </div>
     </section>

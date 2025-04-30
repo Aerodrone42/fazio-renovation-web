@@ -37,8 +37,12 @@ const PierreMarbre: React.FC = () => {
         <ServicesSection />
         <ApplicationsSection />
         <AdvantagesSection />
-        <ProjectShowcaseSection />
-        <TestimonialsSection />
+      </div>
+      
+      <ProjectShowcaseSection />
+      <TestimonialsSection />
+      
+      <div className="bg-white">
         <CtaSection />
       </div>
     </div>
