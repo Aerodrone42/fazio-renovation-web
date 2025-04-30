@@ -1,13 +1,11 @@
-
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Rectangle, Circle } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './InterventionMap.module.css';
 import L from 'leaflet';
-import { useIsMobile } from '@/hooks/use-mobile'; // Fixing the import to useIsMobile
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Fix the icon paths for Leaflet markers
-// This is necessary because Leaflet's default marker path is broken in many build environments
 const icon = L.icon({
   iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
@@ -114,13 +112,12 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
     <div className={`${className} ${styles['leaflet-container']}`}>
       <MapContainer 
         style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
-        center={centerLocation}
-        zoom={initialZoom}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        
+        <SetView center={centerLocation} zoom={initialZoom} />
         
         {/* Intervention areas */}
         <Rectangle bounds={rhone.bounds} pathOptions={{ color: rhone.color, fillOpacity: 0.2, weight: 2 }}>
