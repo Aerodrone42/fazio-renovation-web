@@ -31,7 +31,7 @@ const ServicesSection: React.FC = () => {
           Nos prestations <span className="text-fazio-red">pierre et marbre</span> à <span className="underline decoration-fazio-cream decoration-4 underline-offset-2">Lyon</span> et dans l'<span className="underline decoration-fazio-cream decoration-4 underline-offset-2">Ain</span>
         </h2>
         <p className="text-center text-gray-700 mb-12 max-w-3xl mx-auto">
-          Découvrez notre gamme complète de services professionnels pour la pose et l'entretien de la pierre naturelle et du marbre. Nos artisans interviennent dans les villes de <strong>Lyon</strong>, <strong>Villeurbanne</strong>, <strong>Villefranche-sur-Saône</strong>, <strong>Bourg-en-Bresse</strong>, <strong>Oyonnax</strong> et <strong>Ambérieu-en-Bugey</strong> pour transformer votre habitat avec des matériaux nobles et durables.
+          Découvrez notre gamme complète de services professionnels pour la pose et l'entretien de la pierre naturelle et du marbre. Nos artisans interviennent dans les villes de <strong>Lyon</strong>, <strong>Villeurbanne</strong>, <strong>Villefranche-sur-Saône</strong>, <strong>Bourg-en-Bresse</strong>, <strong>Oyonnax</strong>, <strong>Ambérieu-en-Bugey</strong> et <strong>Le Lavandou</strong> pour transformer votre habitat avec des matériaux nobles et durables.
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

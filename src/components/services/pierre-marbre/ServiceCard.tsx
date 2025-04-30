@@ -16,11 +16,16 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 }) => {
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-md">
-      <div className="h-64">
+      <div className="h-64 relative">
         <img 
           src={imageSrc} 
           alt={imageAlt} 
           className="w-full h-full object-cover"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = "/placeholder.svg";
+            target.alt = "Image temporairement indisponible";
+          }}
         />
       </div>
       <div className="p-6">
