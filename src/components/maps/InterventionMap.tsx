@@ -50,15 +50,15 @@ interface InterventionMapProps {
 
 const InterventionMap: React.FC<InterventionMapProps> = ({
   locations = [],
-  centerLocation = [48.8566, 2.3522], // Default: Paris
-  initialZoom = 13,
+  centerLocation = [45.7640, 4.8357], // Default: Lyon
+  initialZoom = 8,
   height = 500,
   className = '',
 }) => {
   // Add Fazio location
   const fazioLocation: InterventionLocation = {
     name: 'Fazio Entreprise',
-    coordinates: [48.8566, 2.3522], // Paris
+    coordinates: [45.7640, 4.8357], // Lyon
     isFazio: true
   };
   
@@ -67,7 +67,6 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
   return (
     <MapContainer 
       className={`${className} ${styles['leaflet-container']}`}
-      scrollWheelZoom={false}
       style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
       zoom={initialZoom}
       center={centerLocation}
@@ -88,27 +87,60 @@ const InterventionMap: React.FC<InterventionMapProps> = ({
         </Marker>
       ))}
       
-      {/* Specific neighborhoods */}
-      <Marker position={[48.8698, 2.3461]}>
+      {/* Rhône-Alpes region locations */}
+      <Marker position={[45.7485, 4.8467]}>
         <Tooltip>
-          9ème arrondissement
+          Lyon Centre
         </Tooltip>
       </Marker>
       
-      <Marker position={[48.8550, 2.3254]}>
+      <Marker position={[45.7633, 4.8628]}>
         <Tooltip>
-          6ème arrondissement
+          Lyon Est
         </Tooltip>
       </Marker>
       
-      <Marker position={[48.8744, 2.3526]}>
+      <Marker position={[45.7692, 4.8290]}>
         <Tooltip>
-          10ème arrondissement
+          Lyon Ouest
+        </Tooltip>
+      </Marker>
+      
+      {/* Ain department */}
+      <Marker position={[46.2044, 5.2286]}>
+        <Tooltip>
+          Bourg-en-Bresse
+        </Tooltip>
+      </Marker>
+      
+      {/* Department 06 - Alpes-Maritimes */}
+      <Marker position={[43.7102, 7.2620]}>
+        <Tooltip>
+          Nice (06)
+        </Tooltip>
+      </Marker>
+      
+      <Marker position={[43.5513, 7.0128]}>
+        <Tooltip>
+          Cannes (06)
+        </Tooltip>
+      </Marker>
+      
+      {/* Department 83 - Var */}
+      <Marker position={[43.1246, 5.9280]}>
+        <Tooltip>
+          Toulon (83)
+        </Tooltip>
+      </Marker>
+      
+      <Marker position={[43.4260, 6.7630]}>
+        <Tooltip>
+          Saint-Tropez (83)
         </Tooltip>
       </Marker>
       
       {/* Fazio location */}
-      <Marker position={fazioLocation.coordinates}>
+      <Marker position={fazioLocation.coordinates} icon={fazioIcon}>
         <Tooltip>
           {fazioLocation.name}
         </Tooltip>
