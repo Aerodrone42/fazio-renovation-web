@@ -55,6 +55,14 @@ export const Navbar = () => {
     ? "hover:text-fazio-red"
     : "hover:text-fazio-cream";
   
+  // Handle link click to ensure proper scrolling behavior
+  const handleLinkClick = () => {
+    // Close mobile menu when clicking a link
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+  };
+  
   return (
     <header
       className={cn(
@@ -82,6 +90,7 @@ export const Navbar = () => {
               textHoverColor,
               location.pathname === '/' && "font-medium text-fazio-red"
             )}
+            onClick={handleLinkClick}
           >
             Accueil
           </Link>
@@ -108,6 +117,7 @@ export const Navbar = () => {
                               "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-fazio-cream hover:text-fazio-red focus:bg-accent focus:text-accent-foreground",
                               service.href === currentServicePath && "bg-fazio-cream text-fazio-red font-medium"
                             )}
+                            onClick={handleLinkClick}
                           >
                             <div className="text-sm font-medium leading-none">
                               {service.name}
@@ -130,6 +140,7 @@ export const Navbar = () => {
               textHoverColor,
               location.pathname === '/about' && "font-medium text-fazio-red"
             )}
+            onClick={handleLinkClick}
           >
             À propos
           </Link>
@@ -140,7 +151,7 @@ export const Navbar = () => {
             className="bg-transparent border border-white text-white hover:bg-transparent hover:text-fazio-cream hover:border-fazio-cream transition-colors"
             asChild
           >
-            <a href="tel:+33672971393" className="flex items-center gap-2">
+            <a href="tel:+33672971393" className="flex items-center gap-2" onClick={handleLinkClick}>
               <Phone size={16} />
               Nous appeler
             </a>
@@ -151,7 +162,7 @@ export const Navbar = () => {
             <Link to="/contact" className={cn(
               "whitespace-nowrap",
               location.pathname === '/contact' && "font-medium"
-            )}>
+            )} onClick={handleLinkClick}>
               Demander un devis
             </Link>
           </Button>
@@ -184,7 +195,7 @@ export const Navbar = () => {
                 "py-2 text-foreground hover:text-fazio-red transition-colors",
                 location.pathname === '/' && "font-medium text-fazio-red"
               )}
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={handleLinkClick}
             >
               Accueil
             </Link>
@@ -205,7 +216,7 @@ export const Navbar = () => {
                       "text-foreground hover:text-fazio-red transition-colors",
                       service.href === currentServicePath && "font-medium text-fazio-red"
                     )}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={handleLinkClick}
                   >
                     {service.name}
                   </Link>
@@ -219,7 +230,7 @@ export const Navbar = () => {
                 "py-2 text-foreground hover:text-fazio-red transition-colors",
                 location.pathname === '/about' && "font-medium text-fazio-red"
               )}
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={handleLinkClick}
             >
               À propos
             </Link>
@@ -230,7 +241,7 @@ export const Navbar = () => {
               className="bg-transparent border border-fazio-red text-fazio-red hover:bg-transparent hover:text-fazio-light-red hover:border-fazio-light-red transition-colors"
               asChild
             >
-              <a href="tel:+33672971393" className="flex items-center gap-2">
+              <a href="tel:+33672971393" className="flex items-center gap-2" onClick={handleLinkClick}>
                 <Phone size={16} />
                 Nous appeler
               </a>
@@ -240,7 +251,7 @@ export const Navbar = () => {
               "bg-fazio-red hover:bg-fazio-light-red w-full",
               location.pathname === '/contact' && "font-bold"
             )}>
-              <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+              <Link to="/contact" onClick={handleLinkClick}>
                 Demander un devis
               </Link>
             </Button>
