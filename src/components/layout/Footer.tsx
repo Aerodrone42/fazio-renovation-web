@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
           <div>
             <h3 className="text-xl font-bold mb-4 text-fazio-beige">SARL FAZIO Lorenzo</h3>
             <p className="text-sm leading-relaxed">
-              Spécialistes du carrelage et de la rénovation dans l'Ouest Lyonnais et l'Ain.
+              Spécialistes du carrelage et de la rénovation dans l'Ouest Lyonnais, l'Ain, les Alpes-Maritimes et le Var.
             </p>
             <p className="text-sm mt-4">SIREN : 982 823 452</p>
           </div>
@@ -82,17 +82,17 @@ export const Footer: React.FC = () => {
               <Link to="/regions/miribel" className="hover:text-fazio-beige transition-colors">
                 Miribel
               </Link>
-              <Link to="/regions/amberieuenbugey" className="hover:text-fazio-beige transition-colors">
-                Ambérieu-en-Bugey
+              <Link to="/regions/nice" className="hover:text-fazio-beige transition-colors">
+                Nice
               </Link>
-              <Link to="/regions/meximieux" className="hover:text-fazio-beige transition-colors">
-                Meximieux
+              <Link to="/regions/cannes" className="hover:text-fazio-beige transition-colors">
+                Cannes
               </Link>
-              <Link to="/regions/ecully" className="hover:text-fazio-beige transition-colors">
-                Écully
+              <Link to="/regions/toulon" className="hover:text-fazio-beige transition-colors">
+                Toulon
               </Link>
-              <Link to="/regions/tassinlademilune" className="hover:text-fazio-beige transition-colors">
-                Tassin-la-Demi-Lune
+              <Link to="/regions/frejus" className="hover:text-fazio-beige transition-colors">
+                Fréjus
               </Link>
               <Link to="/regions" className="col-span-2 mt-2 text-fazio-light-red hover:text-fazio-beige transition-colors">
                 Voir toutes nos zones →

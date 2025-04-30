@@ -196,13 +196,14 @@ const Index = () => {
           </h2>
           <p className="text-lg text-gray-700 mb-8 text-center">
             Nous intervenons principalement dans l'Ouest Lyonnais et l'Ain pour tous vos projets de carrelage.
+            Découvrez également nos services dans les Alpes-Maritimes et le Var.
           </p>
           <div className="transform transition-all duration-700 hover:scale-[1.02]">
             <InterventionMap />
           </div>
 
-          {/* Nouvelle section pour les pages locales */}
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Sections pour les pages locales */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div>
               <h3 className="text-xl font-bold text-fazio-dark-green mb-4">Dans l'Ain</h3>
               <ul className="space-y-2">
@@ -250,6 +251,62 @@ const Index = () => {
                   <MapPin className="h-4 w-4 mr-2 text-fazio-light-red" />
                   <Link to="/regions/dardilly" className="hover:text-fazio-red transition-colors">
                     Dardilly et alentours
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/regions" className="text-sm text-fazio-red hover:underline ml-6 mt-2 inline-block">
+                    Voir toutes nos zones d'intervention →
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-fazio-dark-green mb-4">Dans les Alpes-Maritimes</h3>
+              <ul className="space-y-2">
+                <li className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-fazio-light-red" />
+                  <Link to="/regions/nice" className="hover:text-fazio-red transition-colors">
+                    Nice et alentours
+                  </Link>
+                </li>
+                <li className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-fazio-light-red" />
+                  <Link to="/regions/cannes" className="hover:text-fazio-red transition-colors">
+                    Cannes et alentours
+                  </Link>
+                </li>
+                <li className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-fazio-light-red" />
+                  <Link to="/regions/antibes" className="hover:text-fazio-red transition-colors">
+                    Antibes et alentours
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/regions" className="text-sm text-fazio-red hover:underline ml-6 mt-2 inline-block">
+                    Voir toutes nos zones d'intervention →
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-fazio-dark-green mb-4">Dans le Var</h3>
+              <ul className="space-y-2">
+                <li className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-fazio-light-red" />
+                  <Link to="/regions/toulon" className="hover:text-fazio-red transition-colors">
+                    Toulon et alentours
+                  </Link>
+                </li>
+                <li className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-fazio-light-red" />
+                  <Link to="/regions/frejus" className="hover:text-fazio-red transition-colors">
+                    Fréjus et alentours
+                  </Link>
+                </li>
+                <li className="flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-fazio-light-red" />
+                  <Link to="/regions/hyeres" className="hover:text-fazio-red transition-colors">
+                    Hyères et alentours
                   </Link>
                 </li>
                 <li>
