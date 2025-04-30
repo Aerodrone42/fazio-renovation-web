@@ -3,6 +3,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const DoucheItalienne = () => {
   return (
@@ -35,30 +36,34 @@ const DoucheItalienne = () => {
       {/* Description du service */}
       <section className="py-16">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-fazio-dark-green mb-6">L'art de la douche à l'italienne</h2>
-              <p className="text-gray-700 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <div className="space-y-6">
+              <h2 className="text-2xl md:text-3xl font-bold text-fazio-dark-green">L'art de la douche à l'italienne</h2>
+              <p className="text-gray-700">
                 La douche à l'italienne représente l'alliance parfaite entre esthétique contemporaine et praticité au quotidien. Son accès de plain-pied et son espace ouvert apportent une sensation d'espace et de liberté à votre salle de bain.
               </p>
-              <p className="text-gray-700 mb-4">
+              <p className="text-gray-700">
                 Notre équipe maîtrise toutes les étapes techniques indispensables à une réalisation parfaite : étanchéité garantie, pente adaptée pour l'écoulement, choix des matériaux appropriés et finitions soignées.
               </p>
-              <p className="text-gray-700 mb-6">
+              <p className="text-gray-700">
                 Nous vous proposons une solution clé en main, de la conception au choix des matériaux (carrelage, mosaïque, pierre naturelle) jusqu'à l'installation complète avec receveur encastré ou à carreler.
               </p>
-              <Button asChild className="bg-fazio-red hover:bg-fazio-light-red">
-                <Link to="/contact">
-                  Demander un devis gratuit
-                </Link>
-              </Button>
+              <div className="pt-2">
+                <Button asChild className="bg-fazio-red hover:bg-fazio-light-red">
+                  <Link to="/contact">
+                    Demander un devis gratuit
+                  </Link>
+                </Button>
+              </div>
             </div>
-            <div className="rounded-lg overflow-hidden shadow-xl">
-              <img 
-                src="/lovable-uploads/233c6240-522f-406b-b216-7e2dfc7197b0.png" 
-                alt="Douche à l'italienne avec carrelage moderne" 
-                className="w-full h-auto"
-              />
+            <div className="h-full flex items-center">
+              <AspectRatio ratio={4/5} className="rounded-lg overflow-hidden shadow-xl w-full max-w-md mx-auto">
+                <img 
+                  src="/lovable-uploads/233c6240-522f-406b-b216-7e2dfc7197b0.png" 
+                  alt="Douche à l'italienne avec carrelage moderne" 
+                  className="w-full h-full object-cover"
+                />
+              </AspectRatio>
             </div>
           </div>
         </div>
