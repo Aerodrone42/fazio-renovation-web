@@ -33,7 +33,7 @@ const IntroSection = () => {
                 <div className="relative w-full">
                   <AspectRatio ratio={4/3}>
                     <img 
-                      src="/lovable-uploads/0222cdbc-73ea-4cf7-83fb-af4d24eaf2a3.png" 
+                      src="/lovable-uploads/eaf03422-6581-49fc-a1db-7ba6c97dcda5.png" 
                       alt="Salle de bain rénovée avec baignoire blanche et carrelage bois" 
                       className="w-full h-full object-cover rounded-t-lg"
                     />

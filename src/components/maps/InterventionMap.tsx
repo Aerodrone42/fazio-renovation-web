@@ -1,184 +1,151 @@
-import React from 'react';
-import { MapContainer, TileLayer, Popup, Marker, useMap } from 'react-leaflet';
-import L from 'leaflet';
+
+import React, { useState, useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { Icon, LatLngExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './InterventionMap.module.css';
 
-// Correction du problème d'icône Leaflet
-// On doit créer les icônes avec Leaflet directement et non comme prop de <Marker>
-const markerIcon = new L.Icon({
-  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-
-// Composants pour la mise à jour de la vue
-interface SetViewProps {
-  coordinates: [number, number];
-  zoom: number;
+// Define types for our marker data
+interface MarkerData {
+  id: string;
+  position: [number, number];
+  title: string;
+  content?: string;
 }
 
-const SetViewOnLoad = ({ coordinates, zoom }: SetViewProps) => {
+// Create a custom icon for our markers
+const customIcon = new Icon({
+  iconUrl: '/lovable-uploads/1b3b9e35-ec04-42c4-b14a-4fdfe2d6b954.png',
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+  popupAnchor: [0, -40]
+});
+
+// Component to set the view when selected marker changes
+const ChangeView = ({ center, zoom }: { center: LatLngExpression, zoom: number }) => {
   const map = useMap();
-  React.useEffect(() => {
-    map.setView(coordinates, zoom);
-  }, [coordinates, zoom, map]);
+  map.setView(center, zoom);
   return null;
 };
 
-// Attribution des classes pour les styles
-const mapContainerProps = {
-  className: styles.map,
-  style: { height: '500px', width: '100%', zIndex: 0 },
-};
-
-// Type pour les villes d'intervention
-interface City {
-  name: string;
-  position: [number, number];
-  description?: string;
-}
-
 const InterventionMap: React.FC = () => {
-  const [selectedCity, setSelectedCity] = React.useState<City | null>(null);
-
-  // Lyon est la ville centrale par défaut
+  // Define initial center of map (Lyon, France)
   const defaultCenter: [number, number] = [45.764043, 4.835659];
-  const defaultZoom = 9;
-  
-  // Liste des principales villes d'intervention
-  const cities: City[] = [
+  const [activeMarker, setActiveMarker] = useState<string | null>(null);
+  const [center, setCenter] = useState<[number, number]>(defaultCenter);
+  const [zoom, setZoom] = useState(9);
+
+  // Define our markers
+  const markers: MarkerData[] = [
     {
-      name: "Lyon",
+      id: "lyon",
       position: [45.764043, 4.835659],
-      description: "Prestations de carrelage et rénovation dans la capitale des Gaules"
+      title: "Lyon",
+      content: "Notre équipe de carreleurs intervient dans tout Lyon et son agglomération."
     },
     {
-      name: "Villeurbanne",
-      position: [45.7667, 4.8833],
-      description: "Services de carrelage et revêtements pour particuliers et professionnels"
+      id: "villefranche",
+      position: [45.9828, 4.7194],
+      title: "Villefranche-sur-Saône",
+      content: "Service de pose de carrelage et rénovation disponible à Villefranche."
     },
     {
-      name: "Villefranche-sur-Saône",
-      position: [45.9833, 4.7167],
-      description: "Installation de carrelage, pierre et marbre dans la capitale du Beaujolais"
+      id: "bourg",
+      position: [46.2047, 5.2258],
+      title: "Bourg-en-Bresse",
+      content: "Intervention pour tous vos projets de carrelage à Bourg-en-Bresse."
     },
     {
-      name: "Bourg-en-Bresse",
-      position: [46.2056, 5.2281],
-      description: "Rénovation de salles de bain et pose de carrelage dans la préfecture de l'Ain"
+      id: "amberieu",
+      position: [45.9569, 5.3572],
+      title: "Ambérieu-en-Bugey",
+      content: "Service de pose de carrelage et rénovation."
     },
     {
-      name: "Mâcon", 
-      position: [46.3067, 4.8278],
-      description: "Pose de mosaïque et carrelage dans la cité bourguignonne"
+      id: "meximieux",
+      position: [45.9026, 5.1933],
+      title: "Meximieux",
+      content: "Intervention pour tous vos projets de carrelage."
     },
     {
-      name: "Oyonnax",
-      position: [46.2572, 5.6567],
-      description: "Installation de revêtements de sol et douche à l'italienne"
+      id: "miribel",
+      position: [45.8237, 4.9597],
+      title: "Miribel",
+      content: "Service de pose de carrelage et rénovation."
     },
     {
-      name: "Ambérieu-en-Bugey",
-      position: [45.9547, 5.3606],
-      description: "Travaux de carrelage intérieur et extérieur dans le Bugey"
+      id: "montluel",
+      position: [45.8581, 5.0594],
+      title: "Montluel",
+      content: "Intervention pour tous vos projets de carrelage."
     },
     {
-      name: "Beynost",
-      position: [45.8347, 4.9992],
-      description: "Pose de carrelage, rénovation de salle de bain et cuisine"
+      id: "dagneux",
+      position: [45.8428, 5.0892],
+      title: "Dagneux",
+      content: "Service de pose de carrelage et rénovation."
     },
     {
-      name: "Miribel",
-      position: [45.8256, 4.9550],
-      description: "Installation de carrelage grand format et mosaïque"
+      id: "trevoux",
+      position: [45.9408, 4.7772],
+      title: "Trévoux",
+      content: "Intervention pour tous vos projets de carrelage."
     },
     {
-      name: "Montluel",
-      position: [45.8578, 5.0573],
-      description: "Travaux de rénovation et pose de revêtements en pierre naturelle"
-    },
-    {
-      name: "Meximieux",
-      position: [45.9050, 5.1931],
-      description: "Pose de carrelage intérieur, extérieur et pour piscines"
-    },
-    {
-      name: "Trévoux",
-      position: [45.9404, 4.7730],
-      description: "Travaux de carrelage, pierre et faïence dans la cité médiévale"
+      id: "beynost",
+      position: [45.8336, 4.9872],
+      title: "Beynost",
+      content: "Service de pose de carrelage et rénovation."
     }
   ];
 
-  // Fonction pour centrer la carte sur une ville
-  const handleCityClick = (city: City) => {
-    setSelectedCity(city);
-  };
-
-  // Fonction pour réinitialiser la vue
-  const handleResetView = () => {
-    setSelectedCity(null);
-  };
+  // Update center and zoom when activeMarker changes
+  useEffect(() => {
+    if (activeMarker) {
+      const marker = markers.find(m => m.id === activeMarker);
+      if (marker) {
+        setCenter(marker.position);
+        setZoom(12);
+      }
+    } else {
+      setCenter(defaultCenter);
+      setZoom(9);
+    }
+  }, [activeMarker]);
 
   return (
-    <div className="map-container">
-      <MapContainer {...mapContainerProps} center={defaultCenter} zoom={defaultZoom} scrollWheelZoom={false}>
+    <div className={styles.mapContainer}>
+      <MapContainer 
+        className="rounded-lg border-2 border-gray-200"
+        style={{ height: '400px', width: '100%', zIndex: 1 }}
+        center={center} 
+        zoom={zoom} 
+        scrollWheelZoom={false}>
+        <ChangeView center={center} zoom={zoom} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        
-        {/* Mise à jour dynamique de la vue */}
-        <SetViewOnLoad 
-          coordinates={selectedCity ? selectedCity.position : defaultCenter} 
-          zoom={selectedCity ? 13 : defaultZoom} 
-        />
-        
-        {/* Marqueurs des villes */}
-        {cities.map((city) => (
+        {markers.map(marker => (
           <Marker 
-            key={city.name}
-            position={city.position}
-            icon={markerIcon}
+            key={marker.id} 
+            position={marker.position}
+            icon={customIcon}
+            eventHandlers={{
+              click: () => {
+                setActiveMarker(marker.id);
+              },
+            }}
           >
             <Popup>
               <div>
-                <h3 className="font-bold">{city.name}</h3>
-                <p>{city.description || `Services de carrelage et rénovation à ${city.name}`}</p>
+                <h3 className="font-bold text-lg">{marker.title}</h3>
+                {marker.content && <p className="text-sm mt-1">{marker.content}</p>}
               </div>
             </Popup>
           </Marker>
         ))}
       </MapContainer>
-      
-      {/* Liste des villes cliquables */}
-      <div className="cities-list grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-4">
-        {cities.map((city) => (
-          <button
-            key={city.name}
-            onClick={() => handleCityClick(city)}
-            className={`px-3 py-1 text-sm rounded ${
-              selectedCity?.name === city.name
-                ? "bg-fazio-red text-white"
-                : "bg-gray-100 hover:bg-gray-200"
-            }`}
-          >
-            {city.name}
-          </button>
-        ))}
-        {selectedCity && (
-          <button
-            onClick={handleResetView}
-            className="px-3 py-1 text-sm rounded bg-fazio-dark-green text-white hover:bg-opacity-90"
-          >
-            Vue d'ensemble
-          </button>
-        )}
-      </div>
     </div>
   );
 };
