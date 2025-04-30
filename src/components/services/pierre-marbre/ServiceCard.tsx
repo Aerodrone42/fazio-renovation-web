@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 
 interface ServiceCardProps {
   imageSrc: string;
@@ -16,6 +16,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   description,
   onClick
 }) => {
+  const [imgError, setImgError] = useState(false);
+  
+  const handleImageError = () => {
+    setImgError(true);
+  };
+
   return (
     <div 
       className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer"
@@ -23,9 +29,10 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
     >
       <div className="h-64 relative">
         <img 
-          src={imageSrc} 
+          src={imgError ? "https://via.placeholder.com/600x400?text=Image+non+disponible" : imageSrc} 
           alt={imageAlt} 
           className="w-full h-full object-cover"
+          onError={handleImageError}
         />
       </div>
       <div className="p-6">

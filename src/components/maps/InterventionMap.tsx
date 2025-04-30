@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -14,7 +13,7 @@ interface MarkerData {
 }
 
 // Component to set the view when selected marker changes
-const ChangeView = ({ center, zoom }: { center: L.LatLngExpression, zoom: number }) => {
+const ChangeView = ({ center, zoom }: { center: [number, number], zoom: number }) => {
   const map = useMap();
   map.setView(center, zoom);
   return null;

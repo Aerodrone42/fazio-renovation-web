@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import InterventionMap from '@/components/maps/InterventionMap';
@@ -6,6 +7,17 @@ import { Card, CardContent } from '@/components/ui/card';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 const Index = () => {
+  const [heroImgError, setHeroImgError] = useState(false);
+  const [cardsImgErrors, setCardsImgErrors] = useState<{[key: number]: boolean}>({});
+  
+  const handleHeroImageError = () => {
+    setHeroImgError(true);
+  };
+  
+  const handleCardImageError = (index: number) => {
+    setCardsImgErrors(prev => ({...prev, [index]: true}));
+  };
+
   return (
     <div>
       {/* Hero Section */}
@@ -27,9 +39,10 @@ const Index = () => {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src="/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png"
+                src={heroImgError ? "https://via.placeholder.com/600x400?text=Image+non+disponible" : "/lovable-uploads/f994964c-4c18-449c-8949-469454262849.png"}
                 alt="Pose de carrelage grand format dans une salle de bain moderne"
                 className="rounded-lg shadow-lg w-full h-auto"
+                onError={handleHeroImageError}
               />
             </div>
           </div>
@@ -41,113 +54,68 @@ const Index = () => {
         <div className="container">
           <h2 className="text-3xl font-bold text-fazio-dark-green mb-8 text-center">Nos Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Carrelage */}
-            <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <AspectRatio ratio={16/9}>
-                <img
-                  src="/lovable-uploads/0999599b-9349-4441-a449-6d59f5098978.png"
-                  alt="Pose de carrelage"
-                  className="w-full h-full object-cover"
-                />
-              </AspectRatio>
-              <CardContent className="p-4">
-                <h3 className="font-semibold text-lg mb-1">Pose de carrelage</h3>
-                <p className="text-sm text-gray-600">Carrelage intérieur et extérieur, tous formats et tous types de pose.</p>
-                <Button asChild variant="link" className="mt-2">
-                  <Link to="/services/carrelage">En savoir plus</Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Mosaïque */}
-            <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <AspectRatio ratio={16/9}>
-                <img
-                  src="/lovable-uploads/4954140c-c991-4456-a506-a299159f1555.png"
-                  alt="Pose de mosaïque"
-                  className="w-full h-full object-cover"
-                />
-              </AspectRatio>
-              <CardContent className="p-4">
-                <h3 className="font-semibold text-lg mb-1">Pose de mosaïque</h3>
-                <p className="text-sm text-gray-600">Mosaïque décorative pour personnaliser vos espaces.</p>
-                <Button asChild variant="link" className="mt-2">
-                  <Link to="/services/mosaique">En savoir plus</Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Pierre naturelle et marbre */}
-            <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <AspectRatio ratio={16/9}>
-                <img
-                  src="/lovable-uploads/96199561-9921-4591-a943-c90192124c59.png"
-                  alt="Pose de pierre naturelle et marbre"
-                  className="w-full h-full object-cover"
-                />
-              </AspectRatio>
-              <CardContent className="p-4">
-                <h3 className="font-semibold text-lg mb-1">Pierre naturelle et marbre</h3>
-                <p className="text-sm text-gray-600">Pose de pierre naturelle et marbre pour un rendu élégant et authentique.</p>
-                <Button asChild variant="link" className="mt-2">
-                  <Link to="/services/pierre-marbre">En savoir plus</Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Douche à l'italienne */}
-            <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <AspectRatio ratio={16/9}>
-                <img
-                  src="/lovable-uploads/5bd69944-5989-491f-a991-59949616654b.png"
-                  alt="Création de douche à l'italienne"
-                  className="w-full h-full object-cover"
-                />
-              </AspectRatio>
-              <CardContent className="p-4">
-                <h3 className="font-semibold text-lg mb-1">Douche à l'italienne</h3>
-                <p className="text-sm text-gray-600">Conception et réalisation de douches à l'italienne sur mesure.</p>
-                <Button asChild variant="link" className="mt-2">
-                  <Link to="/services/douche-italienne">En savoir plus</Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Rénovation de salle de bain */}
-            <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <AspectRatio ratio={16/9}>
-                <img
-                  src="/lovable-uploads/0222cdbc-73ea-4cf7-83fb-af4d24eaf2a3.png"
-                  alt="Rénovation de salle de bain"
-                  className="w-full h-full object-cover"
-                />
-              </AspectRatio>
-              <CardContent className="p-4">
-                <h3 className="font-semibold text-lg mb-1">Rénovation de salle de bain</h3>
-                <p className="text-sm text-gray-600">Rénovation complète de salle de bain, de la conception à la réalisation.</p>
-                <Button asChild variant="link" className="mt-2">
-                  <Link to="/services/renovation-salle-de-bain">En savoir plus</Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Plomberie */}
-            <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-              <AspectRatio ratio={16/9}>
-                <img
-                  src="/lovable-uploads/4532987a-4591-4533-a19c-9a1a294a0a21.png"
-                  alt="Travaux de plomberie"
-                  className="w-full h-full object-cover"
-                />
-              </AspectRatio>
-              <CardContent className="p-4">
-                <h3 className="font-semibold text-lg mb-1">Plomberie</h3>
-                <p className="text-sm text-gray-600">Travaux de plomberie générale, installation et remplacement de sanitaires.</p>
-                <Button asChild variant="link" className="mt-2">
-                  <Link to="/services/plomberie">En savoir plus</Link>
-                </Button>
-              </CardContent>
-            </Card>
+            {[
+              {
+                src: "/lovable-uploads/0999599b-9349-4441-a449-6d59f5098978.png",
+                alt: "Pose de carrelage",
+                title: "Pose de carrelage",
+                description: "Carrelage intérieur et extérieur, tous formats et tous types de pose.",
+                link: "/services/carrelage"
+              },
+              {
+                src: "/lovable-uploads/4954140c-c991-4456-a506-a299159f1555.png",
+                alt: "Pose de mosaïque",
+                title: "Pose de mosaïque",
+                description: "Mosaïque décorative pour personnaliser vos espaces.",
+                link: "/services/mosaique"
+              },
+              {
+                src: "/lovable-uploads/96199561-9921-4591-a943-c90192124c59.png",
+                alt: "Pose de pierre naturelle et marbre",
+                title: "Pierre naturelle et marbre",
+                description: "Pose de pierre naturelle et marbre pour un rendu élégant et authentique.",
+                link: "/services/pierre-marbre"
+              },
+              {
+                src: "/lovable-uploads/5bd69944-5989-491f-a991-59949616654b.png",
+                alt: "Création de douche à l'italienne",
+                title: "Douche à l'italienne",
+                description: "Conception et réalisation de douches à l'italienne sur mesure.",
+                link: "/services/douche-italienne"
+              },
+              {
+                src: "/lovable-uploads/0222cdbc-73ea-4cf7-83fb-af4d24eaf2a3.png",
+                alt: "Rénovation de salle de bain",
+                title: "Rénovation de salle de bain",
+                description: "Rénovation complète de salle de bain, de la conception à la réalisation.",
+                link: "/services/renovation-salle-de-bain"
+              },
+              {
+                src: "/lovable-uploads/4532987a-4591-4533-a19c-9a1a294a0a21.png",
+                alt: "Travaux de plomberie",
+                title: "Plomberie",
+                description: "Travaux de plomberie générale, installation et remplacement de sanitaires.",
+                link: "/services/plomberie"
+              }
+            ].map((service, index) => (
+              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
+                <AspectRatio ratio={16/9}>
+                  <img
+                    src={cardsImgErrors[index] ? "https://via.placeholder.com/600x400?text=Image+non+disponible" : service.src}
+                    alt={service.alt}
+                    className="w-full h-full object-cover"
+                    onError={() => handleCardImageError(index)}
+                  />
+                </AspectRatio>
+                <CardContent className="p-4">
+                  <h3 className="font-semibold text-lg mb-1">{service.title}</h3>
+                  <p className="text-sm text-gray-600">{service.description}</p>
+                  <Button asChild variant="link" className="mt-2">
+                    <Link to={service.link}>En savoir plus</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
