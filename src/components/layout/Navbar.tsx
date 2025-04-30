@@ -28,6 +28,10 @@ export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  
+  // Check if current path is a service page
+  const isServicePage = location.pathname.startsWith('/services/');
+  const currentServicePath = isServicePage ? location.pathname : '';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,7 +81,8 @@ export const Navbar = () => {
             className={cn(
               "transition-colors",
               textColor,
-              textHoverColor
+              textHoverColor,
+              location.pathname === '/' && "font-medium text-fazio-red"
             )}
           >
             Accueil
@@ -89,7 +94,8 @@ export const Navbar = () => {
                 <NavigationMenuTrigger className={cn(
                   "bg-transparent hover:bg-transparent",
                   textColor,
-                  textHoverColor
+                  textHoverColor,
+                  isServicePage && "font-medium text-fazio-red"
                 )}>
                   Nos services
                 </NavigationMenuTrigger>
@@ -100,7 +106,10 @@ export const Navbar = () => {
                         <NavigationMenuLink asChild>
                           <Link
                             to={service.href}
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-fazio-cream hover:text-fazio-red focus:bg-accent focus:text-accent-foreground"
+                            className={cn(
+                              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-fazio-cream hover:text-fazio-red focus:bg-accent focus:text-accent-foreground",
+                              service.href === currentServicePath && "bg-fazio-cream text-fazio-red font-medium"
+                            )}
                           >
                             <div className="text-sm font-medium leading-none">
                               {service.name}
@@ -120,7 +129,8 @@ export const Navbar = () => {
             className={cn(
               "transition-colors",
               textColor,
-              textHoverColor
+              textHoverColor,
+              location.pathname === '/about' && "font-medium text-fazio-red"
             )}
           >
             À propos
@@ -128,7 +138,10 @@ export const Navbar = () => {
 
           {/* Removed the separate "Contact" link and kept only the "Demander un devis" button that links to the contact page */}
           <Button asChild variant="default" className="bg-fazio-red hover:bg-fazio-light-red">
-            <Link to="/contact" className="whitespace-nowrap">
+            <Link to="/contact" className={cn(
+              "whitespace-nowrap",
+              location.pathname === '/contact' && "font-medium"
+            )}>
               Demander un devis
             </Link>
           </Button>
@@ -157,20 +170,31 @@ export const Navbar = () => {
           <div className="container flex flex-col space-y-3">
             <Link
               to="/"
-              className="py-2 text-foreground hover:text-fazio-red transition-colors"
+              className={cn(
+                "py-2 text-foreground hover:text-fazio-red transition-colors",
+                location.pathname === '/' && "font-medium text-fazio-red"
+              )}
               onClick={() => setMobileMenuOpen(false)}
             >
               Accueil
             </Link>
             
             <div className="py-2">
-              <p className="font-medium mb-2">Nos services :</p>
+              <p className={cn(
+                "font-medium mb-2",
+                isServicePage && "text-fazio-red"
+              )}>
+                Nos services :
+              </p>
               <div className="pl-4 flex flex-col space-y-2">
                 {services.map((service) => (
                   <Link
                     key={service.href}
                     to={service.href}
-                    className="text-foreground hover:text-fazio-red transition-colors"
+                    className={cn(
+                      "text-foreground hover:text-fazio-red transition-colors",
+                      service.href === currentServicePath && "font-medium text-fazio-red"
+                    )}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {service.name}
@@ -181,14 +205,20 @@ export const Navbar = () => {
 
             <Link
               to="/about"
-              className="py-2 text-foreground hover:text-fazio-red transition-colors"
+              className={cn(
+                "py-2 text-foreground hover:text-fazio-red transition-colors",
+                location.pathname === '/about' && "font-medium text-fazio-red"
+              )}
               onClick={() => setMobileMenuOpen(false)}
             >
               À propos
             </Link>
 
             {/* Removed the separate "Contact" link in mobile menu as well */}
-            <Button asChild variant="default" className="bg-fazio-red hover:bg-fazio-light-red w-full">
+            <Button asChild variant="default" className={cn(
+              "bg-fazio-red hover:bg-fazio-light-red w-full",
+              location.pathname === '/contact' && "font-bold"
+            )}>
               <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
                 Demander un devis
               </Link>
