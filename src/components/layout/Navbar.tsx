@@ -10,7 +10,7 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
-import { MenuIcon, XIcon } from 'lucide-react';
+import { MenuIcon, XIcon, Phone } from 'lucide-react';
 
 const services = [
   { name: 'Pose de carrelage', href: '/services/carrelage' },
@@ -54,7 +54,7 @@ export const Navbar = () => {
   const textHoverColor = isScrolled || !isHomePage
     ? "hover:text-fazio-red"
     : "hover:text-fazio-cream";
-
+  
   return (
     <header
       className={cn(
@@ -134,7 +134,19 @@ export const Navbar = () => {
             À propos
           </Link>
 
-          {/* Removed the separate "Contact" link and kept only the "Demander un devis" button that links to the contact page */}
+          {/* Updated "Nous appeler" button with transparent background and white border */}
+          <Button 
+            variant="outline" 
+            className="bg-transparent border border-white text-white hover:bg-transparent hover:text-fazio-cream hover:border-fazio-cream transition-colors"
+            asChild
+          >
+            <a href="tel:+33672971393" className="flex items-center gap-2">
+              <Phone size={16} />
+              Nous appeler
+            </a>
+          </Button>
+
+          {/* Demander un devis button */}
           <Button asChild variant="default" className="bg-fazio-red hover:bg-fazio-light-red">
             <Link to="/contact" className={cn(
               "whitespace-nowrap",
@@ -145,7 +157,7 @@ export const Navbar = () => {
           </Button>
         </nav>
 
-        {/* Bouton menu mobile */}
+        {/* Mobile menu button */}
         <button
           type="button"
           className={cn(
@@ -162,7 +174,7 @@ export const Navbar = () => {
         </button>
       </div>
 
-      {/* Menu mobile */}
+      {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-t py-3">
           <div className="container flex flex-col space-y-3">
@@ -212,7 +224,18 @@ export const Navbar = () => {
               À propos
             </Link>
 
-            {/* Removed the separate "Contact" link in mobile menu as well */}
+            {/* Added "Nous appeler" button to mobile menu as well */}
+            <Button 
+              variant="outline" 
+              className="bg-transparent border border-fazio-red text-fazio-red hover:bg-transparent hover:text-fazio-light-red hover:border-fazio-light-red transition-colors"
+              asChild
+            >
+              <a href="tel:+33672971393" className="flex items-center gap-2">
+                <Phone size={16} />
+                Nous appeler
+              </a>
+            </Button>
+
             <Button asChild variant="default" className={cn(
               "bg-fazio-red hover:bg-fazio-light-red w-full",
               location.pathname === '/contact' && "font-bold"
