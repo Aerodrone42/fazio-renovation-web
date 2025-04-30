@@ -7,26 +7,26 @@ const ApplicationsSection: React.FC = () => {
     {
       title: "Salles de bain luxueuses",
       description: "Transformez votre salle de bain en un véritable spa à domicile avec nos revêtements en marbre et pierre naturelle. Nos artisans interviennent à Lyon, Villeurbanne et dans tout le département du Rhône pour créer des espaces élégants et durables.",
-      imageSrc: "/lovable-uploads/33333333-3333-3333-3333-333333333333.png",
-      imageAlt: "Salle de bain avec douche en marbre et vasque en pierre naturelle réalisée à Lyon"
+      imageSrc: "/lovable-uploads/ed2f0833-05bc-4f19-a04b-a331c54f8608.png",
+      imageAlt: "Salle de bain avec baignoire moderne et murs en pierre naturelle réalisée à Lyon"
     },
     {
       title: "Cuisines haut de gamme",
       description: "Apportez une touche d'élégance intemporelle à votre cuisine avec nos plans de travail et crédences en pierre naturelle. Nos réalisations à Bourg-en-Bresse et dans l'Ain allient esthétique raffinée et résistance exceptionnelle pour votre usage quotidien.",
-      imageSrc: "/lovable-uploads/44444444-4444-4444-4444-444444444444.png",
-      imageAlt: "Cuisine moderne avec plan de travail en granit noir et crédence en pierre claire à Bourg-en-Bresse"
+      imageSrc: "/lovable-uploads/917b4545-3a1e-4b01-8e35-cadb3a7cd954.png",
+      imageAlt: "Cuisine moderne avec sol en pierre et électroménagers haut de gamme à Bourg-en-Bresse"
     },
     {
       title: "Espaces de vie exceptionnels",
       description: "Créez des espaces de vie chaleureux et raffinés avec nos revêtements de sol et murs en pierre naturelle. À Villefranche-sur-Saône et ses environs, nous réalisons des intérieurs qui traversent les époques avec une beauté toujours renouvelée.",
-      imageSrc: "/lovable-uploads/55555555-5555-5555-5555-555555555555.png",
-      imageAlt: "Salon avec cheminée en pierre naturelle et sol en travertin réalisé à Villefranche-sur-Saône"
+      imageSrc: "/lovable-uploads/1d2cf699-5cb4-4d0f-849d-f6985b7e58ab.png",
+      imageAlt: "Salon lumineux avec sol en pierre naturelle et grandes baies vitrées réalisé à Villefranche-sur-Saône"
     },
     {
       title: "Extérieurs durables",
       description: "Aménagez vos espaces extérieurs avec nos terrasses et allées en pierre naturelle, spécialement sélectionnées pour résister au climat rhônalpin. De Oyonnax à Ambérieu-en-Bugey, nos réalisations extérieures allient beauté naturelle et résistance aux intempéries.",
-      imageSrc: "/lovable-uploads/66666666-6666-6666-6666-666666666666.png",
-      imageAlt: "Terrasse en pierre naturelle avec mobilier de jardin réalisée à Ambérieu-en-Bugey"
+      imageSrc: "/lovable-uploads/e9e3f733-8485-4ead-bf2f-72c059d8bb7a.png",
+      imageAlt: "Piscine extérieure avec finition en pierre naturelle et terrasse aménagée réalisée au Lavandou"
     }
   ];
 

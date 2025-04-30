@@ -22,6 +22,11 @@ const ApplicationItem: React.FC<ApplicationItemProps> = ({
         src={imageSrc} 
         alt={imageAlt} 
         className="w-full rounded-lg shadow-md mb-6"
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.src = "/placeholder.svg";
+          target.alt = "Image temporairement indisponible";
+        }}
       />
     </div>
   );
