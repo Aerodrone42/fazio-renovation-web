@@ -39,6 +39,22 @@ import CharbonnieresLesBainsPage from "./pages/regions/CharbonnieresLesBains";
 import DardillyPage from "./pages/regions/Dardilly";
 import LimonestPage from "./pages/regions/Limonest";
 
+// Pages locales - Alpes-Maritimes
+import NicePage from "./pages/regions/Nice";
+import AntibesPage from "./pages/regions/Antibes";
+import CannesPage from "./pages/regions/Cannes";
+import CagnesSurMerPage from "./pages/regions/CagnesSurMer";
+import GrassePage from "./pages/regions/Grasse";
+import MentonPage from "./pages/regions/Menton";
+
+// Pages locales - Var
+import ToulonPage from "./pages/regions/Toulon";
+import LaSeyneSurMerPage from "./pages/regions/LaSeyneSurMer";
+import HyeresPage from "./pages/regions/Hyeres";
+import FrejusPage from "./pages/regions/Frejus";
+import DraguignanPage from "./pages/regions/Draguignan";
+import SaintRaphaelPage from "./pages/regions/SaintRaphael";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -81,6 +97,22 @@ const App = () => (
               <Route path="/regions/charbonniereslesbains" element={<CharbonnieresLesBainsPage />} />
               <Route path="/regions/dardilly" element={<DardillyPage />} />
               <Route path="/regions/limonest" element={<LimonestPage />} />
+
+              {/* Pages locales - Alpes-Maritimes */}
+              <Route path="/regions/nice" element={<NicePage />} />
+              <Route path="/regions/antibes" element={<AntibesPage />} />
+              <Route path="/regions/cannes" element={<CannesPage />} />
+              <Route path="/regions/cagnessurmer" element={<CagnesSurMerPage />} />
+              <Route path="/regions/grasse" element={<GrassePage />} />
+              <Route path="/regions/menton" element={<MentonPage />} />
+
+              {/* Pages locales - Var */}
+              <Route path="/regions/toulon" element={<ToulonPage />} />
+              <Route path="/regions/laseynesurmer" element={<LaSeyneSurMerPage />} />
+              <Route path="/regions/hyeres" element={<HyeresPage />} />
+              <Route path="/regions/frejus" element={<FrejusPage />} />
+              <Route path="/regions/draguignan" element={<DraguignanPage />} />
+              <Route path="/regions/saintraphael" element={<SaintRaphaelPage />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

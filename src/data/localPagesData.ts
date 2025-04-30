@@ -1,4 +1,3 @@
-
 interface Commune {
   nom: string;
   communes_voisines: string[];
@@ -135,5 +134,131 @@ export const localPagesDataOuestLyonnais: LocalPageData[] = [
     departement: "Rhône",
     titre_accroche: "votre carreleur pour tous travaux de rénovation",
     specificites: "Située sur les hauteurs des Monts d'Or, Limonest offre une vue imprenable sur l'agglomération lyonnaise. Nous réalisons des travaux de carrelage et de rénovation pour sublimer les intérieurs des résidences de cette commune prestigieuse."
+  }
+];
+
+export const localPagesDataAlpesMaritimes: LocalPageData[] = [
+  {
+    ville: {
+      nom: "Nice",
+      communes_voisines: ["Saint-Laurent-du-Var", "Villefranche-sur-Mer", "La Trinité", "Saint-André-de-la-Roche", "Falicon", "Cagnes-sur-Mer"]
+    },
+    region: "Provence-Alpes-Côte d'Azur",
+    departement: "Alpes-Maritimes",
+    titre_accroche: "carreleur professionnel pour rénovation et décoration",
+    specificites: "Capitale de la Côte d'Azur, Nice est réputée pour son architecture colorée et ses immeubles de style Belle Époque. Notre entreprise s'adapte aux spécificités des appartements haussmanniens comme aux villas contemporaines de la région."
+  },
+  {
+    ville: {
+      nom: "Antibes",
+      communes_voisines: ["Juan-les-Pins", "Vallauris", "Biot", "Villeneuve-Loubet", "Valbonne", "Golfe-Juan"]
+    },
+    region: "Provence-Alpes-Côte d'Azur",
+    departement: "Alpes-Maritimes",
+    titre_accroche: "spécialiste du carrelage et de la pierre naturelle",
+    specificites: "Entre le Cap d'Antibes et ses résidences de prestige et la vieille ville aux ruelles pittoresques, notre équipe intervient pour tous types de projets, du plus classique au plus luxueux."
+  },
+  {
+    ville: {
+      nom: "Cannes",
+      communes_voisines: ["Le Cannet", "Mougins", "Mandelieu-la-Napoule", "La Roquette-sur-Siagne", "Théoule-sur-Mer", "Vallauris"]
+    },
+    region: "Provence-Alpes-Côte d'Azur",
+    departement: "Alpes-Maritimes",
+    titre_accroche: "expert en pose de carrelage et rénovation haut de gamme",
+    specificites: "Ville du Festival et des palaces, Cannes est synonyme d'élégance et de raffinement. Notre savoir-faire en matériaux nobles répond parfaitement aux exigences des propriétés de standing de la Croisette et des collines environnantes."
+  },
+  {
+    ville: {
+      nom: "Cagnes-sur-Mer",
+      communes_voisines: ["Saint-Laurent-du-Var", "La Colle-sur-Loup", "Villeneuve-Loubet", "Saint-Paul-de-Vence", "Nice", "Vence"]
+    },
+    region: "Provence-Alpes-Côte d'Azur",
+    departement: "Alpes-Maritimes",
+    titre_accroche: "artisan carreleur pour rénovation et création d'espaces",
+    specificites: "Entre mer et collines, Cagnes-sur-Mer offre une diversité architecturale allant du village médiéval du Haut-de-Cagnes aux résidences balnéaires modernes. Notre équipe s'adapte à tous les styles pour vos projets de carrelage."
+  },
+  {
+    ville: {
+      nom: "Grasse",
+      communes_voisines: ["Mouans-Sartoux", "Peymeinade", "Le Tignet", "Auribeau-sur-Siagne", "Pégomas", "La Roquette-sur-Siagne"]
+    },
+    region: "Provence-Alpes-Côte d'Azur",
+    departement: "Alpes-Maritimes",
+    titre_accroche: "votre carreleur pour tous travaux de rénovation intérieure",
+    specificites: "Capitale mondiale du parfum, Grasse séduit par son centre historique et ses bastides provençales. Notre expertise s'adapte parfaitement aux rénovations d'habitations traditionnelles comme aux constructions récentes."
+  },
+  {
+    ville: {
+      nom: "Menton",
+      communes_voisines: ["Roquebrune-Cap-Martin", "Gorbio", "Sainte-Agnès", "Castellar", "La Turbie", "Beausoleil"]
+    },
+    region: "Provence-Alpes-Côte d'Azur",
+    departement: "Alpes-Maritimes",
+    titre_accroche: "artisan carreleur et spécialiste de la rénovation",
+    specificites: "Surnommée la perle de la France, Menton est célèbre pour ses jardins et ses façades colorées. Notre entreprise vous accompagne dans vos projets de carrelage et de rénovation, en harmonie avec le charme méditerranéen de la région."
+  }
+];
+
+export const localPagesDataVar: LocalPageData[] = [
+  {
+    ville: {
+      nom: "Toulon",
+      communes_voisines: ["La Garde", "La Valette-du-Var", "Le Revest-les-Eaux", "Ollioules", "Six-Fours-les-Plages", "Saint-Mandrier-sur-Mer"]
+    },
+    region: "Provence-Alpes-Côte d'Azur",
+    departement: "Var",
+    titre_accroche: "artisan carreleur pour projets de rénovation et décoration",
+    specificites: "Préfecture du Var et port militaire, Toulon allie patrimoine historique et modernité. Notre entreprise intervient aussi bien dans les appartements haussmanniens du centre-ville que dans les villas contemporaines des hauteurs."
+  },
+  {
+    ville: {
+      nom: "La Seyne-sur-Mer",
+      communes_voisines: ["Toulon", "Ollioules", "Six-Fours-les-Plages", "Saint-Mandrier-sur-Mer", "Sanary-sur-Mer", "Bandol"]
+    },
+    region: "Provence-Alpes-Côte d'Azur",
+    departement: "Var",
+    titre_accroche: "expert en pose de carrelage et rénovation intérieure",
+    specificites: "Entre son passé industriel et naval et sa reconversion balnéaire, La Seyne-sur-Mer propose une variété architecturale unique. Nous mettons notre savoir-faire au service de tous vos projets de carrelage et de rénovation."
+  },
+  {
+    ville: {
+      nom: "Hyères",
+      communes_voisines: ["Carqueiranne", "La Crau", "La Londe-les-Maures", "Pierrefeu-du-Var", "La Garde", "Le Pradet"]
+    },
+    region: "Provence-Alpes-Côte d'Azur",
+    departement: "Var",
+    titre_accroche: "spécialiste du carrelage et de la rénovation de salle de bain",
+    specificites: "Ville aux multiples facettes entre ses îles paradisiaques, sa presqu'île de Giens et son centre historique, Hyères offre un cadre de vie exceptionnel. Notre équipe vous accompagne dans tous vos projets d'aménagement intérieur."
+  },
+  {
+    ville: {
+      nom: "Fréjus",
+      communes_voisines: ["Saint-Raphaël", "Puget-sur-Argens", "Roquebrune-sur-Argens", "Bagnols-en-Forêt", "Les Adrets-de-l'Estérel", "Saint-Aygulf"]
+    },
+    region: "Provence-Alpes-Côte d'Azur",
+    departement: "Var",
+    titre_accroche: "votre carreleur pour tous travaux de rénovation",
+    specificites: "Cité romaine riche d'un patrimoine bimillénaire, Fréjus est également une destination balnéaire prisée. Notre entreprise s'adapte aux spécificités des constructions anciennes comme aux résidences contemporaines."
+  },
+  {
+    ville: {
+      nom: "Draguignan",
+      communes_voisines: ["Trans-en-Provence", "Flayosc", "Ampus", "La Motte", "Lorgues", "Figanières"]
+    },
+    region: "Provence-Alpes-Côte d'Azur",
+    departement: "Var",
+    titre_accroche: "artisan carreleur et spécialiste des douches à l'italienne",
+    specificites: "Ancienne préfecture du Var située dans l'arrière-pays, Draguignan conserve un charme provençal authentique. Nous proposons nos services de carrelage et de rénovation dans le respect du style architectural local."
+  },
+  {
+    ville: {
+      nom: "Saint-Raphaël",
+      communes_voisines: ["Fréjus", "Puget-sur-Argens", "Les Adrets-de-l'Estérel", "Saint-Aygulf", "Agay", "Boulouris"]
+    },
+    region: "Provence-Alpes-Côte d'Azur",
+    departement: "Var",
+    titre_accroche: "entreprise de carrelage et rénovation intérieure",
+    specificites: "Station balnéaire élégante aux multiples visages, Saint-Raphaël s'étend des plages aux massifs de l'Estérel. Notre expertise s'adapte aussi bien aux villas Belle Époque qu'aux appartements contemporains."
   }
 ];
