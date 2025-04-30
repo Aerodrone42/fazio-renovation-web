@@ -47,8 +47,8 @@ const RenovationSalleDeBain = () => {
                   <div className="relative w-full">
                     <AspectRatio ratio={4/3}>
                       <img 
-                        src="/lovable-uploads/ad4258c5-00b0-4740-8bb5-c6df5a6d0d4e.png" 
-                        alt="Salle de bain rénovée avec carrelage beige" 
+                        src="/lovable-uploads/0222cdbc-73ea-4cf7-83fb-af4d24eaf2a3.png" 
+                        alt="Salle de bain rénovée avec baignoire blanche et carrelage bois" 
                         className="w-full h-full object-cover rounded-t-lg"
                       />
                     </AspectRatio>

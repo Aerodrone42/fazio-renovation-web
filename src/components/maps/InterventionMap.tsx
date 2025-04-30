@@ -1,17 +1,15 @@
+
 import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap, Rectangle, Circle } from 'react-leaflet';
+import { MapContainer, TileLayer, Popup, Marker, useMap } from 'react-leaflet';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './InterventionMap.module.css';
-import L from 'leaflet';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { Navigation, MapPin } from 'lucide-react';
 
-// Fix the icon paths for Leaflet markers
-delete L.Icon.Default.prototype._getIconUrl;
-
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+// Correction du problème d'icône Leaflet
+// On doit créer les icônes avec Leaflet directement et non comme prop de <Marker>
+const markerIcon = new L.Icon({
   iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
@@ -19,321 +17,169 @@ L.Icon.Default.mergeOptions({
   shadowSize: [41, 41]
 });
 
-// Create custom icon for the Fazio location
-const fazioIcon = L.icon({
-  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41],
-});
-
-// Define main locations
-const rhoneAlpesLocation = {
-  name: 'Rhône-Alpes',
-  coordinates: [45.750000, 4.850000] as [number, number], // Lyon as center
-  description: 'Zone principale d\'intervention'
-};
-
-const alpesMaritimesLocation = {
-  name: 'Alpes-Maritimes (06)',
-  coordinates: [43.7102, 7.2620] as [number, number], // Nice
-  description: 'Zone d\'intervention secondaire'
-};
-
-const varLocation = {
-  name: 'Var (83)',
-  coordinates: [43.1244, 5.9279] as [number, number], // Toulon
-  description: 'Zone d\'intervention secondaire'
-};
-
-// Fazio Enterprise location
-const fazioLocation = {
-  name: 'Fazio Entreprise',
-  coordinates: [45.750000, 4.850000] as [number, number], // Placeholder - replace with actual
-  description: 'Notre siège social'
-};
-
-// Define intervention areas (approximative departmental boundaries)
-const rhone = {
-  name: 'Rhône (69)',
-  bounds: [[45.457, 4.252], [46.057, 5.072]] as [[number, number], [number, number]], 
-  color: '#e3242b' // Red for Rhône
-};
-
-const ain = {
-  name: 'Ain (01)',
-  bounds: [[45.608, 4.730], [46.508, 6.170]] as [[number, number], [number, number]],
-  color: '#e3242b' // Red for Ain
-};
-
-const alpesMaritimes = {
-  name: 'Alpes-Maritimes (06)',
-  bounds: [[43.450, 6.750], [44.350, 7.750]] as [[number, number], [number, number]],
-  color: '#2874A6' // Blue for Alpes-Maritimes
-};
-
-const var83 = {
-  name: 'Var (83)',
-  bounds: [[42.980, 5.650], [43.950, 6.950]] as [[number, number], [number, number]],
-  color: '#2874A6' // Blue for Var
-};
-
-// Component to set map view
+// Composants pour la mise à jour de la vue
 interface SetViewProps {
-  center: [number, number];
+  coordinates: [number, number];
   zoom: number;
 }
 
-const SetView: React.FC<SetViewProps> = ({ center, zoom }) => {
+const SetViewOnLoad = ({ coordinates, zoom }: SetViewProps) => {
   const map = useMap();
-  map.setView(center, zoom);
+  React.useEffect(() => {
+    map.setView(coordinates, zoom);
+  }, [coordinates, zoom, map]);
   return null;
 };
 
-interface InterventionMapProps {
-  className?: string;
-  height?: number;
-  initialLocation?: 'rhone-alpes' | 'cote-azur';
+// Attribution des classes pour les styles
+const mapContainerProps = {
+  className: styles.map,
+  style: { height: '500px', width: '100%', zIndex: 0 },
+};
+
+// Type pour les villes d'intervention
+interface City {
+  name: string;
+  position: [number, number];
+  description?: string;
 }
 
-const InterventionMap: React.FC<InterventionMapProps> = ({ 
-  className = '', 
-  height = 500,
-  initialLocation = 'rhone-alpes'
-}) => {
-  const isMobile = useIsMobile();
-  const initialZoom = isMobile ? 7 : 8;
+const InterventionMap: React.FC = () => {
+  const [selectedCity, setSelectedCity] = React.useState<City | null>(null);
+
+  // Lyon est la ville centrale par défaut
+  const defaultCenter: [number, number] = [45.764043, 4.835659];
+  const defaultZoom = 9;
   
-  const centerLocation = initialLocation === 'cote-azur' 
-    ? [43.5000, 6.5000] as [number, number] // Between Nice and Toulon
-    : rhoneAlpesLocation.coordinates;
+  // Liste des principales villes d'intervention
+  const cities: City[] = [
+    {
+      name: "Lyon",
+      position: [45.764043, 4.835659],
+      description: "Prestations de carrelage et rénovation dans la capitale des Gaules"
+    },
+    {
+      name: "Villeurbanne",
+      position: [45.7667, 4.8833],
+      description: "Services de carrelage et revêtements pour particuliers et professionnels"
+    },
+    {
+      name: "Villefranche-sur-Saône",
+      position: [45.9833, 4.7167],
+      description: "Installation de carrelage, pierre et marbre dans la capitale du Beaujolais"
+    },
+    {
+      name: "Bourg-en-Bresse",
+      position: [46.2056, 5.2281],
+      description: "Rénovation de salles de bain et pose de carrelage dans la préfecture de l'Ain"
+    },
+    {
+      name: "Mâcon", 
+      position: [46.3067, 4.8278],
+      description: "Pose de mosaïque et carrelage dans la cité bourguignonne"
+    },
+    {
+      name: "Oyonnax",
+      position: [46.2572, 5.6567],
+      description: "Installation de revêtements de sol et douche à l'italienne"
+    },
+    {
+      name: "Ambérieu-en-Bugey",
+      position: [45.9547, 5.3606],
+      description: "Travaux de carrelage intérieur et extérieur dans le Bugey"
+    },
+    {
+      name: "Beynost",
+      position: [45.8347, 4.9992],
+      description: "Pose de carrelage, rénovation de salle de bain et cuisine"
+    },
+    {
+      name: "Miribel",
+      position: [45.8256, 4.9550],
+      description: "Installation de carrelage grand format et mosaïque"
+    },
+    {
+      name: "Montluel",
+      position: [45.8578, 5.0573],
+      description: "Travaux de rénovation et pose de revêtements en pierre naturelle"
+    },
+    {
+      name: "Meximieux",
+      position: [45.9050, 5.1931],
+      description: "Pose de carrelage intérieur, extérieur et pour piscines"
+    },
+    {
+      name: "Trévoux",
+      position: [45.9404, 4.7730],
+      description: "Travaux de carrelage, pierre et faïence dans la cité médiévale"
+    }
+  ];
+
+  // Fonction pour centrer la carte sur une ville
+  const handleCityClick = (city: City) => {
+    setSelectedCity(city);
+  };
+
+  // Fonction pour réinitialiser la vue
+  const handleResetView = () => {
+    setSelectedCity(null);
+  };
 
   return (
-    <div className={`${className} ${styles['leaflet-container']}`}>
-      <MapContainer 
-        style={{ height: `${height}px`, width: '100%', borderRadius: '0.5rem' }}
-      >
+    <div className="map-container">
+      <MapContainer {...mapContainerProps} center={defaultCenter} zoom={defaultZoom} scrollWheelZoom={false}>
         <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         
-        <SetView center={centerLocation} zoom={initialZoom} />
+        {/* Mise à jour dynamique de la vue */}
+        <SetViewOnLoad 
+          coordinates={selectedCity ? selectedCity.position : defaultCenter} 
+          zoom={selectedCity ? 13 : defaultZoom} 
+        />
         
-        {/* Intervention areas */}
-        <Rectangle bounds={rhone.bounds} pathOptions={{ color: rhone.color, fillOpacity: 0.2, weight: 2 }}>
-          <Popup>
-            <div className="font-bold">{rhone.name}</div>
-            <div>Zone principale d'intervention</div>
-          </Popup>
-        </Rectangle>
-        
-        <Rectangle bounds={ain.bounds} pathOptions={{ color: ain.color, fillOpacity: 0.2, weight: 2 }}>
-          <Popup>
-            <div className="font-bold">{ain.name}</div>
-            <div>Zone principale d'intervention</div>
-          </Popup>
-        </Rectangle>
-
-        <Rectangle bounds={alpesMaritimes.bounds} pathOptions={{ color: alpesMaritimes.color, fillOpacity: 0.2, weight: 2 }}>
-          <Popup>
-            <div className="font-bold">{alpesMaritimes.name}</div>
-            <div>Zone secondaire d'intervention</div>
-          </Popup>
-        </Rectangle>
-
-        <Rectangle bounds={var83.bounds} pathOptions={{ color: var83.color, fillOpacity: 0.2, weight: 2 }}>
-          <Popup>
-            <div className="font-bold">{var83.name}</div>
-            <div>Zone secondaire d'intervention</div>
-          </Popup>
-        </Rectangle>
-
-        {/* City markers */}
-        <Marker position={[45.750000, 4.850000]} icon={L.icon({
-          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [1, -34],
-          shadowSize: [41, 41]
-        })}>
-          <Popup>
-            <div className="font-bold">Lyon</div>
-            <div>Capitale des Gaules</div>
-          </Popup>
-        </Marker>
-        
-        <Marker position={[45.766944, 4.8775]} icon={L.icon({
-          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [1, -34],
-          shadowSize: [41, 41]
-        })}>
-          <Popup>
-            <div className="font-bold">Villeurbanne</div>
-            <div>Ville limitrophe de Lyon</div>
-          </Popup>
-        </Marker>
-
-        <Marker position={[45.983333, 4.716667]} icon={L.icon({
-          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [1, -34],
-          shadowSize: [41, 41]
-        })}>
-          <Popup>
-            <div className="font-bold">Villefranche-sur-Saône</div>
-            <div>Capitale du Beaujolais</div>
-          </Popup>
-        </Marker>
-
-        <Marker position={[46.205, 5.2278]} icon={L.icon({
-          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [1, -34],
-          shadowSize: [41, 41]
-        })}>
-          <Popup>
-            <div className="font-bold">Bourg-en-Bresse</div>
-            <div>Préfecture de l'Ain</div>
-          </Popup>
-        </Marker>
-
-        <Marker position={[46.2536, 5.6558]} icon={L.icon({
-          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [1, -34],
-          shadowSize: [41, 41]
-        })}>
-          <Popup>
-            <div className="font-bold">Oyonnax</div>
-            <div>Centre industriel</div>
-          </Popup>
-        </Marker>
-
-        <Marker position={[45.9572, 5.3592]} icon={L.icon({
-          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [1, -34],
-          shadowSize: [41, 41]
-        })}>
-          <Popup>
-            <div className="font-bold">Ambérieu-en-Bugey</div>
-            <div>Porte du Bugey</div>
-          </Popup>
-        </Marker>
-
-        <Marker position={[43.7102, 7.2620]} icon={L.icon({
-          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [1, -34],
-          shadowSize: [41, 41]
-        })}>
-          <Popup>
-            <div className="font-bold">Nice</div>
-            <div>Chef-lieu des Alpes-Maritimes</div>
-          </Popup>
-        </Marker>
-
-        <Marker position={[43.5515, 7.0134]} icon={L.icon({
-          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [1, -34],
-          shadowSize: [41, 41]
-        })}>
-          <Popup>
-            <div className="font-bold">Cannes</div>
-            <div>Ville du Festival</div>
-          </Popup>
-        </Marker>
-
-        <Marker position={[43.1244, 5.9279]} icon={L.icon({
-          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [1, -34],
-          shadowSize: [41, 41]
-        })}>
-          <Popup>
-            <div className="font-bold">Toulon</div>
-            <div>Préfecture du Var</div>
-          </Popup>
-        </Marker>
-        
-        <Marker position={[43.2728, 6.6389]} icon={L.icon({
-          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [1, -34],
-          shadowSize: [41, 41]
-        })}>
-          <Popup>
-            <div className="font-bold">Saint-Tropez</div>
-            <div>Station balnéaire</div>
-          </Popup>
-        </Marker>
-
-        {/* Add Le Lavandou marker */}
-        <Marker position={[43.1390, 6.3680]} icon={L.icon({
-          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [1, -34],
-          shadowSize: [41, 41]
-        })}>
-          <Popup>
-            <div className="font-bold">Le Lavandou</div>
-            <div>Station balnéaire du Var</div>
-          </Popup>
-        </Marker>
-        
-        {/* Fazio location */}
-        <Marker position={fazioLocation.coordinates} icon={L.icon({
-          iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-          iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-          shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [1, -34],
-          shadowSize: [41, 41]
-        })}>
-          <Popup>
-            <div className="font-bold">Fazio Entreprise</div>
-            <div>Votre expert en carrelage et rénovation</div>
-          </Popup>
-        </Marker>
+        {/* Marqueurs des villes */}
+        {cities.map((city) => (
+          <Marker 
+            key={city.name}
+            position={city.position}
+            icon={markerIcon}
+          >
+            <Popup>
+              <div>
+                <h3 className="font-bold">{city.name}</h3>
+                <p>{city.description || `Services de carrelage et rénovation à ${city.name}`}</p>
+              </div>
+            </Popup>
+          </Marker>
+        ))}
       </MapContainer>
+      
+      {/* Liste des villes cliquables */}
+      <div className="cities-list grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-4">
+        {cities.map((city) => (
+          <button
+            key={city.name}
+            onClick={() => handleCityClick(city)}
+            className={`px-3 py-1 text-sm rounded ${
+              selectedCity?.name === city.name
+                ? "bg-fazio-red text-white"
+                : "bg-gray-100 hover:bg-gray-200"
+            }`}
+          >
+            {city.name}
+          </button>
+        ))}
+        {selectedCity && (
+          <button
+            onClick={handleResetView}
+            className="px-3 py-1 text-sm rounded bg-fazio-dark-green text-white hover:bg-opacity-90"
+          >
+            Vue d'ensemble
+          </button>
+        )}
+      </div>
     </div>
   );
 };
