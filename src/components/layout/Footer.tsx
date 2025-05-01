@@ -106,6 +106,14 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col sm:flex-row justify-between items-center text-sm">
           <p>&copy; {new Date().getFullYear()} SARL FAZIO Lorenzo. Tous droits réservés.</p>
           <div className="flex space-x-6 mt-4 sm:mt-0">
+            <a 
+              href="https://www.site-internet-sans-abonnement.fr/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-fazio-beige transition-colors"
+            >
+              Créé par aerodrone multiservices
+            </a>
             <Link to="/mentions-legales" className="hover:text-fazio-beige transition-colors">
               Mentions légales
             </Link>
