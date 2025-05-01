@@ -3,17 +3,16 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
-import fs from 'fs';
 
-export default defineConfig({
-  base: '/', // Utilisation de la racine du domaine
+export default defineConfig(({ mode }) => ({
+  base: '/', // Utilisation de la racine du domaine pour les routes
   server: {
     host: "::",
     port: 8080,
   },
   plugins: [
     react(),
-    process.env.NODE_ENV !== 'production' && componentTagger(),
+    mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
     alias: {
@@ -29,8 +28,8 @@ export default defineConfig({
         manualChunks: undefined,
       },
     },
-    // Génération automatique des fichiers nécessaires pour GitHub Pages
+    // Configuration pour optimiser le déploiement
     assetsInlineLimit: 0,
     chunkSizeWarningLimit: 1600,
   },
-});
+}));
