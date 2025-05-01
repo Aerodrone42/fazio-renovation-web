@@ -6,7 +6,7 @@ import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => {
   return {
-    base: './', // Chemins relatifs pour GitHub Pages
+    base: '/', // Utiliser des chemins absolus pour le développement
     plugins: [
       react(),
       mode === 'development' && componentTagger(),
@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
       outDir: 'dist',
       emptyOutDir: true,
       sourcemap: mode === 'development',
-      minify: 'esbuild', // On utilise esbuild au lieu de terser
+      minify: 'esbuild', // On utilise esbuild pour le minify
       rollupOptions: {
         input: {
           main: path.resolve(__dirname, 'index.html'),

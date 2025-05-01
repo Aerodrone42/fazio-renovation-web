@@ -12,7 +12,7 @@
     <meta property="og:type" content="website" />
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="./lovable-uploads/8d86e4df-9559-4d2e-a51e-e1ca7622720d.png">
+    <link rel="icon" type="image/png" href="/lovable-uploads/8d86e4df-9559-4d2e-a51e-e1ca7622720d.png">
     
     <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap">
@@ -23,68 +23,7 @@
   <body>
     <div id="root"></div>
     
-    <!-- Script principal avec chemin correct vers le src -->
+    <!-- Script principal -->
     <script type="module" src="/src/main.tsx"></script>
-    
-    <!-- Script de secours en cas d'erreur -->
-    <script>
-      // Vérifier si l'application est chargée après 5 secondes
-      setTimeout(function() {
-        if (document.getElementById('root').children.length === 0) {
-          console.error("L'application n'a pas réussi à se charger automatiquement");
-          
-          // Tenter de charger manuellement avec plusieurs alternatives
-          const cheminsAlternatifs = [
-            '/src/main.tsx',
-            '/src/main.jsx',
-            '/src/main.js',
-            '/dist/assets/index.js',
-            './src/main.tsx',
-            './src/main.js',
-            './main.js',
-            './index.js'
-          ];
-          
-          // Fonction pour essayer chaque chemin de script
-          async function essayerChemins() {
-            for (const chemin of cheminsAlternatifs) {
-              try {
-                console.log("Tentative de chargement depuis: " + chemin);
-                const script = document.createElement('script');
-                script.type = 'module';
-                script.src = chemin;
-                document.body.appendChild(script);
-                
-                // Attendre un moment pour voir si le script charge
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                if (document.getElementById('root').children.length > 0) {
-                  console.log("Chargement réussi avec: " + chemin);
-                  break;
-                } else {
-                  console.warn("Échec du chargement avec: " + chemin);
-                }
-              } catch (e) {
-                console.error("Erreur lors du chargement: " + e);
-              }
-            }
-            
-            // Si toujours pas de contenu, afficher un message d'erreur
-            if (document.getElementById('root').children.length === 0) {
-              const erreurDiv = document.createElement('div');
-              erreurDiv.style.padding = '20px';
-              erreurDiv.style.margin = '20px';
-              erreurDiv.style.fontFamily = 'Poppins, sans-serif';
-              erreurDiv.style.backgroundColor = '#ffeeee';
-              erreurDiv.style.border = '1px solid #ff0000';
-              erreurDiv.innerHTML = '<h2>Erreur de chargement</h2><p>Impossible de charger l\'application. Veuillez rafraîchir la page ou contacter l\'administrateur.</p>';
-              document.body.appendChild(erreurDiv);
-            }
-          }
-          
-          essayerChemins();
-        }
-      }, 3000);
-    </script>
   </body>
 </html>
