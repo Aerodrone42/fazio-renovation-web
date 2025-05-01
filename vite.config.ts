@@ -38,12 +38,12 @@ export default defineConfig(({ mode }) => {
       manifest: true, // Générer un fichier manifeste
       rollupOptions: {
         output: {
-          // Forcer le nom du fichier principal à index.js
+          // Forcer l'utilisation de noms de fichiers spécifiques pour les fichiers principaux
           entryFileNames: 'assets/index.js',
-          chunkFileNames: 'assets/[name]-[hash].js', 
+          chunkFileNames: 'assets/[name]-[hash].js',
           assetFileNames: (assetInfo) => {
-            // Vérifier que assetInfo.name existe avant de l'utiliser
-            if (assetInfo.name) {
+            // Sécuriser contre les valeurs undefined
+            if (assetInfo && assetInfo.name) {
               const info = assetInfo.name.split('.');
               const extType = info[info.length - 1];
               if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
@@ -56,6 +56,28 @@ export default defineConfig(({ mode }) => {
       },
       // Activer la génération des sources maps pour le débogage
       sourcemap: true,
+      // Ajouter un hook après la construction
+      // Cette fonction sera exécutée après la fin de la construction
+      afterBuild: () => {
+        console.log("Vérification des fichiers de construction...");
+        
+        // Vérifier si index.js a été généré
+        const indexJsPath = path.join(__dirname, 'docs', 'assets', 'index.js');
+        if (!fs.existsSync(indexJsPath)) {
+          console.error("ERREUR: index.js n'a pas été généré dans docs/assets!");
+          
+          // Tenter de le copier depuis dist/assets s'il existe
+          const distIndexJsPath = path.join(__dirname, 'dist', 'assets', 'index.js');
+          if (fs.existsSync(distIndexJsPath)) {
+            console.log("Copie de index.js depuis dist/assets vers docs/assets...");
+            fs.copyFileSync(distIndexJsPath, indexJsPath);
+          } else {
+            console.error("ERREUR: index.js introuvable dans dist/assets également!");
+          }
+        } else {
+          console.log("✓ index.js correctement généré dans docs/assets");
+        }
+      }
     },
   };
 });

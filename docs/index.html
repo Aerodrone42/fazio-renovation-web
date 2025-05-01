@@ -19,62 +19,38 @@
     
     <!-- Script for GPT Engineer - Important pour la fonctionnalité de sélection -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    
-    <!-- Utilisation d'un script de chargement conditionnel avec fallback -->
-    <script type="text/javascript">
-      // Tentative de chargement du script principal
-      document.addEventListener('DOMContentLoaded', function() {
-        // Ajouter dynamiquement le script principal
-        const mainScript = document.createElement('script');
-        mainScript.type = 'module';
-        mainScript.src = './assets/index.js';
-        document.head.appendChild(mainScript);
-
-        // Fallback si le script ne se charge pas
-        mainScript.onerror = function() {
-          console.error("Erreur de chargement du script principal depuis ./assets/index.js");
-          // Tentative avec un autre chemin
-          const fallbackScript = document.createElement('script');
-          fallbackScript.type = 'module';
-          fallbackScript.src = '/assets/index.js';
-          document.head.appendChild(fallbackScript);
-          
-          fallbackScript.onerror = function() {
-            console.error("Échec de tous les chemins de chargement");
-            const errorDiv = document.createElement('div');
-            errorDiv.innerHTML = `
-              <h1>Erreur de chargement</h1>
-              <p>Le script principal n'a pas pu être chargé. Essayez de rafraîchir la page.</p>
-            `;
-            document.getElementById('root').appendChild(errorDiv);
-          };
-        };
-      });
-    </script>
   </head>
   <body>
     <div id="root"></div>
     
-    <!-- Script de débogage pour afficher des erreurs éventuelles -->
+    <!-- Utilisation d'un système de fallback pour index.js -->
     <script>
-      window.onerror = function(message, source, lineno, colno, error) {
-        console.error('Erreur détectée:', message, 'à', source, lineno, colno);
-        const errorDiv = document.createElement('div');
-        errorDiv.style.position = 'fixed';
-        errorDiv.style.bottom = '10px';
-        errorDiv.style.left = '10px';
-        errorDiv.style.backgroundColor = 'rgba(255,0,0,0.8)';
-        errorDiv.style.color = 'white';
-        errorDiv.style.padding = '10px';
-        errorDiv.style.borderRadius = '5px';
-        errorDiv.style.zIndex = '9999';
-        errorDiv.textContent = `Erreur: ${message}`;
-        document.body.appendChild(errorDiv);
-        return false;
-      };
-
-      // Vérification de la présence du fichier
-      console.log("Tentative de chargement du JavaScript depuis ./assets/index.js");
+      // Fonction pour charger index.js avec fallback
+      function loadMainScript() {
+        console.log("Tentative de chargement du script principal");
+        
+        // Créer l'élément script
+        var script = document.createElement('script');
+        script.type = 'module';
+        script.src = './assets/index.js';
+        script.onerror = function() {
+          console.error("Erreur de chargement de ./assets/index.js - Tentative avec un chemin alternatif");
+          
+          // Si le premier chemin échoue, essayer avec un chemin absolu
+          var fallbackScript = document.createElement('script');
+          fallbackScript.type = 'module';
+          fallbackScript.src = '/assets/index.js';
+          fallbackScript.onerror = function() {
+            console.error("Tous les chemins de chargement ont échoué");
+            document.getElementById('root').innerHTML = '<div style="text-align:center;padding:50px;"><h1>Erreur de chargement</h1><p>Impossible de charger l\'application. Veuillez rafraîchir la page ou contacter l\'administrateur.</p></div>';
+          };
+          document.body.appendChild(fallbackScript);
+        };
+        document.body.appendChild(script);
+      }
+      
+      // Charger le script principal
+      document.addEventListener('DOMContentLoaded', loadMainScript);
     </script>
   </body>
 </html>
