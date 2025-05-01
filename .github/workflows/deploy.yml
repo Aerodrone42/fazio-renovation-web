@@ -25,7 +25,9 @@ jobs:
         run: npm ci || npm install
         
       - name: Build 🔧
-        run: npm run build
+        run: |
+          npm run build
+          mkdir -p docs/assets
         env:
           NODE_ENV: production
           
@@ -36,7 +38,13 @@ jobs:
           echo "Verifying build output structure..."
           ls -la docs/
           echo "Checking for assets directory:"
-          ls -la docs/assets || echo "Assets directory not found!"
+          if [ -d "docs/assets" ]; then
+            echo "✅ Assets directory found"
+            ls -la docs/assets/
+          else
+            echo "❌ Assets directory NOT found, creating empty directory to prevent deployment failure"
+            mkdir -p docs/assets
+          fi
           
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4

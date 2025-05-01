@@ -5,7 +5,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: './', // Use relative paths instead of absolute paths
+  base: './', // Utiliser des chemins relatifs au lieu de chemins absolus
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
@@ -20,15 +20,15 @@ export default defineConfig(({ mode }) => ({
     host: "::"
   },
   build: {
-    outDir: 'docs',
+    outDir: 'docs', // Construire dans le dossier docs
     emptyOutDir: true,
-    assetsDir: 'assets', // Ensure assets are in the assets directory
-    manifest: true, // Generate a manifest file
+    assetsDir: 'assets', // Garantir que les assets sont dans le dossier assets
+    manifest: true, // Générer un fichier manifeste
     rollupOptions: {
       output: {
-        entryFileNames: 'assets/[name].[hash].js',
-        chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]',
+        entryFileNames: 'assets/[name].[hash].js', // Forcer les fichiers JS dans assets/
+        chunkFileNames: 'assets/[name].[hash].js', // Forcer les chunks dans assets/
+        assetFileNames: 'assets/[name].[hash].[ext]', // Forcer les autres fichiers dans assets/
       },
     },
   },

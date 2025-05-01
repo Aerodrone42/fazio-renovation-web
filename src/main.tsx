@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
+// Vérifier que l'élément racine existe avant de monter l'application
 const rootElement = document.getElementById("root");
 if (rootElement) {
   createRoot(rootElement).render(
