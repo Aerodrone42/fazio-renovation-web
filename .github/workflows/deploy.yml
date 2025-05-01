@@ -35,6 +35,8 @@ jobs:
           touch docs/.nojekyll
           echo "Verifying build output structure..."
           ls -la docs/
+          echo "Checking for assets directory:"
+          ls -la docs/assets || echo "Assets directory not found!"
           
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4

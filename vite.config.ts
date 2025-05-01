@@ -26,7 +26,9 @@ export default defineConfig(({ mode }) => ({
     manifest: true, // Generate a manifest file
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js',
+        assetFileNames: 'assets/[name].[hash].[ext]',
       },
     },
   },
