@@ -5,7 +5,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: '/fazio-renovation-web/', // Changer à '/' si vous utilisez un domaine personnalisé
+  base: '/', // Changed from '/fazio-renovation-web/' to '/' for correct path handling
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => ({
     port: 8080
   },
   build: {
-    outDir: 'docs', // Important : change le dossier de sortie en 'docs'
+    outDir: 'docs',
     emptyOutDir: true,
     assetsDir: 'assets',
     rollupOptions: {

@@ -36,8 +36,8 @@ jobs:
         
       - name: Copy lovable-uploads folder if exists
         run: |
+          mkdir -p docs/lovable-uploads
           if [ -d "public/lovable-uploads" ]; then
-            mkdir -p docs/lovable-uploads
             cp -r public/lovable-uploads/* docs/lovable-uploads/
           fi
         
@@ -49,6 +49,8 @@ jobs:
           ls -la docs/lovable-uploads || echo "Directory does not exist"
           echo "Content of docs/assets directory (if exists):"
           ls -la docs/assets || echo "Directory does not exist"
+          echo "Content of public directory:"
+          ls -la public/ || echo "Directory does not exist"
         
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4

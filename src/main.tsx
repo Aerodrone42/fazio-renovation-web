@@ -6,21 +6,23 @@ import './index.css'
 const rootElement = document.getElementById("root");
 if (rootElement) {
   try {
-    // Configure base URL for assets
+    // Get correct base URL without trailing slash for consistency
     const baseUrl = import.meta.env.BASE_URL || '/';
     console.log("Base URL for assets:", baseUrl);
     
-    // Fix image paths if needed
-    if (baseUrl !== '/') {
-      document.querySelectorAll('img').forEach(img => {
-        const src = img.getAttribute('src');
-        if (src && src.startsWith('/lovable-uploads')) {
-          img.setAttribute('src', `${baseUrl}${src.substring(1)}`);
-        } else if (src && !src.startsWith('http') && !src.startsWith(baseUrl) && !src.startsWith('./') && !src.startsWith('../')) {
-          img.setAttribute('src', `${baseUrl}${src}`);
+    // Fix image paths - improved path handling logic
+    document.querySelectorAll('img').forEach(img => {
+      const src = img.getAttribute('src');
+      if (src) {
+        // Handle lovable-uploads specially
+        if (src.includes('lovable-uploads') && !src.startsWith('http')) {
+          // For paths like "/lovable-uploads/..." or "lovable-uploads/..."
+          const normalizedSrc = src.startsWith('/') ? src.substring(1) : src;
+          img.setAttribute('src', `${normalizedSrc}`);
+          console.log("Fixed image path:", normalizedSrc);
         }
-      });
-    }
+      }
+    });
     
     createRoot(rootElement).render(<App />);
     console.log("Application React montée avec succès");
