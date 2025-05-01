@@ -20,7 +20,7 @@
     <!-- Script for GPT Engineer - Important pour la fonctionnalité de sélection -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" crossorigin src="./assets/main.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/main.css">
+    <link rel="stylesheet" crossorigin href="./assets/main-tpbfgAKg.css">
   </head>
   <body>
     <div id="root"></div>
@@ -31,13 +31,50 @@
         setTimeout(function() {
           if (document.getElementById('root').children.length === 0) {
             console.error("Application non chargée après 3 secondes, tentative de chargement alternatif");
-            const appScript = document.createElement('script');
-            appScript.type = 'module';
-            appScript.src = '/src/main.tsx';
-            document.body.appendChild(appScript);
+            // Essayer d'abord le chemin standard du bundle
+            const checkBundle = function() {
+              // Liste des chemins possibles à essayer
+              const paths = [
+                './assets/index.js',
+                './assets/main.js',
+                './src/main.tsx'
+              ];
+              
+              for (let path of paths) {
+                try {
+                  const scriptExists = document.querySelector(`script[src="${path}"]`);
+                  if (!scriptExists) {
+                    console.log(`Tentative de chargement depuis: ${path}`);
+                    const appScript = document.createElement('script');
+                    appScript.type = 'module';
+                    appScript.src = path;
+                    document.body.appendChild(appScript);
+                    return true;
+                  }
+                } catch (e) {
+                  console.error(`Erreur lors de la vérification du chemin ${path}:`, e);
+                }
+              }
+              return false;
+            };
+            
+            if (!checkBundle()) {
+              console.error("Tous les chemins ont échoué. Affichage d'un message d'erreur");
+              const errorMsg = document.createElement('div');
+              errorMsg.style.padding = '20px';
+              errorMsg.style.margin = '20px';
+              errorMsg.style.color = '#721c24';
+              errorMsg.style.backgroundColor = '#f8d7da';
+              errorMsg.style.border = '1px solid #f5c6cb';
+              errorMsg.style.borderRadius = '4px';
+              errorMsg.style.fontFamily = 'Poppins, sans-serif';
+              errorMsg.innerHTML = '<h2>Erreur de chargement</h2><p>Impossible de charger l\'application. Veuillez rafraîchir la page ou contacter l\'administrateur.</p>';
+              document.body.appendChild(errorMsg);
+            }
           }
         }, 3000);
       });
     </script>
+<script src="./init.js"></script>
   </body>
 </html>
