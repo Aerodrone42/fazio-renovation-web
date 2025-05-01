@@ -99,16 +99,18 @@ export const Navbar = () => {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className={cn(
-                  "bg-transparent hover:bg-transparent",
-                  textColor,
-                  textHoverColor,
-                  isServicePage && "font-medium text-fazio-red"
-                )}>
+                <NavigationMenuTrigger 
+                  className={cn(
+                    "bg-transparent",
+                    textColor,
+                    textHoverColor,
+                    isServicePage && "font-medium text-fazio-red"
+                  )}
+                >
                   Nos services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid gap-3 p-4 w-[400px] md:w-[500px] lg:w-[600px] grid-cols-1 md:grid-cols-2">
+                  <ul className="grid gap-3 p-4 w-[400px] md:w-[500px] lg:w-[600px] grid-cols-1 md:grid-cols-2 bg-white">
                     {services.map((service) => (
                       <li key={service.href}>
                         <NavigationMenuLink asChild>
@@ -146,10 +148,15 @@ export const Navbar = () => {
             À propos
           </Link>
 
-          {/* Updated "Nous appeler" button with transparent background and white border */}
+          {/* Bouton Nous appeler avec styles conditionnels basés sur l'état de défilement */}
           <Button 
             variant="outline" 
-            className="bg-transparent border border-white text-white hover:bg-transparent hover:text-fazio-cream hover:border-fazio-cream transition-colors"
+            className={cn(
+              "border transition-colors",
+              isScrolled || !isHomePage
+                ? "border-fazio-red text-fazio-red hover:bg-transparent hover:text-fazio-light-red hover:border-fazio-light-red"
+                : "border-white text-white hover:bg-transparent hover:text-fazio-cream hover:border-fazio-cream"
+            )}
             asChild
           >
             <a href="tel:+33672971393" className="flex items-center gap-2" onClick={handleLinkClick}>
