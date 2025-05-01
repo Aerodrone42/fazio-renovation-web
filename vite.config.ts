@@ -41,11 +41,13 @@ export default defineConfig(({ mode }) => {
           entryFileNames: 'assets/[name].js', // Format du nom pour les fichiers d'entrée
           chunkFileNames: 'assets/[name]-[hash].js', // Format pour les chunks
           assetFileNames: (assetInfo) => {
-            // Conserver l'extension d'origine pour les fichiers statiques
-            const info = assetInfo.name.split('.');
-            const extType = info[info.length - 1];
-            if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
-              return `assets/images/[name][extname]`;
+            // Vérifier que assetInfo.name existe avant de l'utiliser
+            if (assetInfo.name) {
+              const info = assetInfo.name.split('.');
+              const extType = info[info.length - 1];
+              if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+                return `assets/images/[name][extname]`;
+              }
             }
             return `assets/[name][extname]`;
           },
