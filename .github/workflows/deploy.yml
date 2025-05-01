@@ -59,10 +59,20 @@ jobs:
             cp dist/index.html dist/404.html
           fi
           
+          # Vérification explicite de la référence à index.js et correction si nécessaire
+          if grep -q 'src="./assets/index.js"' dist/index.html; then
+            echo "Correction de la référence incorrecte à index.js"
+            JS_FILE=$(ls dist/assets/*.js | grep -v chunk | head -n 1 | xargs basename)
+            sed -i "s|src=\"./assets/index.js\"|src=\"./assets/$JS_FILE\"|g" dist/index.html
+            sed -i "s|src=\"./assets/index.js\"|src=\"./assets/$JS_FILE\"|g" dist/404.html
+          fi
+          
           echo "Contenu du dossier dist après correction:"
           ls -la dist/
           echo "Contenu du dossier dist/assets:"
           ls -la dist/assets/ || echo "Le dossier assets n'existe pas"
+          echo "Version finale de index.html après toutes les corrections:"
+          cat dist/index.html
           
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
