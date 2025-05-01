@@ -42,7 +42,7 @@ const About = () => {
             </div>
             <div className="rounded-lg overflow-hidden shadow-lg flex items-center justify-center p-8 bg-white">
               <img 
-                src="/lovable-uploads/3f50bd39-e720-4137-a2c1-2b1f154d2f64.png" 
+                src="/lovable-uploads/730ebf25-aaba-408a-bd0b-d44b88764a69.png" 
                 alt="Logo FAZIO Lorenzo" 
                 className="w-full h-auto object-contain max-h-80"
               />

@@ -74,7 +74,7 @@ export const Navbar = () => {
       <div className="container flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <img 
-            src="/lovable-uploads/46061452-2c41-486c-947a-2a029a3ffa18.png" 
+            src="/lovable-uploads/730ebf25-aaba-408a-bd0b-d44b88764a69.png" 
             alt="Logo FAZIO Lorenzo" 
             className="h-12 w-auto"
           />
