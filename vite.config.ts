@@ -6,7 +6,7 @@ import { componentTagger } from "lovable-tagger";
 import fs from 'fs';
 
 export default defineConfig(({ mode }) => {
-  // Créer le dossier docs/assets avant même la construction
+  // Créer les dossiers nécessaires
   if (!fs.existsSync('docs')) {
     fs.mkdirSync('docs', { recursive: true });
   }
@@ -14,14 +14,35 @@ export default defineConfig(({ mode }) => {
     fs.mkdirSync('docs/assets', { recursive: true });
   }
   
-  // Créer un index.js minimal directement dans docs/assets
-  const minimalIndexJs = `import { createRoot } from 'react-dom/client';
-import App from './App.js';
-createRoot(document.getElementById('root')).render(App());`;
+  // Créer un index.js minimal directement
+  const minimalIndexJs = `
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from '/src/App';
+
+// Fonction d'initialisation
+function init() {
+  try {
+    const rootElement = document.getElementById('root');
+    if (!rootElement) {
+      console.error('Element root non trouvé');
+      return;
+    }
+    createRoot(rootElement).render(React.createElement(App));
+    console.log('Application chargée avec succès');
+  } catch (e) {
+    console.error('Erreur de chargement:', e);
+    document.getElementById('root').innerHTML = '<div style="padding:20px;"><h1>Erreur de chargement</h1><p>Impossible de charger l\\'application.</p></div>';
+  }
+}
+
+// Exécuter l'initialisation
+init();
+`;
   fs.writeFileSync('docs/assets/index.js', minimalIndexJs);
   
   return {
-    base: './', // Utiliser des chemins relatifs au lieu de chemins absolus (crucial pour GitHub Pages)
+    base: './', // Utiliser des chemins relatifs au lieu de chemins absolus
     plugins: [
       react(),
       mode === 'development' && componentTagger(),
@@ -37,28 +58,19 @@ createRoot(document.getElementById('root')).render(App());`;
     },
     build: {
       outDir: 'docs', // Construire dans le dossier docs
-      emptyOutDir: false, // Ne pas vider le dossier docs pour conserver les fichiers importants
-      assetsDir: 'assets', // Garantir que les assets sont dans le dossier assets
-      manifest: true, // Générer un fichier manifeste
+      emptyOutDir: false, // Ne pas vider le dossier docs
+      assetsDir: 'assets',
+      manifest: true,
       rollupOptions: {
+        input: {
+          main: path.resolve(__dirname, 'index.html'),
+        },
         output: {
-          // Forcer l'utilisation de noms de fichiers spécifiques pour les fichiers principaux
           entryFileNames: 'assets/index.js',
           chunkFileNames: 'assets/[name]-[hash].js',
-          assetFileNames: (assetInfo) => {
-            if (assetInfo && assetInfo.name) {
-              const info = assetInfo.name.split('.');
-              const extType = info[info.length - 1];
-              if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
-                return `assets/images/[name][extname]`;
-              }
-              return `assets/[name][extname]`;
-            }
-            return `assets/[name][extname]`;
-          },
+          assetFileNames: 'assets/[name]-[hash][extname]',
         },
       },
-      sourcemap: true,
     },
   };
 });

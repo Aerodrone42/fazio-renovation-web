@@ -11,46 +11,46 @@
     <meta property="og:description" content="Spécialiste du carrelage et de la rénovation clé en main dans l'Ouest Lyonnais et l'Ain." />
     <meta property="og:type" content="website" />
     
-    <!-- Favicon avec chemin relatif -->
     <link rel="icon" type="image/png" href="./lovable-uploads/8d86e4df-9559-4d2e-a51e-e1ca7622720d.png">
-    
-    <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap">
-    
-    <!-- Script for GPT Engineer - Important pour la fonctionnalité de sélection -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
   </head>
   <body>
     <div id="root"></div>
     
-    <!-- Utilisation d'un système de fallback pour index.js -->
+    <!-- Script principal avec gestion d'erreur -->
     <script>
-      // Fonction pour charger index.js avec fallback
-      function loadMainScript() {
-        console.log("Tentative de chargement du script principal");
-        
-        // Créer l'élément script
-        var script = document.createElement('script');
+      // Fonction pour charger un script avec fallback
+      function loadScript(src, fallbackSrc, fallbackContent) {
+        console.log("Chargement du script:", src);
+        const script = document.createElement('script');
         script.type = 'module';
-        script.src = './assets/index.js';
+        script.src = src;
         script.onerror = function() {
-          console.error("Erreur de chargement de ./assets/index.js - Tentative avec un chemin alternatif");
+          console.error("Échec du chargement de", src);
           
-          // Si le premier chemin échoue, essayer avec un chemin absolu
-          var fallbackScript = document.createElement('script');
-          fallbackScript.type = 'module';
-          fallbackScript.src = '/assets/index.js';
-          fallbackScript.onerror = function() {
-            console.error("Tous les chemins de chargement ont échoué");
-            document.getElementById('root').innerHTML = '<div style="text-align:center;padding:50px;"><h1>Erreur de chargement</h1><p>Impossible de charger l\'application. Veuillez rafraîchir la page ou contacter l\'administrateur.</p></div>';
-          };
-          document.body.appendChild(fallbackScript);
+          if (fallbackSrc) {
+            console.log("Tentative avec fallback:", fallbackSrc);
+            const fallbackScript = document.createElement('script');
+            fallbackScript.type = 'module';
+            fallbackScript.src = fallbackSrc;
+            fallbackScript.onerror = function() {
+              console.error("Tous les scripts ont échoué");
+              if (fallbackContent) {
+                const rootEl = document.getElementById('root');
+                if (rootEl) rootEl.innerHTML = fallbackContent;
+              }
+            };
+            document.body.appendChild(fallbackScript);
+          }
         };
         document.body.appendChild(script);
       }
       
-      // Charger le script principal
-      document.addEventListener('DOMContentLoaded', loadMainScript);
+      // Charger les scripts dans cet ordre
+      document.addEventListener('DOMContentLoaded', function() {
+        loadScript('./assets/index.js', null, '<div style="padding:20px;text-align:center;"><h2>Erreur de chargement</h2><p>Impossible de charger l\'application</p></div>');
+      });
     </script>
   </body>
 </html>

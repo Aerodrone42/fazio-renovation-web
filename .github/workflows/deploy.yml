@@ -24,12 +24,12 @@ jobs:
       - name: Install dependencies 📦
         run: npm ci || npm install
         
-      - name: Create assets directory and index.js 📁
+      - name: Create critical files before build 📁
         run: |
           mkdir -p docs/assets
-          echo "// Fichier index.js minimal de secours" > docs/assets/index.js
-          echo "Assets directory and index.js created before build"
-        
+          echo "console.log('Application fallback chargée');" > docs/assets/index.js
+          echo "Fichiers critiques créés"
+          
       - name: Build 🔧
         run: npm run build
         env:
@@ -41,16 +41,20 @@ jobs:
           ls -la docs/
           echo ""
           echo "Contents of docs/assets directory:"
-          ls -la docs/assets/
+          ls -la docs/assets/ || echo "Assets directory not found"
           
-      - name: Force create index.js if missing ⚠️
+      - name: Create all required files 📄
         run: |
+          # Garantir que le répertoire assets existe
+          mkdir -p docs/assets
+          
+          # Créer un index.js de secours s'il n'existe pas
           if [ ! -f "docs/assets/index.js" ] || [ ! -s "docs/assets/index.js" ]; then
-            echo "⚠️ index.js manquant ou vide dans docs/assets - Création d'un fichier de secours"
+            echo "Creating fallback index.js"
             cat > docs/assets/index.js << 'EOL'
-import { createRoot } from 'react-dom/client';
 import React from 'react';
-import App from '../src/App.js';
+import { createRoot } from 'react-dom/client';
+import App from '../src/App.tsx';
 
 try {
   const rootElement = document.getElementById('root');
@@ -63,83 +67,41 @@ try {
   document.getElementById('root').innerHTML = '<div style="padding:20px;"><h1>Erreur de chargement</h1><p>Impossible de charger l\'application.</p></div>';
 }
 EOL
-            echo "✅ index.js de secours créé avec succès!"
-          else
-            echo "✅ index.js existe dans docs/assets/"
           fi
           
-      - name: Ensure directories and files exist 📋
-        run: |
+          # Autres fichiers nécessaires
           echo "www.sarlfaziolorenzo.fr" > docs/CNAME
           touch docs/.nojekyll
           
-          # Copier 404.html vers docs
-          cp public/404.html docs/404.html || echo "❌ Failed to copy 404.html"
-          
-          # S'assurer que le script gptengineer est présent dans index.html
-          if ! grep -q "gptengineer.js" docs/index.html; then
-            sed -i 's|<head>|<head>\n    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>|' docs/index.html
+          # Copier 404.html si nécessaire
+          if [ -f "public/404.html" ]; then
+            cp public/404.html docs/404.html
           fi
           
-      - name: Update index.html with direct script tag 📄
-        run: |
-          cat > docs/index.html << 'EOL'
+          # Vérifier l'existence de l'index.html et le créer si nécessaire
+          if [ ! -f "docs/index.html" ]; then
+            echo "Creating fallback index.html"
+            cat > docs/index.html << 'EOL'
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SARL FAZIO Lorenzo | Carrelage & rénovation dans l'Ouest Lyonnais et l'Ain</title>
-    <meta name="description" content="SARL FAZIO Lorenzo - Spécialiste du carrelage, mosaïque, pierre naturelle, douches à l'italienne et rénovation de salles de bain clé en main dans l'Ouest Lyonnais et l'Ain." />
-    <meta name="author" content="SARL FAZIO Lorenzo" />
-    <meta property="og:title" content="SARL FAZIO Lorenzo | Carrelage & rénovation" />
-    <meta property="og:description" content="Spécialiste du carrelage et de la rénovation clé en main dans l'Ouest Lyonnais et l'Ain." />
-    <meta property="og:type" content="website" />
-    
-    <!-- Favicon avec chemin relatif -->
-    <link rel="icon" type="image/png" href="./lovable-uploads/8d86e4df-9559-4d2e-a51e-e1ca7622720d.png">
-    
-    <!-- Google Fonts -->
+    <title>SARL FAZIO Lorenzo | Carrelage & rénovation</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap">
-    
-    <!-- Script for GPT Engineer - Important pour la fonctionnalité de sélection -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
   </head>
   <body>
     <div id="root"></div>
-    
-    <!-- Script de chargement direct -->
     <script type="module" src="./assets/index.js"></script>
-    
-    <!-- Script de diagnostic -->
-    <script>
-      window.addEventListener('DOMContentLoaded', function() {
-        console.log("DOMContentLoaded event fired");
-        const rootElement = document.getElementById('root');
-        
-        // Vérifier si l'application React est chargée après un délai
-        setTimeout(function() {
-          if (rootElement && rootElement.children.length === 0) {
-            console.error("L'application React ne semble pas s'être chargée.");
-            rootElement.innerHTML = '<div style="padding:20px;text-align:center;font-family:sans-serif;"><h2>Chargement en cours...</h2><p>Si cette page persiste, veuillez rafraîchir.</p></div>';
-            
-            // Tentative de chargement alternatif
-            const script = document.createElement('script');
-            script.type = 'module';
-            script.src = '/assets/index.js';  // Chemin alternatif
-            document.body.appendChild(script);
-          }
-        }, 2000);
-      });
-    </script>
   </body>
 </html>
 EOL
-          echo "✅ index.html mis à jour avec un script de chargement direct"
+          fi
           
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: docs
           branch: gh-pages
-          clean: false  # Pour éviter de supprimer des fichiers importants
+          clean: false
