@@ -28,7 +28,7 @@ const PierreMarbre: React.FC = () => {
       <ServicePageHeader 
         title="Pierre naturelle et marbre"
         description="L'élégance intemporelle des matériaux nobles pour sublimer votre intérieur."
-        imagePath="/lovable-uploads/bda2aeec-32ad-4860-a658-0f0015ceb618.png"
+        imagePath="/lovable-uploads/54e615bf-100b-4db6-92db-0e5cc61ac54f.png"
       />
       
       <div className="bg-white w-full">
