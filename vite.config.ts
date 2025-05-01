@@ -4,8 +4,11 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
+// Déterminer la base URL en fonction de l'environnement
+const base = process.env.NODE_ENV === 'production' ? '/sarlfaziolorenzo/' : '/';
+
 export default defineConfig(({ mode }) => ({
-  base: process.env.NODE_ENV === 'production' ? '/sarlfaziolorenzo/' : '/',
+  base: base,
   server: {
     host: "::",
     port: 8080,
