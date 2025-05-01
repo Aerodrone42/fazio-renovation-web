@@ -11,8 +11,8 @@
     <meta property="og:description" content="Spécialiste du carrelage et de la rénovation clé en main dans l'Ouest Lyonnais et l'Ain." />
     <meta property="og:type" content="website" />
     
-    <!-- Favicon avec chemin absolu -->
-    <link rel="icon" type="image/png" href="/lovable-uploads/8d86e4df-9559-4d2e-a51e-e1ca7622720d.png">
+    <!-- Favicon avec chemin adaptatif -->
+    <link rel="icon" type="image/png" href="lovable-uploads/8d86e4df-9559-4d2e-a51e-e1ca7622720d.png">
     
     <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap">
@@ -22,7 +22,7 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="src/main.tsx"></script>
     
     <!-- Script de secours en cas d'erreur de chargement -->
     <script>
@@ -32,7 +32,7 @@
             console.error("Application non chargée après 3 secondes, tentative de chargement alternatif");
             const appScript = document.createElement('script');
             appScript.type = 'module';
-            appScript.src = '/assets/main.js';
+            appScript.src = 'assets/main.js';
             document.body.appendChild(appScript);
           }
         }, 3000);

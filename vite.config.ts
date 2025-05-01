@@ -6,7 +6,7 @@ import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => {
   return {
-    base: '/', // Utiliser des chemins absolus
+    base: '', // Utiliser des chemins relatifs sans point pour GitHub Pages
     plugins: [
       react(),
       mode === 'development' && componentTagger(),

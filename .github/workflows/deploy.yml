@@ -24,6 +24,11 @@ jobs:
       - name: Install dependencies 📦
         run: npm ci || npm install
         
+      - name: Configure Vite for GitHub Pages 🔧
+        run: |
+          # Create or modify .env file for production
+          echo "VITE_BASE_URL=\${GITHUB_REPOSITORY#*/}" > .env.production
+        
       - name: Build 🔧
         run: npm run build
         env:
