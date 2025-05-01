@@ -8,8 +8,10 @@
   <script>
     // Méthode de redirection spécifique pour GitHub Pages
     (function() {
+      console.log("Page 404.html chargée, préparation de la redirection...");
+      
       var l = window.location;
-      var pathSegmentsToKeep = 0; // Changer si le site est dans un sous-dossier
+      var pathSegmentsToKeep = 0; // 0 car le site est à la racine
       
       // Capture le chemin complet après le domaine (sans les paramètres de requête)
       var path = l.pathname.split('/').slice(pathSegmentsToKeep + 1).join('/');
@@ -18,6 +20,8 @@
         // Stocke le chemin de redirection sans le slash initial
         sessionStorage.setItem('redirect_path', path);
         console.log('Chemin stocké pour redirection:', path);
+      } else {
+        console.log('Aucun chemin à stocker');
       }
       
       // Redirige vers la racine avec des chemins relatifs fiables

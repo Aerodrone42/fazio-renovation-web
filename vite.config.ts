@@ -61,6 +61,24 @@ export default defineConfig(({ mode }) => {
       fs.writeFileSync(path.join(outDir, 'test.html'), testHtmlContent);
       console.log("Fichier test.html créé avec succès");
       
+      // Création d'un fichier direct-test.html supplémentaire pour vérification
+      const directTestContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Direct</title>
+</head>
+<body>
+  <h1>Test d'accès direct réussi</h1>
+  <p>Si vous voyez cette page, l'accès direct aux fichiers fonctionne correctement.</p>
+  <p>Date de génération: ${new Date().toISOString()}</p>
+  <p><a href="/">Retour à l'accueil</a></p>
+</body>
+</html>
+`;
+      fs.writeFileSync(path.join(outDir, 'direct-test.html'), directTestContent);
+      console.log("Fichier direct-test.html créé avec succès");
+      
     } catch (err) {
       console.error('Erreur lors de la création des fichiers:', err);
     }

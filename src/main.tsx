@@ -5,6 +5,8 @@ import './index.css'
 
 // Gestion de redirection SPA pour GitHub Pages
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM chargé, initialisation de l\'application...');
+  
   // Récupère le chemin stocké dans sessionStorage
   const redirectPath = sessionStorage.getItem('redirect_path');
   console.log('Chemin récupéré depuis sessionStorage:', redirectPath);
@@ -22,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (error) {
       console.error('Erreur lors de la redirection:', error);
     }
+  } else {
+    console.log('Aucune redirection nécessaire');
   }
   
   // Montage de l'application React
@@ -29,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!rootElement) {
     console.error("Élément root introuvable dans le DOM");
   } else {
+    console.log("Montage de l'application React...");
     createRoot(rootElement).render(<App />);
     console.log("Application React montée avec succès");
   }
