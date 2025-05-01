@@ -17,14 +17,12 @@
     <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap">
     
-    <!-- Script de redirection pour GitHub Pages SPA -->
+    <!-- Script de redirection pour GitHub Pages SPA - Version très simplifiée -->
     <script type="text/javascript">
-      // Vérifier si nous sommes sur GitHub Pages
-      if (window.location.hostname.includes('github.io') || window.location.hostname.includes('sarlfaziolorenzo.fr')) {
-        // Si pas de hash et qu'on a un chemin, on redirige vers la version avec hash
-        if (!window.location.hash && window.location.pathname.length > 1) {
-          window.location.replace('/#' + window.location.pathname);
-        }
+      // Script simple pour GitHub Pages
+      // Si on est sur un chemin autre que la racine, rediriger vers la racine
+      if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+        window.location.replace('/');
       }
     </script>
     
