@@ -20,24 +20,36 @@
     <!-- Script for GPT Engineer - Important pour la fonctionnalité de sélection -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     
-    <!-- Utilisation d'un script de chargement conditionnel -->
+    <!-- Utilisation d'un script de chargement conditionnel avec fallback -->
     <script type="text/javascript">
-      // Ajouter dynamiquement le script principal
-      const mainScript = document.createElement('script');
-      mainScript.type = 'module';
-      mainScript.src = './assets/index.js';
-      document.head.appendChild(mainScript);
+      // Tentative de chargement du script principal
+      document.addEventListener('DOMContentLoaded', function() {
+        // Ajouter dynamiquement le script principal
+        const mainScript = document.createElement('script');
+        mainScript.type = 'module';
+        mainScript.src = './assets/index.js';
+        document.head.appendChild(mainScript);
 
-      // Fallback si le script ne se charge pas
-      mainScript.onerror = function() {
-        console.error("Erreur de chargement du script principal");
-        const errorDiv = document.createElement('div');
-        errorDiv.innerHTML = `
-          <h1>Erreur de chargement</h1>
-          <p>Le script principal n'a pas pu être chargé. Essayez de rafraîchir la page.</p>
-        `;
-        document.getElementById('root').appendChild(errorDiv);
-      };
+        // Fallback si le script ne se charge pas
+        mainScript.onerror = function() {
+          console.error("Erreur de chargement du script principal depuis ./assets/index.js");
+          // Tentative avec un autre chemin
+          const fallbackScript = document.createElement('script');
+          fallbackScript.type = 'module';
+          fallbackScript.src = '/assets/index.js';
+          document.head.appendChild(fallbackScript);
+          
+          fallbackScript.onerror = function() {
+            console.error("Échec de tous les chemins de chargement");
+            const errorDiv = document.createElement('div');
+            errorDiv.innerHTML = `
+              <h1>Erreur de chargement</h1>
+              <p>Le script principal n'a pas pu être chargé. Essayez de rafraîchir la page.</p>
+            `;
+            document.getElementById('root').appendChild(errorDiv);
+          };
+        };
+      });
     </script>
   </head>
   <body>
@@ -60,6 +72,9 @@
         document.body.appendChild(errorDiv);
         return false;
       };
+
+      // Vérification de la présence du fichier
+      console.log("Tentative de chargement du JavaScript depuis ./assets/index.js");
     </script>
   </body>
 </html>

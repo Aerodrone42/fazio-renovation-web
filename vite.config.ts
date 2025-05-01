@@ -38,8 +38,9 @@ export default defineConfig(({ mode }) => {
       manifest: true, // Générer un fichier manifeste
       rollupOptions: {
         output: {
-          entryFileNames: 'assets/[name].js', // Format du nom pour les fichiers d'entrée
-          chunkFileNames: 'assets/[name]-[hash].js', // Format pour les chunks
+          // Forcer le nom du fichier principal à index.js
+          entryFileNames: 'assets/index.js',
+          chunkFileNames: 'assets/[name]-[hash].js', 
           assetFileNames: (assetInfo) => {
             // Vérifier que assetInfo.name existe avant de l'utiliser
             if (assetInfo.name) {

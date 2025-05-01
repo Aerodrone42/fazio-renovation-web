@@ -35,6 +35,14 @@ jobs:
         env:
           NODE_ENV: production
           
+      - name: Debug information 🧪
+        run: |
+          echo "Contents of docs directory:"
+          ls -la docs/
+          echo ""
+          echo "Contents of docs/assets directory:"
+          ls -la docs/assets/
+          
       - name: Verify build output 🔍
         run: |
           echo "Listing build output files:"
@@ -47,9 +55,15 @@ jobs:
             echo "✅ index.js existe dans docs/assets/"
           else
             echo "❌ index.js manquant dans docs/assets/"
-            # Créer une redirection d'urgence
-            echo "console.log('Chargement de secours'); window.location.reload();" > docs/assets/index.js
-            echo "⚠️ Fichier index.js de secours créé"
+            # Copie le fichier depuis le dossier dist/assets s'il existe
+            if [ -f "dist/assets/index.js" ]; then
+              cp dist/assets/index.js docs/assets/
+              echo "✅ index.js copié depuis dist/assets/"
+            else
+              # Créer une redirection d'urgence
+              echo "console.log('Erreur: fichier index.js introuvable'); alert('Erreur de chargement du site. Veuillez contacter l'administrateur.');" > docs/assets/index.js
+              echo "⚠️ Fichier index.js de secours créé"
+            fi
           fi
           
       - name: Ensure directories and files exist 📋
@@ -61,48 +75,8 @@ jobs:
           if [ -f "public/404.html" ]; then
             cp public/404.html docs/404.html
             echo "✅ 404.html copied from public to docs"
-          else
-            # Créer un fichier 404.html minimal si nécessaire
-            cat > docs/404.html << 'EOF'
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>SARL FAZIO Lorenzo | Redirection</title>
-  <script type="text/javascript">
-    window.location.replace(window.location.origin);
-  </script>
-</head>
-<body>
-  <div style="text-align: center; padding-top: 50px;">
-    <h2>Redirection en cours...</h2>
-    <p>Vous allez être redirigé vers la page d'accueil.</p>
-    <p>Si la redirection ne fonctionne pas, <a href="/">cliquez ici</a></p>
-  </div>
-</body>
-</html>
-EOF
-            echo "⚠️ Created a new 404.html file in docs"
           fi
           
-          echo "Verifying build output structure..."
-          ls -la docs/
-          
-          # Vérification et création du répertoire assets
-          echo "Checking for assets directory:"
-          if [ ! -d "docs/assets" ]; then
-            echo "❌ Assets directory NOT found, creating directory"
-            mkdir -p docs/assets
-            echo "// Placeholder file to ensure directory is committed" > docs/assets/placeholder.js
-          else
-            echo "✅ Assets directory found"
-            ls -la docs/assets/
-            if [ -z "$(ls -A docs/assets)" ]; then
-              echo "⚠️ Assets directory is empty, creating placeholder"
-              echo "// Placeholder file to ensure directory is committed" > docs/assets/placeholder.js
-            fi
-          fi
-
           # S'assurer que le script gptengineer est présent dans index.html
           if ! grep -q "gptengineer.js" docs/index.html; then
             echo "⚠️ gptengineer.js script not found in docs/index.html, adding it"
@@ -111,16 +85,11 @@ EOF
             echo "✅ gptengineer.js script found in docs/index.html"
           fi
           
-          # Copier explicitement le fichier main depuis le dossier src
-          if [ -f "src/main.tsx" ]; then
-            mkdir -p docs/src
-            cp src/main.tsx docs/src/
-            echo "✅ main.tsx copied to docs/src/"
-          fi
-          
           # Ajouter un script de diagnostic en bas du fichier index.html
-          sed -i 's|</body>|<script>console.log("Site chargé: " + new Date().toString());</script></body>|' docs/index.html
-          echo "✅ Added diagnostic script to index.html"
+          if ! grep -q "Site chargé" docs/index.html; then
+            sed -i 's|</body>|<script>console.log("Site chargé: " + new Date().toString());</script></body>|' docs/index.html
+            echo "✅ Added diagnostic script to index.html"
+          fi
           
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
