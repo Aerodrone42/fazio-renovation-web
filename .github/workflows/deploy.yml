@@ -24,10 +24,13 @@ jobs:
       - name: Install dependencies 📦
         run: npm ci || npm install
         
-      - name: Build 🔧
+      - name: Create assets directory 📁
         run: |
-          npm run build
           mkdir -p docs/assets
+          echo "Assets directory created before build"
+        
+      - name: Build 🔧
+        run: npm run build
         env:
           NODE_ENV: production
           
@@ -38,12 +41,17 @@ jobs:
           echo "Verifying build output structure..."
           ls -la docs/
           echo "Checking for assets directory:"
-          if [ -d "docs/assets" ]; then
+          if [ ! -d "docs/assets" ]; then
+            echo "❌ Assets directory NOT found, creating directory"
+            mkdir -p docs/assets
+            echo "// Placeholder file to ensure directory is committed" > docs/assets/placeholder.js
+          else
             echo "✅ Assets directory found"
             ls -la docs/assets/
-          else
-            echo "❌ Assets directory NOT found, creating empty directory to prevent deployment failure"
-            mkdir -p docs/assets
+            if [ -z "$(ls -A docs/assets)" ]; then
+              echo "⚠️ Assets directory is empty, creating placeholder"
+              echo "// Placeholder file to ensure directory is committed" > docs/assets/placeholder.js
+            fi
           fi
           
       - name: Deploy to GitHub Pages 🚀
