@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => {
           main: path.resolve(__dirname, 'index.html'),
         },
         output: {
-          entryFileNames: 'assets/main.js', // Format des noms de fichiers d'entrée (modifié)
+          entryFileNames: 'assets/[name].js', // Format des noms de fichiers d'entrée
           chunkFileNames: 'assets/[name].js', // Format des noms de chunks
           assetFileNames: 'assets/[name].[ext]', // Format des noms d'assets
         },
