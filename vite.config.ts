@@ -28,7 +28,7 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
-    base: '/',  // Base path for GitHub Pages with custom domain
+    base: '/',
     server: {
       host: "::",
       port: 8080,
@@ -47,7 +47,6 @@ export default defineConfig(({ mode }) => {
       outDir: 'dist',
       assetsDir: 'assets',
       emptyOutDir: true,
-      // Generate a .nojekyll file
       rollupOptions: {
         output: {
           manualChunks: undefined,
