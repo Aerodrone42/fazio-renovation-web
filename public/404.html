@@ -6,27 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redirection - SARL FAZIO Lorenzo</title>
   <script>
-    // Méthode de redirection spécifique pour GitHub Pages
+    // Méthode de redirection améliorée pour GitHub Pages
     (function() {
       console.log("Page 404.html chargée, préparation de la redirection...");
       
-      var l = window.location;
-      var pathSegmentsToKeep = 0; // 0 car le site est à la racine
+      // Récupération du chemin demandé
+      var path = window.location.pathname;
+      console.log("Chemin demandé:", path);
       
-      // Capture le chemin complet après le domaine (sans les paramètres de requête)
-      var path = l.pathname.split('/').slice(pathSegmentsToKeep + 1).join('/');
+      // Stockage du chemin sans le premier slash
+      var pathToRedirect = path.replace(/^\//, '');
+      sessionStorage.setItem('redirect_path', pathToRedirect);
+      console.log("Chemin stocké pour redirection:", pathToRedirect);
       
-      if (path) {
-        // Stocke le chemin de redirection sans le slash initial
-        sessionStorage.setItem('redirect_path', path);
-        console.log('Chemin stocké pour redirection:', path);
-      } else {
-        console.log('Aucun chemin à stocker');
-      }
-      
-      // Redirige vers la racine avec des chemins relatifs fiables
-      var rootUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/';
-      console.log('Redirection vers:', rootUrl);
+      // Redirection vers la racine
+      var rootUrl = window.location.origin;
+      console.log("Redirection vers:", rootUrl);
       window.location.href = rootUrl;
     })();
   </script>

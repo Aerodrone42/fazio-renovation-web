@@ -18,14 +18,9 @@ export default defineConfig(({ mode }) => {
       fs.writeFileSync(path.join(outDir, '.nojekyll'), '');
       console.log("Fichier .nojekyll créé avec succès");
       
-      // Copie du fichier CNAME si présent
-      const cnamePath = path.join(__dirname, 'CNAME');
-      if (fs.existsSync(cnamePath)) {
-        fs.copyFileSync(cnamePath, path.join(outDir, 'CNAME'));
-        console.log("Fichier CNAME copié avec succès");
-      } else {
-        console.warn("Fichier CNAME non trouvé à la racine du projet");
-      }
+      // Copie du fichier CNAME
+      fs.writeFileSync(path.join(outDir, 'CNAME'), 'www.sarlfaziolorenzo.fr');
+      console.log("Fichier CNAME créé avec succès");
       
       // Copie du fichier 404.html depuis public/
       const notFoundPath = path.join(__dirname, 'public', '404.html');
@@ -60,24 +55,6 @@ export default defineConfig(({ mode }) => {
 `;
       fs.writeFileSync(path.join(outDir, 'test.html'), testHtmlContent);
       console.log("Fichier test.html créé avec succès");
-      
-      // Création d'un fichier direct-test.html supplémentaire pour vérification
-      const directTestContent = `
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Test Direct</title>
-</head>
-<body>
-  <h1>Test d'accès direct réussi</h1>
-  <p>Si vous voyez cette page, l'accès direct aux fichiers fonctionne correctement.</p>
-  <p>Date de génération: ${new Date().toISOString()}</p>
-  <p><a href="/">Retour à l'accueil</a></p>
-</body>
-</html>
-`;
-      fs.writeFileSync(path.join(outDir, 'direct-test.html'), directTestContent);
-      console.log("Fichier direct-test.html créé avec succès");
       
     } catch (err) {
       console.error('Erreur lors de la création des fichiers:', err);
