@@ -6,20 +6,20 @@ import './index.css'
 const rootElement = document.getElementById("root");
 if (rootElement) {
   try {
-    // Get correct base URL without trailing slash for consistency
+    // Obtenir l'URL de base correcte
     const baseUrl = import.meta.env.BASE_URL || '/';
-    console.log("Base URL for assets:", baseUrl);
+    console.log("URL de base pour les assets:", baseUrl);
     
-    // Fix image paths - improved path handling logic
+    // Corriger les chemins d'images - logique améliorée
     document.querySelectorAll('img').forEach(img => {
       const src = img.getAttribute('src');
       if (src) {
-        // Handle lovable-uploads specially
-        if (src.includes('lovable-uploads') && !src.startsWith('http')) {
-          // For paths like "/lovable-uploads/..." or "lovable-uploads/..."
+        // Traiter spécialement les lovable-uploads
+        if (src.includes('lovable-uploads')) {
+          // Pour les chemins comme "/lovable-uploads/..." ou "lovable-uploads/..."
           const normalizedSrc = src.startsWith('/') ? src.substring(1) : src;
-          img.setAttribute('src', `${normalizedSrc}`);
-          console.log("Fixed image path:", normalizedSrc);
+          img.setAttribute('src', normalizedSrc);
+          console.log("Chemin d'image corrigé:", normalizedSrc);
         }
       }
     });

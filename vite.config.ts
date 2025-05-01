@@ -5,7 +5,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: '/', // Changed from '/fazio-renovation-web/' to '/' for correct path handling
+  base: '/', // Chemin de base pour les assets
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
@@ -19,16 +19,22 @@ export default defineConfig(({ mode }) => ({
     port: 8080
   },
   build: {
-    outDir: 'docs',
-    emptyOutDir: true,
-    assetsDir: 'assets',
+    outDir: 'docs', // Génère les fichiers de build dans le dossier docs
+    emptyOutDir: true, // Vide le dossier avant chaque build
+    assetsDir: 'assets', // Nom du dossier pour les assets
     rollupOptions: {
       output: {
         manualChunks: undefined,
         assetFileNames: (assetInfo) => {
-          if (!assetInfo.name) return 'assets/[name]-[hash][extname]';
+          // Vérification que assetInfo.name existe
+          if (!assetInfo.name) {
+            return 'assets/[name]-[hash][extname]';
+          }
           
-          const extType = assetInfo.name.split('.').at(1);
+          // Utilisation sécurisée avec vérification d'existence
+          const nameParts = assetInfo.name.split('.');
+          const extType = nameParts.length > 1 ? nameParts[1] : '';
+          
           if (extType && /png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
             return 'assets/images/[name]-[hash][extname]';
           }

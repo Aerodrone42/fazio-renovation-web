@@ -29,16 +29,28 @@ jobs:
           NODE_ENV: production
           
       - name: Copy CNAME 📋
-        run: cp CNAME docs/ || echo "www.sarlfaziolorenzo.fr" > docs/CNAME
+        run: |
+          echo "www.sarlfaziolorenzo.fr" > docs/CNAME
+          cat docs/CNAME
         
       - name: Create .nojekyll file 📄
         run: touch docs/.nojekyll
         
-      - name: Copy lovable-uploads folder if exists
+      - name: Copy lovable-uploads folder
         run: |
-          mkdir -p docs/lovable-uploads
           if [ -d "public/lovable-uploads" ]; then
-            cp -r public/lovable-uploads/* docs/lovable-uploads/
+            mkdir -p docs/lovable-uploads
+            cp -r public/lovable-uploads/* docs/lovable-uploads/ || echo "No files to copy"
+          fi
+          
+          # Ensure favicon is copied
+          if [ -f "public/favicon.ico" ]; then
+            cp public/favicon.ico docs/ || echo "Failed to copy favicon"
+          fi
+          
+          # Ensure placeholder image is copied
+          if [ -f "public/placeholder.svg" ]; then
+            cp public/placeholder.svg docs/ || echo "Failed to copy placeholder"
           fi
         
       - name: Debug directory content
@@ -49,8 +61,6 @@ jobs:
           ls -la docs/lovable-uploads || echo "Directory does not exist"
           echo "Content of docs/assets directory (if exists):"
           ls -la docs/assets || echo "Directory does not exist"
-          echo "Content of public directory:"
-          ls -la public/ || echo "Directory does not exist"
         
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
