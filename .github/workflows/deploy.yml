@@ -27,10 +27,14 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
-          BASE_URL: ""  # Assurer que les chemins sont relatifs
-
+          BASE_URL: "./"  # Utiliser des chemins relatifs
+          
       - name: Copy index.html to 404.html 🔄
         run: cp dist/index.html dist/404.html
+        
+      - name: Add redirect script to 404.html 🔧
+        run: |
+          sed -i -e 's|<head>|<head>\n  <script type="text/javascript">sessionStorage.redirect = location.href;</script>|' dist/404.html
         
       - name: Copy CNAME 📋
         run: cp CNAME dist/ || echo "www.sarlfaziolorenzo.fr" > dist/CNAME

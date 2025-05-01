@@ -3,27 +3,27 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
-// Gestion de redirection SPA pour GitHub Pages
+// S'assurer que le DOM est complètement chargé avant de monter l'application React
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM chargé, initialisation de l\'application...');
   
-  // Script pour gérer la redirection SPA sur GitHub Pages
-  (function(l) {
-    if (l.search[1] === '/' ) {
-      var decoded = l.search.slice(1).split('&').map(function(s) { 
-        return s.replace(/~and~/g, '&')
-      }).join('?');
-      window.history.replaceState(null, null,
-        l.pathname.slice(0, -1) + decoded + l.hash
-      );
+  // Gestion des redirections pour le support SPA sur GitHub Pages
+  const redirectPath = sessionStorage.redirect;
+  if (redirectPath && redirectPath !== window.location.href) {
+    sessionStorage.removeItem('redirect');
+    
+    // Extraire le pathname de l'URL complète
+    try {
+      const url = new URL(redirectPath);
+      const pathname = url.pathname;
+      
+      if (pathname && pathname !== '/') {
+        console.log('Redirection vers:', pathname);
+        window.history.replaceState(null, '', pathname);
+      }
+    } catch (e) {
+      console.error('Erreur lors de la redirection:', e);
     }
-  }(window.location));
-
-  // Récupération du chemin depuis localStorage si disponible (pour la redirection depuis 404.html)
-  const redirectPath = localStorage.getItem('redirect_path');
-  if (redirectPath) {
-    localStorage.removeItem('redirect_path');
-    window.history.replaceState(null, null, redirectPath);
   }
   
   // Montage de l'application React

@@ -6,15 +6,12 @@
   <title>SARL FAZIO Lorenzo | Redirection</title>
   <script type="text/javascript">
     // Configuration pour Single Page Apps sur GitHub Pages
-    // Cette redirection est conçue pour fonctionner même sans JavaScript activé
-    var segmentCount = 0;
+    sessionStorage.redirect = location.href;
     
+    // Redirection immédiate vers la page d'accueil
     var l = window.location;
-    var redirectURL = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + 
-      '/?p=' + l.pathname.slice(1);
-      
-    localStorage.setItem('redirect_path', l.pathname);
-    window.location.href = redirectURL;
+    var origin = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
+    window.location.href = origin;
   </script>
 </head>
 <body>
