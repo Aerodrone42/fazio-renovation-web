@@ -28,10 +28,10 @@ jobs:
         env:
           NODE_ENV: production
           
-      - name: Copy CNAME 📋
+      - name: Ensure CNAME exists 📋
         run: echo "www.sarlfaziolorenzo.fr" > docs/CNAME
         
-      - name: Create .nojekyll file 📄
+      - name: Ensure .nojekyll exists 📄
         run: touch docs/.nojekyll
         
       - name: Deploy to GitHub Pages 🚀
