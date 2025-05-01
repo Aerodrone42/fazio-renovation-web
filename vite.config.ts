@@ -22,6 +22,8 @@ export default defineConfig(({ mode }) => ({
     outDir: 'docs', // Generate build files in the docs folder
     emptyOutDir: true, // Empty the folder before each build
     assetsDir: 'assets', // Name of the folder for assets
+    // Ensure we don't mangle asset paths
+    assetsInlineLimit: 0,
     rollupOptions: {
       output: {
         manualChunks: undefined,
@@ -40,6 +42,8 @@ export default defineConfig(({ mode }) => ({
           }
           return 'assets/[name]-[hash][extname]';
         },
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
       },
     },
   },

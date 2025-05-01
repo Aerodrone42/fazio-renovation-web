@@ -63,6 +63,8 @@ jobs:
           ls -la public/ || echo "Public directory may not exist"
           echo "Content of docs directory:"
           ls -la docs/
+          echo "Content of docs/assets directory (if exists):"
+          ls -la docs/assets || echo "Assets directory does not exist"
           echo "Content of docs/lovable-uploads directory (if exists):"
           ls -la docs/lovable-uploads || echo "Directory does not exist"
         
@@ -72,4 +74,3 @@ jobs:
           folder: docs
           branch: gh-pages
           clean: true
-
