@@ -6,7 +6,7 @@ import './index.css'
 
 // Ensure the document is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-  // Vérifier que l'élément racine existe avant de monter l'application
+  // Check that the root element exists before mounting the application
   const rootElement = document.getElementById("root");
   if (rootElement) {
     createRoot(rootElement).render(
