@@ -3,11 +3,17 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
-// Récupération du chemin stocké pour le routage SPA sur GitHub Pages
+// Système de redirection SPA pour GitHub Pages
 const path = localStorage.getItem('spa_path');
 if (path) {
   localStorage.removeItem('spa_path');
   window.history.replaceState(null, '', path);
 }
 
-createRoot(document.getElementById("root")!).render(<App />);
+// Utilisation d'une méthode de montage plus fiable
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+  console.error("Élément root introuvable dans le DOM");
+} else {
+  createRoot(rootElement).render(<App />);
+}

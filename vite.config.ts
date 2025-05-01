@@ -5,25 +5,24 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 import fs from 'fs';
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  // Ensure .nojekyll file exists for GitHub Pages
+  // Gestion des fichiers nécessaires pour GitHub Pages
   if (mode === 'production') {
-    // Create .nojekyll file in the outDir during build
     const outDir = 'dist';
     try {
       if (!fs.existsSync(outDir)) {
         fs.mkdirSync(outDir, { recursive: true });
       }
+      // Création du fichier .nojekyll
       fs.writeFileSync(path.join(outDir, '.nojekyll'), '');
       
-      // Copy CNAME file to outDir
+      // Copie du fichier CNAME
       const cnamePath = path.join(__dirname, 'CNAME');
       if (fs.existsSync(cnamePath)) {
         fs.copyFileSync(cnamePath, path.join(outDir, 'CNAME'));
       }
     } catch (err) {
-      console.error('Error creating .nojekyll or copying CNAME file:', err);
+      console.error('Erreur lors de la création des fichiers:', err);
     }
   }
 
