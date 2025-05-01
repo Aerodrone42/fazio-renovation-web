@@ -5,20 +5,12 @@
   <meta charset="utf-8">
   <title>SARL FAZIO Lorenzo | Redirection</title>
   <script type="text/javascript">
-    // Single Page App configuration
-    var pathSegmentsToKeep = 0;
     var l = window.location;
-    
-    // Get the site's base path
-    var basePath = '/';
-    
-    // Redirect with proper path handling
+    // Si nous sommes sur GitHub Pages avec un domaine personnalisé
+    // Nous devons rediriger vers / pour que le router SPA prenne le relais
     l.replace(
       l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      basePath + '?/' +
-      l.pathname.slice(basePath.length).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-      l.hash
+      '/?/' + l.pathname.slice(1) + (l.search ? '&' + l.search.slice(1) : '') + l.hash
     );
   </script>
 </head>

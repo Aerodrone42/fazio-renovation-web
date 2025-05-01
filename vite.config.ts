@@ -2,13 +2,22 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { componentTagger } from "lovable-tagger";
 
+// Import du plugin componentTagger de façon conditionnelle
 export default defineConfig(({ mode }) => ({
   base: '/', // Base path for assets
   plugins: [
     react(),
-    mode === 'development' && componentTagger(),
+    // Utilisation conditionnelle de componentTagger seulement en développement
+    mode === 'development' && (() => {
+      try {
+        const { componentTagger } = require("lovable-tagger");
+        return componentTagger();
+      } catch (e) {
+        console.warn("componentTagger not available, skipping");
+        return null;
+      }
+    })()
   ].filter(Boolean),
   resolve: {
     alias: {

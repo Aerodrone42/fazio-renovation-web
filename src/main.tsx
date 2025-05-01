@@ -10,23 +10,6 @@ if (rootElement) {
     const baseUrl = import.meta.env.BASE_URL || '/';
     console.log("Base URL for assets:", baseUrl);
     
-    // Set a proper way to handle image paths
-    window.addEventListener('load', () => {
-      // Fix image paths after the DOM is fully loaded
-      document.querySelectorAll('img').forEach(img => {
-        const src = img.getAttribute('src');
-        if (src) {
-          // Special handling for lovable-uploads
-          if (src.includes('lovable-uploads')) {
-            // For paths like "/lovable-uploads/..." or "lovable-uploads/..."
-            const normalizedSrc = src.startsWith('/') ? src.substring(1) : src;
-            img.setAttribute('src', normalizedSrc);
-            console.log("Image path corrected:", normalizedSrc);
-          }
-        }
-      });
-    });
-    
     createRoot(rootElement).render(<App />);
     console.log("React application successfully mounted");
   } catch (error) {
