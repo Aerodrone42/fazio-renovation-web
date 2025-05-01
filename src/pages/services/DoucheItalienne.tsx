@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -26,7 +25,7 @@ const DoucheItalienne = () => {
       <ServicePageHeader 
         title="Création de douches à l'italienne"
         description="L'élégance et le confort d'une douche à l'italienne pour une salle de bain moderne et accessible."
-        imagePath="/lovable-uploads/233c6240-522f-406b-b216-7e2dfc7197b0.png"
+        imagePath="/lovable-uploads/27809564-436c-47f4-8190-73ce5d6c6403.png"
       />
 
       {/* Description du service */}
@@ -56,7 +55,7 @@ const DoucheItalienne = () => {
               <div className="w-full max-w-sm mx-auto">
                 <AspectRatio ratio={3/4} className="rounded-lg overflow-hidden shadow-xl">
                   <img 
-                    src="/lovable-uploads/233c6240-522f-406b-b216-7e2dfc7197b0.png" 
+                    src="/lovable-uploads/27809564-436c-47f4-8190-73ce5d6c6403.png" 
                     alt="Douche à l'italienne avec carrelage moderne" 
                     className="w-full h-full object-cover"
                   />
