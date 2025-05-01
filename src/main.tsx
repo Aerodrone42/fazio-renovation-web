@@ -19,18 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }(window.location));
   
-  // Montage de l'application React avec gestion d'erreur
+  // Montage de l'application React
   const rootElement = document.getElementById("root");
-  if (!rootElement) {
-    console.error("Élément root introuvable dans le DOM");
-  } else {
-    console.log("Montage de l'application React...");
+  if (rootElement) {
     try {
       createRoot(rootElement).render(<App />);
       console.log("Application React montée avec succès");
     } catch (error) {
       console.error("Erreur lors du montage de l'application React:", error);
-      // Affichage d'un message d'erreur visible pour l'utilisateur
       rootElement.innerHTML = `
         <div style="padding: 20px; text-align: center;">
           <h2>Une erreur s'est produite lors du chargement de l'application</h2>
@@ -38,5 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
     }
+  } else {
+    console.error("Élément root introuvable dans le DOM");
   }
 });

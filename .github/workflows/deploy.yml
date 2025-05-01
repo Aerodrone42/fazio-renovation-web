@@ -21,7 +21,7 @@ jobs:
           node-version: '18'
           
       - name: Install dependencies 📦
-        run: npm install
+        run: npm ci || npm install
         
       - name: Build 🔧
         run: npm run build
@@ -32,10 +32,13 @@ jobs:
         run: cp dist/index.html dist/404.html
         
       - name: Copy CNAME 📋
-        run: cp CNAME dist/ || true
+        run: cp CNAME dist/ || echo "www.sarlfaziolorenzo.fr" > dist/CNAME
         
       - name: Create .nojekyll file 📄
         run: touch dist/.nojekyll
+        
+      - name: Debug directory content
+        run: ls -la dist/
         
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
