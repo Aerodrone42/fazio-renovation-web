@@ -22,7 +22,10 @@ jobs:
           cache: 'npm'
           
       - name: Install dependencies 📦
-        run: npm ci || npm install
+        run: |
+          npm ci || npm install
+          # S'assurer que terser est installé
+          npm install terser --save-dev
         
       - name: Build 🔧
         run: |
@@ -38,48 +41,22 @@ jobs:
           touch dist/.nojekyll
           echo "www.sarlfaziolorenzo.fr" > dist/CNAME
           
-          # Copier les fichiers statiques si nécessaires
-          cp -r public/lovable-uploads dist/lovable-uploads || echo "Dossier lovable-uploads déjà présent"
+          # Copier les fichiers statiques
+          mkdir -p dist/lovable-uploads
+          cp -r public/lovable-uploads/* dist/lovable-uploads/ || echo "Aucun fichier à copier"
           
-          # Debug - Lister le contenu généré
-          echo "Contenu du dossier dist:"
-          ls -la dist/
-          echo "Contenu du dossier dist/assets:"
-          ls -la dist/assets/ || echo "Le dossier assets n'existe pas"
-          
-          # Créer un script de secours pour GitHub Pages
-          cat > dist/gh-pages-redirect.js << 'EOL'
-          // Script de redirection pour GitHub Pages
-          (function() {
-            console.log("Script de redirection GitHub Pages chargé");
-            // Vérifier si nous sommes sur GitHub Pages
-            const isGitHubPages = window.location.hostname.includes('github.io');
-            
-            if (isGitHubPages) {
-              // S'assurer que tous les chemins sont relatifs
-              const base = document.createElement('base');
-              base.href = window.location.pathname.replace(/\/[^\/]*$/, '/');
-              document.head.prepend(base);
-            }
-          })();
-          EOL
-          
-          # Ajouter le script de redirection à index.html
-          sed -i '/<head>/a <script src="./gh-pages-redirect.js"></script>' dist/index.html
+          # Copier l'index.html et s'assurer que les chemins sont corrects
+          cp index.html dist/index.html
+          cp -r assets dist/ || echo "Pas de dossier assets à copier"
           
           # Créer un fichier 404.html pour SPA routing
           cp dist/index.html dist/404.html
           
-          # S'assurer que tous les chemins de scripts sont corrects
-          sed -i 's|src="/assets/|src="./assets/|g' dist/index.html
-          sed -i 's|href="/assets/|href="./assets/|g' dist/index.html
-          
-          # S'assurer que les chemins des uploads sont corrects
-          sed -i 's|/lovable-uploads/|./lovable-uploads/|g' dist/index.html
-          
-          # Vérifier le contenu final de index.html
-          echo "Contenu final de index.html:"
-          cat dist/index.html
+          # Vérifier le contenu final de dist
+          echo "Contenu du dossier dist:"
+          ls -la dist/
+          echo "Contenu du dossier dist/assets:"
+          ls -la dist/assets/ || echo "Le dossier assets n'existe pas"
           
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4

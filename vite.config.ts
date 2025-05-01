@@ -24,13 +24,8 @@ export default defineConfig(({ mode }) => {
       outDir: 'dist',
       emptyOutDir: true,
       assetsDir: 'assets',
-      sourcemap: false, // Désactiver les sourcemaps pour réduire la taille
-      minify: 'terser', // Utiliser terser pour une meilleure minification
-      terserOptions: {
-        compress: {
-          drop_console: false, // Garder les console.log pour le débogage
-        },
-      },
+      sourcemap: false, 
+      minify: true, // On utilise esbuild par défaut au lieu de terser
       rollupOptions: {
         input: {
           main: path.resolve(__dirname, 'index.html'),
@@ -38,8 +33,7 @@ export default defineConfig(({ mode }) => {
         output: {
           entryFileNames: 'assets/[name].js',
           chunkFileNames: 'assets/[name].[hash].js',
-          assetFileNames: 'assets/[name].[hash].[ext]',
-          manualChunks: undefined, // Désactiver le chunking manuel
+          assetFileNames: 'assets/[name].[ext]',
         },
       },
     },
