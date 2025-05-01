@@ -1,3 +1,4 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -32,7 +33,7 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       outDir: 'docs', // Construire dans le dossier docs
-      emptyOutDir: false, // Ne pas vider le dossier docs pour conserver le dossier assets
+      emptyOutDir: false, // Ne pas vider le dossier docs pour conserver les fichiers importants
       assetsDir: 'assets', // Garantir que les assets sont dans le dossier assets
       manifest: true, // Générer un fichier manifeste
       rollupOptions: {
@@ -42,6 +43,8 @@ export default defineConfig(({ mode }) => {
           assetFileNames: 'assets/[name].[hash].[ext]', // Format pour les autres assets
         },
       },
+      // Activer la génération des sources maps pour le débogage
+      sourcemap: true,
     },
   };
 });

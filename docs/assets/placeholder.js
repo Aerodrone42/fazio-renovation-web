@@ -1,4 +1,4 @@
 
-// Ce fichier est un placeholder pour garantir que le dossier assets est inclus dans Git
-// Il sera remplacé par les fichiers générés lors du build
-console.log('Placeholder file for assets directory');
+// Ce fichier existe uniquement pour garantir que le dossier docs/assets est inclus dans Git
+// Les vrais fichiers JavaScript seront générés lors du processus de build
+console.log("Assets directory placeholder");
