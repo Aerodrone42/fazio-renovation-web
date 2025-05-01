@@ -5,7 +5,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: '/', // Base path pour les assets sur GitHub Pages
+  base: process.env.NODE_ENV === 'production' ? '/sarlfaziolorenzo/' : '/',
   server: {
     host: "::",
     port: 8080,

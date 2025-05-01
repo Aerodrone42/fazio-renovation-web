@@ -1,66 +1,26 @@
 
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirection - SARL FAZIO Lorenzo</title>
-  <script>
-    // Single Page Application - GitHub Pages Redirect
-    (function() {
-      // Récupération de l'URL complète demandée
-      const location = window.location;
-      const path = location.pathname;
-      const segments = path.split('/');
-      const firstSegment = segments[1];
-      
-      console.log("Page 404.html chargée, récupération du chemin:", path);
-      
-      // Stockage du chemin complet pour la redirection
-      sessionStorage.setItem('redirect_path', path);
-      console.log("Chemin complet stocké pour redirection");
-      
-      // Redirection vers la racine
-      const rootUrl = location.origin;
-      window.location.href = rootUrl;
-    })();
+  <meta charset="utf-8">
+  <title>SARL FAZIO Lorenzo | Redirection</title>
+  <script type="text/javascript">
+    // Single Page Apps pour GitHub Pages
+    // MIT License
+    // https://github.com/rafgraph/spa-github-pages
+    var pathSegmentsToKeep = 1;
+
+    var l = window.location;
+    l.replace(
+      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+      l.hash
+    );
   </script>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f5f5f5;
-      color: #333;
-    }
-    .container {
-      text-align: center;
-      padding: 20px;
-    }
-    .loader {
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #3498db;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      animation: spin 1s linear infinite;
-      margin: 20px auto;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Redirection en cours...</h2>
-    <div class="loader"></div>
-    <p>Vous allez être redirigé vers la page demandée.</p>
-    <p>Si la redirection ne fonctionne pas, <a href="/">cliquez ici</a> pour accéder à la page d'accueil.</p>
-  </div>
+  Redirection en cours...
 </body>
 </html>

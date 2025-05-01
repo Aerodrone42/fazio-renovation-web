@@ -7,24 +7,17 @@ import './index.css'
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM chargé, initialisation de l\'application...');
   
-  // Récupère le chemin stocké dans sessionStorage
-  const redirectPath = sessionStorage.getItem('redirect_path');
-  console.log('Chemin récupéré depuis sessionStorage:', redirectPath);
-  
-  if (redirectPath) {
-    // Supprime le chemin stocké pour éviter des redirections en boucle
-    sessionStorage.removeItem('redirect_path');
-    
-    try {
-      // Utilise pushState pour définir l'URL correcte sans recharger la page
-      window.history.pushState(null, '', redirectPath);
-      console.log('Redirection effectuée avec succès vers:', redirectPath);
-    } catch (error) {
-      console.error('Erreur lors de la redirection:', error);
+  // Script pour gérer la redirection SPA sur GitHub Pages
+  (function(l) {
+    if (l.search[1] === '/' ) {
+      var decoded = l.search.slice(1).split('&').map(function(s) { 
+        return s.replace(/~and~/g, '&')
+      }).join('?');
+      window.history.replaceState(null, null,
+        l.pathname.slice(0, -1) + decoded + l.hash
+      );
     }
-  } else {
-    console.log('Aucune redirection nécessaire');
-  }
+  }(window.location));
   
   // Montage de l'application React avec gestion d'erreur
   const rootElement = document.getElementById("root");
