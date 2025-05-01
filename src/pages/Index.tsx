@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -83,9 +82,9 @@ const Index = () => {
     },
     {
       src: "/lovable-uploads/3844515b-3e9f-4f4b-8748-cb0661a01d14.png",
-      alt: "Pose de mosaïque",
-      title: "Pose de mosaïque",
-      description: "Mosaïque décorative pour personnaliser vos espaces.",
+      alt: "Pose de carreaux ciment",
+      title: "Pose de carreaux ciment",
+      description: "Carreaux ciment décoratifs pour personnaliser vos espaces.",
       link: "/services/mosaique"
     },
     {
