@@ -1,4 +1,4 @@
 
 // Ce fichier est un placeholder pour garantir que le dossier assets est inclus dans Git
-// Il peut être supprimé une fois que d'autres fichiers sont générés dans ce dossier
+// Il sera remplacé par les fichiers générés lors du build
 console.log('Placeholder file for assets directory');
