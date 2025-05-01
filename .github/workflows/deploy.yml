@@ -24,132 +24,21 @@ jobs:
       - name: Install dependencies 📦
         run: npm ci || npm install
         
-      - name: Create critical directories and files ⚙️
-        run: |
-          echo "Création des dossiers et fichiers critiques..."
-          mkdir -p docs/assets
-          
-          # Créer un index.js fonctionnel
-          cat > docs/assets/index.js << 'EOL'
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-
-// Import dynamique du composant App avec gestion d'erreur
-const loadApp = async () => {
-  try {
-    // Tentative d'import du composant App depuis différents chemins possibles
-    let App;
-    try {
-      const module = await import('./App.jsx');
-      App = module.default;
-    } catch (e) {
-      console.warn("Échec du chargement depuis ./App.jsx, tentative avec ./App.js");
-      try {
-        const module = await import('./App.js');
-        App = module.default;
-      } catch (e2) {
-        console.warn("Échec du chargement depuis ./App.js, tentative directe");
-        // Composant de secours minimal
-        App = () => React.createElement('div', null, 'Application en cours de chargement...');
-      }
-    }
-
-    // Monter l'application dans le DOM
-    const rootElement = document.getElementById('root');
-    if (rootElement) {
-      createRoot(rootElement).render(React.createElement(App));
-      console.log('Application chargée avec succès');
-    } else {
-      throw new Error('Élément root non trouvé');
-    }
-  } catch (error) {
-    console.error('Erreur fatale lors du chargement:', error);
-    document.body.innerHTML = '<div style="padding:20px;"><h1>Erreur de chargement</h1><p>Impossible de charger l\'application. Veuillez réessayer plus tard.</p></div>';
-  }
-};
-
-// Exécuter le chargement
-loadApp();
-EOL
-          
-          # Autres fichiers nécessaires
-          echo "www.sarlfaziolorenzo.fr" > docs/CNAME
-          touch docs/.nojekyll
-          echo "Fichiers créés avec succès."
-          
-          # Vérifier la présence des fichiers
-          ls -la docs/
-          ls -la docs/assets/
-          
       - name: Build 🔧
         run: npm run build
         env:
           NODE_ENV: production
           
-      - name: Post-build file verification and fixes 🔍
+      - name: Prepare for deployment 📝
         run: |
-          echo "Vérification post-build des fichiers critiques..."
-          
-          # Vérifier et copier index.js s'il manque
-          if [ ! -f "docs/assets/index.js" ] || [ ! -s "docs/assets/index.js" ]; then
-            echo "ATTENTION: index.js manquant ou vide dans docs/assets/"
-            
-            # Créer un index.js de secours si nécessaire
-            echo "Création d'un index.js de secours..."
-            cat > docs/assets/index.js << 'EOL'
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-
-// Composant App de secours minimal
-const App = () => {
-  return React.createElement('div', { 
-    style: { 
-      padding: '20px',
-      fontFamily: 'sans-serif',
-      maxWidth: '600px',
-      margin: '0 auto',
-      textAlign: 'center'
-    } 
-  }, [
-    React.createElement('h1', { key: 'title' }, 'SARL FAZIO Lorenzo'),
-    React.createElement('p', { key: 'desc' }, 'Spécialiste du carrelage et de la rénovation'),
-    React.createElement('p', { key: 'info' }, 'Le site est en cours de chargement, veuillez patienter ou rafraîchir la page.')
-  ]);
-};
-
-// Fonction d'initialisation
-const init = () => {
-  try {
-    const rootElement = document.getElementById('root');
-    if (rootElement) {
-      createRoot(rootElement).render(React.createElement(App));
-      console.log('Application de secours chargée');
-    }
-  } catch (e) {
-    console.error('Erreur lors du chargement de secours:', e);
-    document.body.innerHTML = '<div style="padding:20px;text-align:center;"><h1>SARL FAZIO Lorenzo</h1><p>Spécialiste du carrelage et de la rénovation</p><p>Une erreur est survenue. Veuillez réessayer plus tard.</p></div>';
-  }
-};
-
-// Exécuter l'initialisation
-init();
-EOL
-          fi
-          
-          # S'assurer que index.html existe
-          if [ ! -f "docs/index.html" ]; then
-            echo "ATTENTION: index.html manquant dans docs/"
-            cp index.html docs/index.html || echo "Échec de la copie de index.html"
-          fi
-          
-          # Vérifier à nouveau les fichiers
-          echo "Vérification finale des fichiers:"
-          ls -la docs/
-          ls -la docs/assets/
+          # Créer les fichiers nécessaires pour GitHub Pages
+          touch dist/.nojekyll
+          echo "www.sarlfaziolorenzo.fr" > dist/CNAME
+          cp public/404.html dist/404.html || echo "No 404.html to copy"
           
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: docs
+          folder: dist
           branch: gh-pages
-          clean: false
+          clean: true
