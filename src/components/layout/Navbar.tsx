@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -74,7 +75,7 @@ export const Navbar = () => {
       <div className="container flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <img 
-            src="/lovable-uploads/730ebf25-aaba-408a-bd0b-d44b88764a69.png" 
+            src="/lovable-uploads/8d86e4df-9559-4d2e-a51e-e1ca7622720d.png" 
             alt="Logo FAZIO Lorenzo" 
             className="h-12 w-auto"
           />
