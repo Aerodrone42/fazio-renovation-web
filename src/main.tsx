@@ -6,35 +6,38 @@ import './index.css'
 const rootElement = document.getElementById("root");
 if (rootElement) {
   try {
-    // Obtenir l'URL de base correcte
+    // Get correct base URL
     const baseUrl = import.meta.env.BASE_URL || '/';
-    console.log("URL de base pour les assets:", baseUrl);
+    console.log("Base URL for assets:", baseUrl);
     
-    // Corriger les chemins d'images - logique améliorée
-    document.querySelectorAll('img').forEach(img => {
-      const src = img.getAttribute('src');
-      if (src) {
-        // Traiter spécialement les lovable-uploads
-        if (src.includes('lovable-uploads')) {
-          // Pour les chemins comme "/lovable-uploads/..." ou "lovable-uploads/..."
-          const normalizedSrc = src.startsWith('/') ? src.substring(1) : src;
-          img.setAttribute('src', normalizedSrc);
-          console.log("Chemin d'image corrigé:", normalizedSrc);
+    // Set a proper way to handle image paths
+    window.addEventListener('load', () => {
+      // Fix image paths after the DOM is fully loaded
+      document.querySelectorAll('img').forEach(img => {
+        const src = img.getAttribute('src');
+        if (src) {
+          // Special handling for lovable-uploads
+          if (src.includes('lovable-uploads')) {
+            // For paths like "/lovable-uploads/..." or "lovable-uploads/..."
+            const normalizedSrc = src.startsWith('/') ? src.substring(1) : src;
+            img.setAttribute('src', normalizedSrc);
+            console.log("Image path corrected:", normalizedSrc);
+          }
         }
-      }
+      });
     });
     
     createRoot(rootElement).render(<App />);
-    console.log("Application React montée avec succès");
+    console.log("React application successfully mounted");
   } catch (error) {
-    console.error("Erreur lors du montage de l'application React:", error);
+    console.error("Error while mounting React application:", error);
     rootElement.innerHTML = `
       <div style="padding: 20px; text-align: center;">
-        <h2>Une erreur s'est produite lors du chargement de l'application</h2>
-        <p>Veuillez rafraîchir la page ou réessayer ultérieurement.</p>
+        <h2>An error occurred while loading the application</h2>
+        <p>Please refresh the page or try again later.</p>
       </div>
     `;
   }
 } else {
-  console.error("Élément root introuvable dans le DOM");
+  console.error("Root element not found in the DOM");
 }

@@ -5,7 +5,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: '/', // Chemin de base pour les assets
+  base: '/', // Base path for assets
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
@@ -19,19 +19,19 @@ export default defineConfig(({ mode }) => ({
     port: 8080
   },
   build: {
-    outDir: 'docs', // Génère les fichiers de build dans le dossier docs
-    emptyOutDir: true, // Vide le dossier avant chaque build
-    assetsDir: 'assets', // Nom du dossier pour les assets
+    outDir: 'docs', // Generate build files in the docs folder
+    emptyOutDir: true, // Empty the folder before each build
+    assetsDir: 'assets', // Name of the folder for assets
     rollupOptions: {
       output: {
         manualChunks: undefined,
         assetFileNames: (assetInfo) => {
-          // Vérification que assetInfo.name existe
-          if (!assetInfo.name) {
+          // Safely check if assetInfo and assetInfo.name exist
+          if (!assetInfo || !assetInfo.name) {
             return 'assets/[name]-[hash][extname]';
           }
           
-          // Utilisation sécurisée avec vérification d'existence
+          // Check for image file extensions
           const nameParts = assetInfo.name.split('.');
           const extType = nameParts.length > 1 ? nameParts[1] : '';
           

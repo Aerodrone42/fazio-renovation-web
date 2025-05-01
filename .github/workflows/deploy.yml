@@ -38,9 +38,13 @@ jobs:
         
       - name: Copy lovable-uploads folder
         run: |
+          mkdir -p docs/lovable-uploads
           if [ -d "public/lovable-uploads" ]; then
-            mkdir -p docs/lovable-uploads
-            cp -r public/lovable-uploads/* docs/lovable-uploads/ || echo "No files to copy"
+            cp -r public/lovable-uploads/* docs/lovable-uploads/ || echo "No files to copy from public/lovable-uploads"
+          fi
+          
+          if [ -d "lovable-uploads" ]; then
+            cp -r lovable-uploads/* docs/lovable-uploads/ || echo "No files to copy from lovable-uploads"
           fi
           
           # Ensure favicon is copied
@@ -53,14 +57,14 @@ jobs:
             cp public/placeholder.svg docs/ || echo "Failed to copy placeholder"
           fi
         
-      - name: Debug directory content
+      - name: List directory content for debugging
         run: |
+          echo "Content of public directory:"
+          ls -la public/ || echo "Public directory may not exist"
           echo "Content of docs directory:"
           ls -la docs/
           echo "Content of docs/lovable-uploads directory (if exists):"
           ls -la docs/lovable-uploads || echo "Directory does not exist"
-          echo "Content of docs/assets directory (if exists):"
-          ls -la docs/assets || echo "Directory does not exist"
         
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
@@ -68,3 +72,4 @@ jobs:
           folder: docs
           branch: gh-pages
           clean: true
+
