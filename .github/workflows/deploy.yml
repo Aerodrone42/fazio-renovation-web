@@ -27,6 +27,7 @@ jobs:
       - name: Create assets directory 📁
         run: |
           mkdir -p docs/assets
+          touch docs/assets/.gitkeep
           echo "Assets directory created before build"
         
       - name: Build 🔧
