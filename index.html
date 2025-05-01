@@ -22,6 +22,21 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="./src/main.tsx"></script>
+    
+    <!-- Script de secours en cas d'erreur de chargement -->
+    <script>
+      window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          if (document.getElementById('root').children.length === 0) {
+            console.error("Application non chargée après 3 secondes, tentative de chargement alternatif");
+            const appScript = document.createElement('script');
+            appScript.type = 'module';
+            appScript.src = './assets/main.js';
+            document.body.appendChild(appScript);
+          }
+        }, 3000);
+      });
+    </script>
   </body>
 </html>

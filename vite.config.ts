@@ -23,9 +23,15 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'dist', // Dossier standard de build Vite
       emptyOutDir: true, // Vider le dossier de sortie avant le build
+      assetsDir: 'assets', // Dossier pour les assets compilés
       rollupOptions: {
         input: {
           main: path.resolve(__dirname, 'index.html'),
+        },
+        output: {
+          entryFileNames: 'assets/[name].js', // Format des noms de fichiers d'entrée
+          chunkFileNames: 'assets/[name].js', // Format des noms de chunks
+          assetFileNames: 'assets/[name].[ext]', // Format des noms d'assets
         },
       },
     },
