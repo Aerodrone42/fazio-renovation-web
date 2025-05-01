@@ -17,10 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     try {
       // Utilise pushState pour définir l'URL correcte sans recharger la page
-      const newPath = '/' + redirectPath; // Ajoute le slash initial
-      console.log('Tentative de redirection vers:', newPath);
-      window.history.pushState(null, '', newPath);
-      console.log('Redirection effectuée avec succès');
+      window.history.pushState(null, '', redirectPath);
+      console.log('Redirection effectuée avec succès vers:', redirectPath);
     } catch (error) {
       console.error('Erreur lors de la redirection:', error);
     }

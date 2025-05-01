@@ -6,22 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redirection - SARL FAZIO Lorenzo</title>
   <script>
-    // Méthode de redirection améliorée pour GitHub Pages
+    // Single Page Application - GitHub Pages Redirect
     (function() {
-      console.log("Page 404.html chargée, préparation de la redirection...");
+      // Récupération de l'URL complète demandée
+      const location = window.location;
+      const path = location.pathname;
+      const segments = path.split('/');
+      const firstSegment = segments[1];
       
-      // Récupération du chemin demandé
-      var path = window.location.pathname;
-      console.log("Chemin demandé:", path);
+      console.log("Page 404.html chargée, récupération du chemin:", path);
       
-      // Stockage du chemin sans le premier slash
-      var pathToRedirect = path.replace(/^\//, '');
-      sessionStorage.setItem('redirect_path', pathToRedirect);
-      console.log("Chemin stocké pour redirection:", pathToRedirect);
+      // Stockage du chemin complet pour la redirection
+      sessionStorage.setItem('redirect_path', path);
+      console.log("Chemin complet stocké pour redirection");
       
       // Redirection vers la racine
-      var rootUrl = window.location.origin;
-      console.log("Redirection vers:", rootUrl);
+      const rootUrl = location.origin;
       window.location.href = rootUrl;
     })();
   </script>

@@ -5,7 +5,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: '/', // Utilisation de la racine du domaine pour les routes
+  base: '/', // Base path pour les assets
   server: {
     host: "::",
     port: 8080,
@@ -21,14 +21,12 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     outDir: 'dist',
-    assetsDir: 'assets',
     emptyOutDir: true,
     rollupOptions: {
       output: {
         manualChunks: undefined,
       },
     },
-    // Configuration pour optimiser le déploiement
     assetsInlineLimit: 0,
     chunkSizeWarningLimit: 1600,
   },
