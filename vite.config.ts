@@ -6,7 +6,7 @@ import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => {
   return {
-    base: './', // Changement crucial: utiliser './' au lieu de '/' pour GitHub Pages
+    base: './', // Utilisation de chemins relatifs pour GitHub Pages
     plugins: [
       react(),
       mode === 'development' && componentTagger(),
@@ -25,6 +25,7 @@ export default defineConfig(({ mode }) => {
       emptyOutDir: true,
       sourcemap: mode === 'development',
       minify: 'esbuild',
+      assetsDir: 'assets', // Spécifier explicitement où les assets seront générés
     },
   };
 });

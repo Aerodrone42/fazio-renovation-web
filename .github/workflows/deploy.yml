@@ -46,26 +46,45 @@ jobs:
           touch dist/.nojekyll
           echo "www.sarlfaziolorenzo.fr" > dist/CNAME
           
+          # Copier les ressources
           mkdir -p dist/lovable-uploads
           cp -r public/lovable-uploads/* dist/lovable-uploads/ || echo "Aucun fichier à copier"
           
+          # Créer une page 404 identique
           cp dist/index.html dist/404.html
           
-          # Correction des chemins relatifs si nécessaire
-          if grep -q 'src="/' dist/index.html; then
-            echo "Correction des chemins absolus en chemins relatifs"
-            sed -i 's|src="/|src="./|g' dist/index.html
-            sed -i 's|href="/|href="./|g' dist/index.html
-            cp dist/index.html dist/404.html
-          fi
+          # Correction agressive des chemins absolus en chemins relatifs
+          echo "Correction des chemins dans les fichiers HTML"
+          find dist -name "*.html" -type f -exec sed -i 's|src="/|src="./|g' {} \;
+          find dist -name "*.html" -type f -exec sed -i 's|href="/|href="./|g' {} \;
           
-          # Vérification explicite de la référence à index.js et correction si nécessaire
+          # Correction spécifique pour le script index.js
           if grep -q 'src="./assets/index.js"' dist/index.html; then
             echo "Correction de la référence incorrecte à index.js"
             JS_FILE=$(ls dist/assets/*.js | grep -v chunk | head -n 1 | xargs basename)
             sed -i "s|src=\"./assets/index.js\"|src=\"./assets/$JS_FILE\"|g" dist/index.html
             sed -i "s|src=\"./assets/index.js\"|src=\"./assets/$JS_FILE\"|g" dist/404.html
           fi
+          
+          # Correction générique pour tous les scripts
+          for HTML_FILE in dist/*.html; do
+            echo "Vérifiant $HTML_FILE pour des références de script incorrectes"
+            for SCRIPT_REF in $(grep -o 'src="[^"]*\.js"' "$HTML_FILE" | sed 's/src="//;s/"//'); do
+              SCRIPT_PATH="${SCRIPT_REF#./}"
+              if [[ "$SCRIPT_PATH" == /* ]]; then
+                SCRIPT_PATH="${SCRIPT_PATH#/}"
+              fi
+              
+              if [ ! -f "dist/$SCRIPT_PATH" ]; then
+                echo "Référence de script incorrecte trouvée: $SCRIPT_REF"
+                POSSIBLE_FILE=$(find dist/assets -name "*.js" -type f | head -n 1 | sed 's|dist/||')
+                if [ -n "$POSSIBLE_FILE" ]; then
+                  echo "Remplacement par: ./$POSSIBLE_FILE"
+                  sed -i "s|src=\"$SCRIPT_REF\"|src=\"./$POSSIBLE_FILE\"|g" "$HTML_FILE"
+                fi
+              fi
+            done
+          done
           
           echo "Contenu du dossier dist après correction:"
           ls -la dist/
