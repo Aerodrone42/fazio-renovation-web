@@ -1,30 +1,45 @@
 
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>SARL FAZIO Lorenzo | Redirection</title>
-  <script type="text/javascript">
-    // Single Page Apps pour GitHub Pages
-    // MIT License
-    // https://github.com/rafgraph/spa-github-pages
-    var pathSegmentsToKeep = 1;
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SARL FAZIO Lorenzo | Carrelage & rénovation dans l'Ouest Lyonnais et l'Ain</title>
+    <meta name="description" content="SARL FAZIO Lorenzo - Spécialiste du carrelage, mosaïque, pierre naturelle, douches à l'italienne et rénovation de salles de bain clé en main dans l'Ouest Lyonnais et l'Ain." />
+    <meta name="author" content="SARL FAZIO Lorenzo" />
 
-    var l = window.location;
-    l.replace(
-      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-      l.hash
-    );
-  </script>
-</head>
-<body>
-  <div style="font-family: 'Poppins', sans-serif; text-align: center; padding-top: 50px;">
-    <h2>Redirection en cours...</h2>
-    <p>Vous allez être redirigé vers la page demandée.</p>
-    <p>Si la redirection ne fonctionne pas, <a href="/">cliquez ici</a> pour accéder à la page d'accueil.</p>
-  </div>
-</body>
+    <meta property="og:title" content="SARL FAZIO Lorenzo | Carrelage & rénovation" />
+    <meta property="og:description" content="Spécialiste du carrelage et de la rénovation clé en main dans l'Ouest Lyonnais et l'Ain." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="./lovable-uploads/8d86e4df-9559-4d2e-a51e-e1ca7622720d.png" type="image/png">
+    
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap">
+    
+    <!-- Script pour SPA sur GitHub Pages -->
+    <script type="text/javascript">
+      // Fallback pour le SPA sur GitHub Pages
+      (function() {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="./assets/index-BSkXV1Wu.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-YCtqw8lC.css">
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <!-- Le script gptengineer.js est nécessaire uniquement en développement, nous le commentons en production -->
+    <!-- <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script> -->
+  </body>
 </html>
