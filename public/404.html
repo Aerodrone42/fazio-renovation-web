@@ -7,17 +7,18 @@
   <title>Redirection - SARL FAZIO Lorenzo</title>
   <script>
     // Script de redirection SPA pour GitHub Pages
-    // Sauvegarde le chemin actuel et redirige vers la page d'accueil
-    const pathSegments = location.pathname.split('/');
-    const pathWithoutBase = '/' + pathSegments.slice(1).join('/');
+    const segmentCount = 0; // Ajustez selon votre configuration de GitHub Pages
     
-    if (pathWithoutBase !== '/') {
-      localStorage.setItem('spa_path', pathWithoutBase);
+    const l = window.location;
+    const path = l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/';
+    const fullPath = l.pathname.slice(path.length);
+    
+    if (fullPath !== '') {
+      localStorage.setItem('spa_path', '/' + fullPath);
+      window.location.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + path
+      );
     }
-    
-    // Redirection vers la page d'index
-    const redirectUrl = location.origin || 'https://www.sarlfaziolorenzo.fr';
-    window.location.href = redirectUrl;
   </script>
   <style>
     body {

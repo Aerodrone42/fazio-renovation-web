@@ -13,13 +13,18 @@ export default defineConfig(({ mode }) => {
       if (!fs.existsSync(outDir)) {
         fs.mkdirSync(outDir, { recursive: true });
       }
+      
       // Création du fichier .nojekyll
       fs.writeFileSync(path.join(outDir, '.nojekyll'), '');
+      console.log("Fichier .nojekyll créé avec succès");
       
       // Copie du fichier CNAME
       const cnamePath = path.join(__dirname, 'CNAME');
       if (fs.existsSync(cnamePath)) {
         fs.copyFileSync(cnamePath, path.join(outDir, 'CNAME'));
+        console.log("Fichier CNAME copié avec succès");
+      } else {
+        console.warn("Fichier CNAME non trouvé à la racine du projet");
       }
     } catch (err) {
       console.error('Erreur lors de la création des fichiers:', err);
@@ -27,7 +32,7 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
-    base: '/',
+    base: '/', // Base URL pour tous les assets
     server: {
       host: "::",
       port: 8080,
