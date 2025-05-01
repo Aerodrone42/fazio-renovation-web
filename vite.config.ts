@@ -5,87 +5,32 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 import fs from 'fs';
 
-export default defineConfig(({ mode }) => {
-  // Gestion des fichiers nécessaires pour GitHub Pages
-  if (mode === 'production') {
-    const outDir = 'dist';
-    try {
-      if (!fs.existsSync(outDir)) {
-        fs.mkdirSync(outDir, { recursive: true });
-      }
-      
-      // Création du fichier .nojekyll
-      fs.writeFileSync(path.join(outDir, '.nojekyll'), '');
-      console.log("Fichier .nojekyll créé avec succès");
-      
-      // Copie du fichier CNAME
-      fs.writeFileSync(path.join(outDir, 'CNAME'), 'www.sarlfaziolorenzo.fr');
-      console.log("Fichier CNAME créé avec succès");
-      
-      // Copie du fichier 404.html depuis public/
-      const notFoundPath = path.join(__dirname, 'public', '404.html');
-      if (fs.existsSync(notFoundPath)) {
-        fs.copyFileSync(notFoundPath, path.join(outDir, '404.html'));
-        console.log("Fichier 404.html copié avec succès");
-      } else {
-        console.warn("Fichier 404.html non trouvé dans public/");
-      }
-      
-      // Copie du favicon.ico si présent
-      const faviconPath = path.join(__dirname, 'public', 'favicon.ico');
-      if (fs.existsSync(faviconPath)) {
-        fs.copyFileSync(faviconPath, path.join(outDir, 'favicon.ico'));
-        console.log("Favicon copié avec succès");
-      }
-
-      // Création d'un fichier test.html pour vérifier le déploiement
-      const testHtmlContent = `
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Test de déploiement</title>
-</head>
-<body>
-  <h1>Test de déploiement réussi</h1>
-  <p>Si vous voyez cette page, le déploiement fonctionne correctement.</p>
-  <p>Date de génération: ${new Date().toISOString()}</p>
-  <p><a href="/">Retour à l'accueil</a></p>
-</body>
-</html>
-`;
-      fs.writeFileSync(path.join(outDir, 'test.html'), testHtmlContent);
-      console.log("Fichier test.html créé avec succès");
-      
-    } catch (err) {
-      console.error('Erreur lors de la création des fichiers:', err);
-    }
-  }
-
-  return {
-    base: './', // Utilisation de chemins relatifs pour tous les assets
-    server: {
-      host: "::",
-      port: 8080,
+export default defineConfig({
+  base: '/', // Utilisation de la racine du domaine
+  server: {
+    host: "::",
+    port: 8080,
+  },
+  plugins: [
+    react(),
+    process.env.NODE_ENV !== 'production' && componentTagger(),
+  ].filter(Boolean),
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
     },
-    plugins: [
-      react(),
-      mode === 'development' &&
-      componentTagger(),
-    ].filter(Boolean),
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "./src"),
+  },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
       },
     },
-    build: {
-      outDir: 'dist',
-      assetsDir: 'assets',
-      emptyOutDir: true,
-      rollupOptions: {
-        output: {
-          manualChunks: undefined,
-        },
-      },
-    }
-  };
+    // Génération automatique des fichiers nécessaires pour GitHub Pages
+    assetsInlineLimit: 0,
+    chunkSizeWarningLimit: 1600,
+  },
 });
