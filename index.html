@@ -24,7 +24,7 @@
     <div id="root"></div>
     <script type="module" src="./src/main.tsx"></script>
     
-    <!-- Script de secours pour GitHub Pages qui assure le chargement correct -->
+    <!-- Script de secours pour GitHub Pages -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         // Vérifier si l'application React s'est chargée correctement
@@ -37,7 +37,9 @@
               './assets/main.js',
               './assets/index.js',
               './main.js',
-              './index.js'
+              './index.js',
+              './assets/main-.*.js', // Pour les fichiers avec hash
+              './src/main.js'
             ];
             
             // Fonction pour tenter de charger un script
