@@ -6,19 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redirection - SARL FAZIO Lorenzo</title>
   <script>
-    // Script de redirection SPA pour GitHub Pages
-    const segmentCount = 0; // Ajustez selon votre configuration de GitHub Pages
-    
-    const l = window.location;
-    const path = l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/';
-    const fullPath = l.pathname.slice(path.length);
-    
-    if (fullPath !== '') {
-      localStorage.setItem('spa_path', '/' + fullPath);
-      window.location.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + path
-      );
-    }
+    // Méthode de redirection simplifiée et plus robuste
+    (function() {
+      // Capture l'URL complète actuelle
+      var location = window.location;
+      var pathname = location.pathname;
+      
+      // Stocke le chemin complet pour la redirection
+      localStorage.setItem('spa_path', pathname);
+      
+      // Redirige vers la racine du site
+      var rootUrl = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/';
+      console.log('Redirection vers:', rootUrl, 'avec chemin à restaurer:', pathname);
+      window.location.replace(rootUrl);
+    })();
   </script>
   <style>
     body {
@@ -54,7 +55,7 @@
   <div class="container">
     <h2>Redirection en cours...</h2>
     <div class="loader"></div>
-    <p>Vous allez être redirigé vers la page d'accueil.</p>
+    <p>Vous allez être redirigé vers la page demandée.</p>
   </div>
 </body>
 </html>

@@ -26,6 +26,15 @@ export default defineConfig(({ mode }) => {
       } else {
         console.warn("Fichier CNAME non trouvé à la racine du projet");
       }
+      
+      // Copie explicite du fichier 404.html
+      const notFoundPath = path.join(__dirname, 'public', '404.html');
+      if (fs.existsSync(notFoundPath)) {
+        fs.copyFileSync(notFoundPath, path.join(outDir, '404.html'));
+        console.log("Fichier 404.html copié avec succès");
+      } else {
+        console.warn("Fichier 404.html non trouvé dans public/");
+      }
     } catch (err) {
       console.error('Erreur lors de la création des fichiers:', err);
     }
