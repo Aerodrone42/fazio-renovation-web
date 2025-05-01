@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 export default defineConfig({
-  base: '/', // Base path for assets
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {
@@ -15,18 +15,8 @@ export default defineConfig({
     port: 8080
   },
   build: {
-    outDir: 'docs', // Output directory for GitHub Pages
-    emptyOutDir: true, // Empty output directory before each build
-    assetsDir: 'assets', // Assets directory name
-    minify: true,
-    sourcemap: false,
-    rollupOptions: {
-      output: {
-        entryFileNames: 'assets/[name].[hash].js',
-        chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]',
-        manualChunks: undefined,
-      },
-    },
+    outDir: 'docs',
+    emptyOutDir: true,
+    sourcemap: true,
   },
 });

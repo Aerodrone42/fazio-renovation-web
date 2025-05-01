@@ -1,4 +1,5 @@
 
+import React from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
@@ -6,7 +7,11 @@ import './index.css'
 const rootElement = document.getElementById("root");
 if (rootElement) {
   try {
-    createRoot(rootElement).render(<App />);
+    createRoot(rootElement).render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
     console.log("React application successfully mounted");
   } catch (error) {
     console.error("Error while mounting React application:", error);
