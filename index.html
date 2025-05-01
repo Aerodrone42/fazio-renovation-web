@@ -19,10 +19,25 @@
     
     <!-- Script for GPT Engineer - Important pour la fonctionnalité de sélection -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" crossorigin src="./assets/main-CPqlNhb7.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/main-tpbfgAKg.css">
+    <script type="module" crossorigin src="./assets/main.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/main.css">
   </head>
   <body>
     <div id="root"></div>
+    
+    <!-- Script de secours en cas d'erreur de chargement -->
+    <script>
+      window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          if (document.getElementById('root').children.length === 0) {
+            console.error("Application non chargée après 3 secondes, tentative de chargement alternatif");
+            const appScript = document.createElement('script');
+            appScript.type = 'module';
+            appScript.src = './assets/main.js';
+            document.body.appendChild(appScript);
+          }
+        }, 3000);
+      });
+    </script>
   </body>
 </html>
