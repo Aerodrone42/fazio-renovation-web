@@ -30,8 +30,8 @@ export default defineConfig(({ mode }) => {
         },
         output: {
           entryFileNames: 'assets/[name].js', // Format des noms de fichiers d'entrée
-          chunkFileNames: 'assets/[name].js', // Format des noms de chunks
-          assetFileNames: 'assets/[name].[ext]', // Format des noms d'assets
+          chunkFileNames: 'assets/[name]-[hash].js', // Format des noms de chunks
+          assetFileNames: 'assets/[name]-[hash].[ext]', // Format des noms d'assets
         },
       },
     },

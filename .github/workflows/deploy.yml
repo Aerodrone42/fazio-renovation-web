@@ -41,61 +41,100 @@ jobs:
           echo "www.sarlfaziolorenzo.fr" > dist/CNAME
           cp public/404.html dist/404.html || echo "No 404.html to copy"
           
-          # Vérifier le contenu des dossiers pour s'assurer que tous les fichiers sont là
-          echo "Contenu du dossier dist avant modification:"
+          # Inspecter le contenu généré
+          echo "Contenu du dossier dist:"
           ls -la dist/
-          
-          echo "Contenu du dossier dist/assets (s'il existe):"
+          echo "Contenu du dossier dist/assets:"
           ls -la dist/assets/ || echo "Le dossier assets n'existe pas"
           
-          # Modifier les chemins relatifs pour s'assurer qu'ils sont corrects pour GitHub Pages
-          sed -i 's|src="/|src="./|g' dist/index.html || echo "No replacement needed for src paths"
-          sed -i 's|href="/|href="./|g' dist/index.html || echo "No replacement needed for href paths"
+          # Vérifier le contenu actuel de index.html 
+          echo "Contenu de index.html avant modification:"
+          cat dist/index.html
           
-          # Remplacer src="./src/main.tsx" par le chemin correct vers le bundle JS généré
+          # Corriger les chemins dans index.html
+          sed -i 's|src="/|src="./|g' dist/index.html
+          sed -i 's|href="/|href="./|g' dist/index.html
+          
+          # Remplacer explicitement les chemins vers src/main.tsx par le bundle JS généré
           if grep -q 'src="./src/main.tsx"' dist/index.html; then
-            if [ -f dist/assets/main.js ]; then
-              sed -i 's|src="./src/main.tsx"|src="./assets/main.js"|g' dist/index.html
-            elif [ -f dist/assets/index.js ]; then
-              sed -i 's|src="./src/main.tsx"|src="./assets/index.js"|g' dist/index.html
+            # Vérifier quels fichiers JS sont disponibles
+            echo "Recherche de fichiers bundle JS..."
+            BUNDLE_FILES=$(find dist/assets -name "*.js" | head -n 1)
+            
+            if [ -n "$BUNDLE_FILES" ]; then
+              # Extraire juste le nom du fichier relatif
+              BUNDLE_PATH=$(echo $BUNDLE_FILES | sed 's|dist/||')
+              echo "Bundle trouvé: $BUNDLE_PATH"
+              # Remplacer le chemin src/main.tsx par le bundle trouvé
+              sed -i "s|src=\"./src/main.tsx\"|src=\"./$BUNDLE_PATH\"|g" dist/index.html
+            else
+              echo "ATTENTION: Aucun bundle JS trouvé!"
+              # Créer un script de secours
+              mkdir -p dist/assets
+              echo "console.log('Script de secours chargé');" > dist/assets/fallback.js
+              sed -i 's|src="./src/main.tsx"|src="./assets/fallback.js"|g' dist/index.html
             fi
           fi
           
-          # Vérifier si le fichier main.js ou index.js existe, sinon créer un fichier de secours
-          if [ ! -f dist/assets/main.js ] && [ ! -f dist/assets/index.js ]; then
-            echo "WARNING: main.js et index.js non trouvés dans assets. Création d'un script de secours."
-            mkdir -p dist/assets
-            echo "console.log('Script de secours chargé. Tentative d\'initialisation de l\'application...');" > dist/assets/index.js
+          # Créer un script d'initialisation spécifique pour corriger les problèmes de chargement
+          cat > dist/init.js << 'EOL'
+          (function() {
+            console.log("Script d'initialisation chargé");
+            const loadApp = () => {
+              const paths = [
+                './assets/index.js',
+                './assets/main.js'
+              ];
+              
+              // Recherche de tous les fichiers .js dans le dossier assets
+              fetch('./assets/')
+                .then(response => response.text())
+                .then(html => {
+                  const parser = new DOMParser();
+                  const doc = parser.parseFromString(html, 'text/html');
+                  const links = Array.from(doc.querySelectorAll('a'));
+                  const jsFiles = links
+                    .map(link => link.href)
+                    .filter(href => href.endsWith('.js'))
+                    .map(href => href.split('/').pop());
+                  
+                  if (jsFiles.length > 0) {
+                    jsFiles.forEach(file => {
+                      const script = document.createElement('script');
+                      script.type = 'module';
+                      script.src = `./assets/${file}`;
+                      document.body.appendChild(script);
+                    });
+                  } else {
+                    throw new Error("Aucun fichier JS trouvé");
+                  }
+                })
+                .catch(error => {
+                  console.error("Erreur de chargement automatique:", error);
+                  
+                  // Essayer les chemins prédéfinis
+                  paths.forEach(path => {
+                    const script = document.createElement('script');
+                    script.type = 'module';
+                    script.src = path;
+                    document.body.appendChild(script);
+                  });
+                });
+            };
             
-            # Mettre à jour l'index.html pour utiliser ce script de secours
-            sed -i 's|src="./src/main.tsx"|src="./assets/index.js"|g' dist/index.html
-          fi
+            if (document.readyState === "loading") {
+              document.addEventListener('DOMContentLoaded', loadApp);
+            } else {
+              loadApp();
+            }
+          })();
+          EOL
           
-          # Ajouter un script pour rediriger vers l'index.html en cas d'erreur 404
-          cat > dist/404.html << EOL
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Redirection vers l'accueil</title>
-  <script>
-    window.location.href = '/';
-  </script>
-</head>
-<body>
-  <p>Redirection vers la page d'accueil...</p>
-</body>
-</html>
-EOL
+          # Ajouter le script d'initialisation à index.html
+          sed -i '/<\/body>/i <script src="./init.js"></script>' dist/index.html
           
-      - name: Verify build files 🔍
-        run: |
-          echo "Vérification des fichiers générés:"
-          ls -la dist/
-          echo "Contenu du dossier assets:"
-          ls -la dist/assets/ || echo "Le dossier assets n'existe pas"
-          
-          echo "Contenu de l'index.html après modifications:"
+          # Vérifier le contenu après modification
+          echo "Contenu de index.html après modification:"
           cat dist/index.html
           
       - name: Deploy to GitHub Pages 🚀
