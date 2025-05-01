@@ -6,8 +6,6 @@
   <title>SARL FAZIO Lorenzo | Redirection</title>
   <script type="text/javascript">
     var l = window.location;
-    // Si nous sommes sur GitHub Pages avec un domaine personnalisé
-    // Nous devons rediriger vers / pour que le router SPA prenne le relais
     l.replace(
       l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
       '/?/' + l.pathname.slice(1) + (l.search ? '&' + l.search.slice(1) : '') + l.hash

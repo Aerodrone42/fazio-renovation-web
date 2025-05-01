@@ -6,10 +6,6 @@ import './index.css'
 const rootElement = document.getElementById("root");
 if (rootElement) {
   try {
-    // Get correct base URL
-    const baseUrl = import.meta.env.BASE_URL || '/';
-    console.log("Base URL for assets:", baseUrl);
-    
     createRoot(rootElement).render(<App />);
     console.log("React application successfully mounted");
   } catch (error) {
