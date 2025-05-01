@@ -33,7 +33,7 @@
             console.error("Application non chargée après 3 secondes, tentative de chargement alternatif");
             const appScript = document.createElement('script');
             appScript.type = 'module';
-            appScript.src = './src/main.tsx';
+            appScript.src = '/src/main.tsx';
             document.body.appendChild(appScript);
           }
         }, 3000);
