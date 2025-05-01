@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,7 +15,7 @@ import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 
 // Services
 import Carrelage from "./pages/services/Carrelage";
-import Mosaique from "./pages/services/Mosaique";
+import Mosaique from "./pages/services/Mosaique"; // Keeping the file name but content updated to carreaux ciment
 import PierreMarbre from "./pages/services/PierreMarbre";
 import DoucheItalienne from "./pages/services/DoucheItalienne";
 import RenovationSalleDeBain from "./pages/services/RenovationSalleDeBain";
@@ -77,7 +76,7 @@ const App = () => (
               
               {/* Services */}
               <Route path="/services/carrelage" element={<Carrelage />} />
-              <Route path="/services/mosaique" element={<Mosaique />} />
+              <Route path="/services/mosaique" element={<Mosaique />} /> {/* URL remains the same, content updated */}
               <Route path="/services/pierre-marbre" element={<PierreMarbre />} />
               <Route path="/services/douche-italienne" element={<DoucheItalienne />} />
               <Route path="/services/renovation-salle-de-bain" element={<RenovationSalleDeBain />} />

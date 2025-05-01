@@ -15,7 +15,7 @@ import { MenuIcon, XIcon, Phone } from 'lucide-react';
 
 const services = [
   { name: 'Pose de carrelage', href: '/services/carrelage' },
-  { name: 'Pose de mosaïque', href: '/services/mosaique' },
+  { name: 'Pose de carreaux ciment', href: '/services/mosaique' },
   { name: 'Pose de pierre naturelle & marbre', href: '/services/pierre-marbre' },
   { name: "Création de douche à l'italienne", href: '/services/douche-italienne' },
   { name: 'Rénovation complète de salle de bain', href: '/services/renovation-salle-de-bain' },
