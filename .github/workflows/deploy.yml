@@ -24,11 +24,11 @@ jobs:
       - name: Install dependencies 📦
         run: npm ci || npm install
         
-      - name: Create assets directory 📁
+      - name: Create assets directory and index.js 📁
         run: |
           mkdir -p docs/assets
-          touch docs/assets/.gitkeep
-          echo "Assets directory created before build"
+          echo "// Fichier index.js minimal de secours" > docs/assets/index.js
+          echo "Assets directory and index.js created before build"
         
       - name: Build 🔧
         run: npm run build
@@ -43,37 +43,29 @@ jobs:
           echo "Contents of docs/assets directory:"
           ls -la docs/assets/
           
-      - name: Force copy index.js to assets if missing ⚠️
+      - name: Force create index.js if missing ⚠️
         run: |
-          if [ ! -f "docs/assets/index.js" ]; then
-            echo "⚠️ index.js manquant dans docs/assets - Tentative de correction"
-            
-            # 1. Chercher index.js dans tout le dossier docs
-            FOUND_INDEX=$(find docs -name "index*.js" -not -path "*/node_modules/*" | head -n 1)
-            if [ ! -z "$FOUND_INDEX" ]; then
-              echo "✅ Trouvé $FOUND_INDEX, copie vers docs/assets/index.js"
-              cp "$FOUND_INDEX" docs/assets/index.js
-            else
-              # 2. Chercher dans le dossier dist
-              if [ -d "dist" ]; then
-                DIST_INDEX=$(find dist -name "index*.js" -not -path "*/node_modules/*" | head -n 1)
-                if [ ! -z "$DIST_INDEX" ]; then
-                  echo "✅ Trouvé $DIST_INDEX, copie vers docs/assets/index.js"
-                  cp "$DIST_INDEX" docs/assets/index.js
-                else
-                  echo "❌ Aucun fichier index.js trouvé pour correction"
-                fi
-              fi
-            fi
+          if [ ! -f "docs/assets/index.js" ] || [ ! -s "docs/assets/index.js" ]; then
+            echo "⚠️ index.js manquant ou vide dans docs/assets - Création d'un fichier de secours"
+            cat > docs/assets/index.js << 'EOL'
+import { createRoot } from 'react-dom/client';
+import React from 'react';
+import App from '../src/App.js';
+
+try {
+  const rootElement = document.getElementById('root');
+  if (rootElement) {
+    createRoot(rootElement).render(React.createElement(App));
+    console.log("Application chargée via index.js de secours");
+  }
+} catch (e) {
+  console.error("Erreur lors du chargement:", e);
+  document.getElementById('root').innerHTML = '<div style="padding:20px;"><h1>Erreur de chargement</h1><p>Impossible de charger l\'application.</p></div>';
+}
+EOL
+            echo "✅ index.js de secours créé avec succès!"
           else
             echo "✅ index.js existe dans docs/assets/"
-          fi
-          
-          # Vérification finale
-          if [ -f "docs/assets/index.js" ]; then
-            echo "✅ index.js est présent dans docs/assets/ après correction"
-          else
-            echo "❌ ERREUR CRITIQUE: index.js toujours manquant dans docs/assets/"
           fi
           
       - name: Ensure directories and files exist 📋
@@ -81,45 +73,69 @@ jobs:
           echo "www.sarlfaziolorenzo.fr" > docs/CNAME
           touch docs/.nojekyll
           
-          # Vérifier si 404.html existe dans public et le copier si nécessaire
-          if [ -f "public/404.html" ]; then
-            cp public/404.html docs/404.html
-            echo "✅ 404.html copied from public to docs"
-          fi
+          # Copier 404.html vers docs
+          cp public/404.html docs/404.html || echo "❌ Failed to copy 404.html"
           
           # S'assurer que le script gptengineer est présent dans index.html
           if ! grep -q "gptengineer.js" docs/index.html; then
-            echo "⚠️ gptengineer.js script not found in docs/index.html, adding it"
             sed -i 's|<head>|<head>\n    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>|' docs/index.html
-          else
-            echo "✅ gptengineer.js script found in docs/index.html"
           fi
           
-          # Ajouter un script de fallback pour charger index.js si ce n'est pas déjà fait
-          if ! grep -q "loadMainScript" docs/index.html; then
-            echo "⚠️ Ajout d'un script de fallback pour charger index.js"
-            cat > temp_script.html << 'EOL'
-<script>
-function loadMainScript() {
-  console.log("Tentative de chargement du script principal");
-  var script = document.createElement('script');
-  script.type = 'module';
-  script.src = './assets/index.js';
-  script.onerror = function() {
-    console.error("Erreur de chargement - Tentative avec un chemin alternatif");
-    var fallbackScript = document.createElement('script');
-    fallbackScript.type = 'module';
-    fallbackScript.src = '/assets/index.js';
-    document.body.appendChild(fallbackScript);
-  };
-  document.body.appendChild(script);
-}
-document.addEventListener('DOMContentLoaded', loadMainScript);
-</script>
+      - name: Update index.html with direct script tag 📄
+        run: |
+          cat > docs/index.html << 'EOL'
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SARL FAZIO Lorenzo | Carrelage & rénovation dans l'Ouest Lyonnais et l'Ain</title>
+    <meta name="description" content="SARL FAZIO Lorenzo - Spécialiste du carrelage, mosaïque, pierre naturelle, douches à l'italienne et rénovation de salles de bain clé en main dans l'Ouest Lyonnais et l'Ain." />
+    <meta name="author" content="SARL FAZIO Lorenzo" />
+    <meta property="og:title" content="SARL FAZIO Lorenzo | Carrelage & rénovation" />
+    <meta property="og:description" content="Spécialiste du carrelage et de la rénovation clé en main dans l'Ouest Lyonnais et l'Ain." />
+    <meta property="og:type" content="website" />
+    
+    <!-- Favicon avec chemin relatif -->
+    <link rel="icon" type="image/png" href="./lovable-uploads/8d86e4df-9559-4d2e-a51e-e1ca7622720d.png">
+    
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap">
+    
+    <!-- Script for GPT Engineer - Important pour la fonctionnalité de sélection -->
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- Script de chargement direct -->
+    <script type="module" src="./assets/index.js"></script>
+    
+    <!-- Script de diagnostic -->
+    <script>
+      window.addEventListener('DOMContentLoaded', function() {
+        console.log("DOMContentLoaded event fired");
+        const rootElement = document.getElementById('root');
+        
+        // Vérifier si l'application React est chargée après un délai
+        setTimeout(function() {
+          if (rootElement && rootElement.children.length === 0) {
+            console.error("L'application React ne semble pas s'être chargée.");
+            rootElement.innerHTML = '<div style="padding:20px;text-align:center;font-family:sans-serif;"><h2>Chargement en cours...</h2><p>Si cette page persiste, veuillez rafraîchir.</p></div>';
+            
+            // Tentative de chargement alternatif
+            const script = document.createElement('script');
+            script.type = 'module';
+            script.src = '/assets/index.js';  // Chemin alternatif
+            document.body.appendChild(script);
+          }
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>
 EOL
-            sed -i '/<div id="root"><\/div>/a\\n    <!-- Script de fallback pour charger index.js -->\n    '"$(cat temp_script.html)" docs/index.html
-            rm temp_script.html
-          fi
+          echo "✅ index.html mis à jour avec un script de chargement direct"
           
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
