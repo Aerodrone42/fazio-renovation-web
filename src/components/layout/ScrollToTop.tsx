@@ -8,6 +8,7 @@ export function ScrollToTop() {
   useEffect(() => {
     // Scroll to top when pathname changes
     window.scrollTo(0, 0);
+    console.log('Route changed to:', pathname);
   }, [pathname]);
 
   return null;
