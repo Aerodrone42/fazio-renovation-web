@@ -1,4 +1,3 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -12,6 +11,8 @@ export default defineConfig(({ mode }) => {
   }
   if (!fs.existsSync('docs/assets')) {
     fs.mkdirSync('docs/assets', { recursive: true });
+    // Créer un fichier gitkeep pour s'assurer que le dossier est inclus dans git
+    fs.writeFileSync('docs/assets/.gitkeep', '');
   }
 
   return {
@@ -36,9 +37,9 @@ export default defineConfig(({ mode }) => {
       manifest: true, // Générer un fichier manifeste
       rollupOptions: {
         output: {
-          entryFileNames: 'assets/index.js', // Nom de fichier simple pour l'entrée principale
-          chunkFileNames: 'assets/[name].[hash].js', // Forcer les chunks dans assets/
-          assetFileNames: 'assets/[name].[hash].[ext]', // Forcer les autres fichiers dans assets/
+          entryFileNames: 'assets/[name].js', // Format du nom pour les fichiers d'entrée
+          chunkFileNames: 'assets/[name].[hash].js', // Format pour les chunks
+          assetFileNames: 'assets/[name].[hash].[ext]', // Format pour les autres assets
         },
       },
     },

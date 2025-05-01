@@ -54,6 +54,12 @@ jobs:
               echo "// Placeholder file to ensure directory is committed" > docs/assets/placeholder.js
             fi
           fi
+
+          # Ensure the gptengineer script is in the index.html file
+          if ! grep -q "gptengineer.js" docs/index.html; then
+            echo "⚠️ gptengineer.js script not found in docs/index.html, adding it"
+            sed -i 's|<head>|<head>\n    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>|' docs/index.html
+          fi
           
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
