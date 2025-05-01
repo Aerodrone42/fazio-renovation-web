@@ -24,33 +24,26 @@ jobs:
       - name: Install dependencies 📦
         run: |
           npm ci || npm install
-          # S'assurer que terser est installé explicitement
           npm install terser --save-dev
         
       - name: Build 🔧
         run: |
-          # Créer un fichier .env.production simple
           echo "NODE_ENV=production" > .env.production
           echo "VITE_APP_TITLE=\"SARL FAZIO Lorenzo\"" >> .env.production
           echo "VITE_APP_BASE_URL=\"/\"" >> .env.production
           
-          # Build avec les variables d'environnement correctes
           npm run build
           
       - name: Préparer le déploiement 📝
         run: |
-          # Créer les fichiers nécessaires pour GitHub Pages
           touch dist/.nojekyll
           echo "www.sarlfaziolorenzo.fr" > dist/CNAME
           
-          # Copier les fichiers statiques
           mkdir -p dist/lovable-uploads
           cp -r public/lovable-uploads/* dist/lovable-uploads/ || echo "Aucun fichier à copier"
           
-          # Créer un fichier 404.html pour SPA routing
           cp dist/index.html dist/404.html
           
-          # Vérifier le contenu final de dist
           echo "Contenu du dossier dist:"
           ls -la dist/
           echo "Contenu du dossier dist/assets:"

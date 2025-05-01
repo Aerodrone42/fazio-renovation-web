@@ -6,7 +6,7 @@ import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => {
   return {
-    base: '/', // Utiliser des chemins absolus pour le développement
+    base: '/',
     plugins: [
       react(),
       mode === 'development' && componentTagger(),
@@ -24,17 +24,8 @@ export default defineConfig(({ mode }) => {
       outDir: 'dist',
       emptyOutDir: true,
       sourcemap: mode === 'development',
-      minify: 'esbuild', // On utilise esbuild pour le minify
-      rollupOptions: {
-        input: {
-          main: path.resolve(__dirname, 'index.html'),
-        },
-        output: {
-          entryFileNames: 'assets/[name].[hash].js',
-          chunkFileNames: 'assets/[name].[hash].js',
-          assetFileNames: 'assets/[name].[hash].[ext]',
-        },
-      },
+      minify: 'esbuild',
+      // Suppression de la configuration personnalisée des noms de fichiers pour permettre à Vite de les gérer automatiquement
     },
   };
 });
