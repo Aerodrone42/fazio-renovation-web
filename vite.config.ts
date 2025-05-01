@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
       fs.writeFileSync(path.join(outDir, '.nojekyll'), '');
       console.log("Fichier .nojekyll créé avec succès");
       
-      // Copie du fichier CNAME
+      // Copie du fichier CNAME si présent
       const cnamePath = path.join(__dirname, 'CNAME');
       if (fs.existsSync(cnamePath)) {
         fs.copyFileSync(cnamePath, path.join(outDir, 'CNAME'));
@@ -27,13 +27,20 @@ export default defineConfig(({ mode }) => {
         console.warn("Fichier CNAME non trouvé à la racine du projet");
       }
       
-      // Copie du fichier 404.html
+      // Copie du fichier 404.html depuis public/
       const notFoundPath = path.join(__dirname, 'public', '404.html');
       if (fs.existsSync(notFoundPath)) {
         fs.copyFileSync(notFoundPath, path.join(outDir, '404.html'));
         console.log("Fichier 404.html copié avec succès");
       } else {
         console.warn("Fichier 404.html non trouvé dans public/");
+      }
+      
+      // Copie du favicon.ico si présent
+      const faviconPath = path.join(__dirname, 'public', 'favicon.ico');
+      if (fs.existsSync(faviconPath)) {
+        fs.copyFileSync(faviconPath, path.join(outDir, 'favicon.ico'));
+        console.log("Favicon copié avec succès");
       }
 
       // Création d'un fichier test.html pour vérifier le déploiement
@@ -47,6 +54,7 @@ export default defineConfig(({ mode }) => {
   <h1>Test de déploiement réussi</h1>
   <p>Si vous voyez cette page, le déploiement fonctionne correctement.</p>
   <p>Date de génération: ${new Date().toISOString()}</p>
+  <p><a href="/">Retour à l'accueil</a></p>
 </body>
 </html>
 `;

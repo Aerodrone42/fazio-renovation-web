@@ -6,27 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Redirection - SARL FAZIO Lorenzo</title>
   <script>
-    // Méthode de redirection améliorée pour GitHub Pages
+    // Méthode de redirection spécifique pour GitHub Pages
     (function() {
-      // Capture l'URL complète actuelle
-      var location = window.location;
-      var pathname = location.pathname;
+      var l = window.location;
+      var pathSegmentsToKeep = 0; // Changer si le site est dans un sous-dossier
       
-      // Gestion des chemins relatifs (pour GitHub Pages)
-      var segmentCount = 0; // Ajuster si votre site est dans un sous-dossier
-      var rootPath = '';
+      // Capture le chemin complet après le domaine (sans les paramètres de requête)
+      var path = l.pathname.split('/').slice(pathSegmentsToKeep + 1).join('/');
       
-      if (segmentCount > 0) {
-        rootPath = pathname.split('/').slice(0, segmentCount + 1).join('/');
+      if (path) {
+        // Stocke le chemin de redirection sans le slash initial
+        sessionStorage.setItem('redirect_path', path);
+        console.log('Chemin stocké pour redirection:', path);
       }
       
-      // Stocke le chemin pour la redirection
-      localStorage.setItem('spa_path', pathname);
-      
-      // Redirige vers la racine du site avec chemins relatifs
-      var rootUrl = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + rootPath + '/';
-      console.log('Redirection vers:', rootUrl, 'avec chemin à restaurer:', pathname);
-      window.location.replace(rootUrl);
+      // Redirige vers la racine avec des chemins relatifs fiables
+      var rootUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/';
+      console.log('Redirection vers:', rootUrl);
+      window.location.href = rootUrl;
     })();
   </script>
   <style>
@@ -64,7 +61,7 @@
     <h2>Redirection en cours...</h2>
     <div class="loader"></div>
     <p>Vous allez être redirigé vers la page demandée.</p>
-    <p>Si la redirection ne fonctionne pas, <a href="./">cliquez ici</a> pour accéder à la page d'accueil.</p>
+    <p>Si la redirection ne fonctionne pas, <a href="/">cliquez ici</a> pour accéder à la page d'accueil.</p>
   </div>
 </body>
 </html>
