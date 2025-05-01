@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies 📦
         run: |
           npm ci || npm install
-          # S'assurer que terser est installé
+          # S'assurer que terser est installé explicitement
           npm install terser --save-dev
         
       - name: Build 🔧
@@ -45,9 +45,8 @@ jobs:
           mkdir -p dist/lovable-uploads
           cp -r public/lovable-uploads/* dist/lovable-uploads/ || echo "Aucun fichier à copier"
           
-          # Copier l'index.html et s'assurer que les chemins sont corrects
-          cp index.html dist/index.html
-          cp -r assets dist/ || echo "Pas de dossier assets à copier"
+          # Copier l'index.html au cas où il ne soit pas déjà dans le dossier dist
+          cp index.html dist/ || echo "index.html déjà dans le dossier dist"
           
           # Créer un fichier 404.html pour SPA routing
           cp dist/index.html dist/404.html
@@ -57,6 +56,24 @@ jobs:
           ls -la dist/
           echo "Contenu du dossier dist/assets:"
           ls -la dist/assets/ || echo "Le dossier assets n'existe pas"
+          
+          # Corriger les chemins dans index.html si nécessaire
+          if [ -f dist/index.html ]; then
+            # Vérifier et remplacer les chemins si nécessaire
+            sed -i 's|src="/src/main.tsx"|src="./src/main.tsx"|g' dist/index.html
+            sed -i 's|src="/assets/|src="./assets/|g' dist/index.html
+            
+            # Ajouter un script de redirection au cas où
+            echo '<script>
+              if (document.getElementById("root").children.length === 0) {
+                console.log("Tentative de redirection vers le point d'entrée correct");
+                var mainScript = document.createElement("script");
+                mainScript.type = "module";
+                mainScript.src = "./assets/main.js";
+                document.body.appendChild(mainScript);
+              }
+            </script>' >> dist/index.html
+          fi
           
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4

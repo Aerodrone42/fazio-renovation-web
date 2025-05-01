@@ -23,8 +23,8 @@
   <body>
     <div id="root"></div>
     
-    <!-- Script principal avec mécanisme de chargement direct -->
-    <script type="module" src="./assets/index.js"></script>
+    <!-- Script principal avec chemin correct vers le src -->
+    <script type="module" src="/src/main.tsx"></script>
     
     <!-- Script de secours en cas d'erreur -->
     <script>
@@ -33,15 +33,16 @@
         if (document.getElementById('root').children.length === 0) {
           console.error("L'application n'a pas réussi à se charger automatiquement");
           
-          // Tenter de charger manuellement
+          // Tenter de charger manuellement avec plusieurs alternatives
           const cheminsAlternatifs = [
-            './src/main.js',
+            '/src/main.tsx',
+            '/src/main.jsx',
+            '/src/main.js',
+            '/dist/assets/index.js',
             './src/main.tsx',
+            './src/main.js',
             './main.js',
-            './index.js', 
-            './assets/main.js',
-            './dist/assets/index.js',
-            './dist/assets/main.js'
+            './index.js'
           ];
           
           // Fonction pour essayer chaque chemin de script

@@ -23,17 +23,16 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'dist',
       emptyOutDir: true,
-      assetsDir: 'assets',
-      sourcemap: false, 
-      minify: true, // On utilise esbuild par défaut au lieu de terser
+      sourcemap: mode === 'development',
+      minify: 'esbuild', // On utilise esbuild au lieu de terser
       rollupOptions: {
         input: {
           main: path.resolve(__dirname, 'index.html'),
         },
         output: {
-          entryFileNames: 'assets/[name].js',
+          entryFileNames: 'assets/[name].[hash].js',
           chunkFileNames: 'assets/[name].[hash].js',
-          assetFileNames: 'assets/[name].[ext]',
+          assetFileNames: 'assets/[name].[hash].[ext]',
         },
       },
     },
