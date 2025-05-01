@@ -5,7 +5,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: "./", // Utiliser un chemin relatif
+  base: "", // Utiliser une base vide pour les chemins absolus
   server: {
     host: "::",
     port: 8080,
