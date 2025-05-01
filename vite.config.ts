@@ -15,14 +15,17 @@ export default defineConfig({
     port: 8080
   },
   build: {
-    outDir: 'docs', // Dossier de sortie pour GitHub Pages
-    emptyOutDir: true, // Vider le dossier avant chaque build
-    assetsDir: 'assets', // Nom du dossier pour les assets
+    outDir: 'docs', // Output directory for GitHub Pages
+    emptyOutDir: true, // Empty output directory before each build
+    assetsDir: 'assets', // Assets directory name
+    minify: true,
+    sourcemap: false,
     rollupOptions: {
       output: {
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]'
+        assetFileNames: 'assets/[name].[hash].[ext]',
+        manualChunks: undefined,
       },
     },
   },
