@@ -15,8 +15,17 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    port: 8080
+  },
   build: {
     outDir: 'docs', // Important : change le dossier de sortie en 'docs'
     emptyOutDir: true,
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
   },
 }));

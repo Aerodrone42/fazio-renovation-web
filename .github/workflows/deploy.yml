@@ -35,7 +35,13 @@ jobs:
         run: touch docs/.nojekyll
         
       - name: Debug directory content
-        run: ls -la docs/
+        run: |
+          echo "Content of docs directory:"
+          ls -la docs/
+          echo "Content of docs/lovable-uploads directory (if exists):"
+          ls -la docs/lovable-uploads || echo "Directory does not exist"
+          echo "Content of docs/assets directory (if exists):"
+          ls -la docs/assets || echo "Directory does not exist"
         
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
