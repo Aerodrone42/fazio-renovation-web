@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-<script src="./gh-pages-redirect.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SARL FAZIO Lorenzo | Carrelage & rénovation dans l'Ouest Lyonnais et l'Ain</title>
@@ -13,81 +12,19 @@
     <meta property="og:type" content="website" />
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="./lovable-uploads/8d86e4df-9559-4d2e-a51e-e1ca7622720d.png">
+    <link rel="icon" type="image/png" href="/lovable-uploads/8d86e4df-9559-4d2e-a51e-e1ca7622720d.png">
     
     <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap">
     
-    <!-- Script for GPT Engineer - Important pour la fonctionnalité de sélection -->
+    <!-- Script for GPT Engineer -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" crossorigin src="./assets/main.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/main.tpbfgAKg.css">
+    <script type="module" crossorigin src="/assets/main.B9b1aofa.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main.tpbfgAKg.css">
   </head>
   <body>
     <div id="root"></div>
     
-    <!-- Script de secours pour GitHub Pages -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Vérifier si l'application React s'est chargée correctement
-        setTimeout(function() {
-          if (document.getElementById('root').children.length === 0) {
-            console.error("Application non chargée, utilisation du script de secours");
-            
-            // Chemins possibles vers le bundle JS
-            const possiblePaths = [
-              './assets/main.js',
-              './assets/index.js',
-              './main.js',
-              './index.js',
-              './assets/main-.*.js', // Pour les fichiers avec hash
-              './src/main.js'
-            ];
-            
-            // Fonction pour tenter de charger un script
-            function loadScript(path) {
-              return new Promise((resolve, reject) => {
-                const script = document.createElement('script');
-                script.type = 'module';
-                script.src = path;
-                script.onload = () => resolve(true);
-                script.onerror = () => reject(false);
-                document.body.appendChild(script);
-              });
-            }
-            
-            // Essayer chaque chemin jusqu'à ce qu'un fonctionne
-            async function tryLoadingScripts() {
-              for (const path of possiblePaths) {
-                try {
-                  const success = await loadScript(path);
-                  if (success) {
-                    console.log(`Application chargée avec succès depuis ${path}`);
-                    return;
-                  }
-                } catch (e) {
-                  console.warn(`Échec du chargement depuis ${path}`);
-                }
-              }
-              
-              // Si tous échouent, afficher un message d'erreur visible
-              console.error("Tous les chemins ont échoué");
-              const errorMsg = document.createElement('div');
-              errorMsg.style.padding = '20px';
-              errorMsg.style.margin = '20px';
-              errorMsg.style.color = '#721c24';
-              errorMsg.style.backgroundColor = '#f8d7da';
-              errorMsg.style.border = '1px solid #f5c6cb';
-              errorMsg.style.borderRadius = '4px';
-              errorMsg.style.fontFamily = 'Poppins, sans-serif';
-              errorMsg.innerHTML = '<h2>Erreur de chargement</h2><p>Impossible de charger l\'application. Veuillez rafraîchir la page ou contacter l\'administrateur.</p>';
-              document.body.appendChild(errorMsg);
-            }
-            
-            tryLoadingScripts();
-          }
-        }, 2000);
-      });
-    </script>
+    <!-- Script principal -->
   </body>
 </html>
