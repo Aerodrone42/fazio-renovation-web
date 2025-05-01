@@ -30,9 +30,16 @@ jobs:
         run: |
           echo "NODE_ENV=production" > .env.production
           echo "VITE_APP_TITLE=\"SARL FAZIO Lorenzo\"" >> .env.production
-          echo "VITE_APP_BASE_URL=\"/\"" >> .env.production
+          echo "VITE_APP_BASE_URL=\"./\"" >> .env.production
           
           npm run build
+          
+      - name: Vérifier build 🔍
+        run: |
+          echo "Contenu du fichier index.html généré:"
+          cat dist/index.html
+          echo "\nVérification des chemins des scripts:"
+          grep -o '<script[^>]*src="[^"]*"[^>]*>' dist/index.html
           
       - name: Préparer le déploiement 📝
         run: |
@@ -44,7 +51,15 @@ jobs:
           
           cp dist/index.html dist/404.html
           
-          echo "Contenu du dossier dist:"
+          # Correction des chemins relatifs si nécessaire
+          if grep -q 'src="/' dist/index.html; then
+            echo "Correction des chemins absolus en chemins relatifs"
+            sed -i 's|src="/|src="./|g' dist/index.html
+            sed -i 's|href="/|href="./|g' dist/index.html
+            cp dist/index.html dist/404.html
+          fi
+          
+          echo "Contenu du dossier dist après correction:"
           ls -la dist/
           echo "Contenu du dossier dist/assets:"
           ls -la dist/assets/ || echo "Le dossier assets n'existe pas"

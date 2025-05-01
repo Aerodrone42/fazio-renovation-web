@@ -6,7 +6,7 @@ import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => {
   return {
-    base: '/',
+    base: './', // Changement crucial: utiliser './' au lieu de '/' pour GitHub Pages
     plugins: [
       react(),
       mode === 'development' && componentTagger(),
@@ -25,7 +25,6 @@ export default defineConfig(({ mode }) => {
       emptyOutDir: true,
       sourcemap: mode === 'development',
       minify: 'esbuild',
-      // Suppression de la configuration personnalisée des noms de fichiers pour permettre à Vite de les gérer automatiquement
     },
   };
 });
