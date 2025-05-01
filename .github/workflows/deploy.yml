@@ -28,6 +28,15 @@ jobs:
         env:
           NODE_ENV: production
 
+      - name: Copy index.html to 404.html 🔄
+        run: cp dist/index.html dist/404.html
+        
+      - name: Copy CNAME 📋
+        run: cp CNAME dist/ || true
+        
+      - name: Create .nojekyll file 📄
+        run: touch dist/.nojekyll
+        
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:

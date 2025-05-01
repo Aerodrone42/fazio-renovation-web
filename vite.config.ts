@@ -5,7 +5,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 // Déterminer la base URL en fonction de l'environnement
-const base = process.env.NODE_ENV === 'production' ? '/sarlfaziolorenzo/' : '/';
+const base = process.env.NODE_ENV === 'production' ? './' : '/';
 
 export default defineConfig(({ mode }) => ({
   base: base,
@@ -27,7 +27,9 @@ export default defineConfig(({ mode }) => ({
     emptyOutDir: true,
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        entryFileNames: 'index.js',
+        chunkFileNames: '[name].[hash].js',
+        assetFileNames: '[name].[hash].[ext]',
       },
     },
     assetsInlineLimit: 0,
