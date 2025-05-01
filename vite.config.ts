@@ -6,7 +6,7 @@ import { componentTagger } from "lovable-tagger";
 import fs from 'fs';
 
 export default defineConfig(({ mode }) => {
-  // Créer les dossiers nécessaires
+  // S'assurer que les dossiers nécessaires existent
   if (!fs.existsSync('docs')) {
     fs.mkdirSync('docs', { recursive: true });
   }
@@ -14,11 +14,11 @@ export default defineConfig(({ mode }) => {
     fs.mkdirSync('docs/assets', { recursive: true });
   }
   
-  // Créer un index.js minimal directement
+  // Créer un index.js minimal qui charge l'application React
   const minimalIndexJs = `
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from '/src/App';
+import App from './App';
 
 // Fonction d'initialisation
 function init() {
@@ -32,13 +32,14 @@ function init() {
     console.log('Application chargée avec succès');
   } catch (e) {
     console.error('Erreur de chargement:', e);
-    document.getElementById('root').innerHTML = '<div style="padding:20px;"><h1>Erreur de chargement</h1><p>Impossible de charger l\\'application.</p></div>';
+    document.body.innerHTML = '<div style="padding:20px;"><h1>Erreur de chargement</h1><p>Impossible de charger l\\'application.</p></div>';
   }
 }
 
 // Exécuter l'initialisation
 init();
 `;
+
   fs.writeFileSync('docs/assets/index.js', minimalIndexJs);
   
   return {

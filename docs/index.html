@@ -18,39 +18,23 @@
   <body>
     <div id="root"></div>
     
-    <!-- Script principal avec gestion d'erreur -->
+    <!-- Script principal avec mécanisme de chargement direct -->
+    <script type="module" src="./assets/index.js"></script>
+    
+    <!-- Script de secours en cas d'erreur -->
     <script>
-      // Fonction pour charger un script avec fallback
-      function loadScript(src, fallbackSrc, fallbackContent) {
-        console.log("Chargement du script:", src);
-        const script = document.createElement('script');
-        script.type = 'module';
-        script.src = src;
-        script.onerror = function() {
-          console.error("Échec du chargement de", src);
+      // Vérifier si l'application est chargée après 5 secondes
+      setTimeout(function() {
+        if (document.getElementById('root').children.length === 0) {
+          console.error("L'application n'a pas réussi à se charger automatiquement");
           
-          if (fallbackSrc) {
-            console.log("Tentative avec fallback:", fallbackSrc);
-            const fallbackScript = document.createElement('script');
-            fallbackScript.type = 'module';
-            fallbackScript.src = fallbackSrc;
-            fallbackScript.onerror = function() {
-              console.error("Tous les scripts ont échoué");
-              if (fallbackContent) {
-                const rootEl = document.getElementById('root');
-                if (rootEl) rootEl.innerHTML = fallbackContent;
-              }
-            };
-            document.body.appendChild(fallbackScript);
-          }
-        };
-        document.body.appendChild(script);
-      }
-      
-      // Charger les scripts dans cet ordre
-      document.addEventListener('DOMContentLoaded', function() {
-        loadScript('./assets/index.js', null, '<div style="padding:20px;text-align:center;"><h2>Erreur de chargement</h2><p>Impossible de charger l\'application</p></div>');
-      });
+          // Tenter de charger manuellement
+          const script = document.createElement('script');
+          script.type = 'module';
+          script.src = './assets/index.js';
+          document.body.appendChild(script);
+        }
+      }, 5000);
     </script>
   </body>
 </html>
