@@ -19,17 +19,13 @@
     
     <!-- Script de redirection pour GitHub Pages SPA -->
     <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      (function(l) {
-        if (l.search[1] === '/' ) {
-          var decoded = l.search.slice(1).split('&').map(function(s) { 
-            return s.replace(/~and~/g, '&')
-          }).join('?');
-          window.history.replaceState(null, null,
-              l.pathname.slice(0, -1) + decoded + l.hash
-          );
+      // Vérifier si nous sommes sur GitHub Pages
+      if (window.location.hostname.includes('github.io') || window.location.hostname.includes('sarlfaziolorenzo.fr')) {
+        // Si pas de hash et qu'on a un chemin, on redirige vers la version avec hash
+        if (!window.location.hash && window.location.pathname.length > 1) {
+          window.location.replace('/#' + window.location.pathname);
         }
-      }(window.location))
+      }
     </script>
     
     <!-- GPT Engineer Script for Pick and Edit functionality -->
