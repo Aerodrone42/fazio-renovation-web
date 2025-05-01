@@ -11,6 +11,9 @@ const NotFound = () => {
       "404 Error: User attempted to access non-existent route:",
       location.pathname
     );
+    
+    // Log pour débogage
+    console.log("Current location:", window.location.href);
   }, [location.pathname]);
 
   return (
@@ -25,6 +28,10 @@ const NotFound = () => {
         <a 
           href="/#/" 
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300"
+          onClick={(e) => {
+            e.preventDefault();
+            window.location.href = window.location.origin + '/#/';
+          }}
         >
           Retour à l'accueil
         </a>

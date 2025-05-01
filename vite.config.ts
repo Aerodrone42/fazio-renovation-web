@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
-    base: './', // Utiliser des chemins relatifs au lieu de chemins absolus
+    base: './', // Utiliser des chemins relatifs au lieu de chemins absolus (crucial pour GitHub Pages)
     plugins: [
       react(),
       mode === 'development' && componentTagger(),
@@ -40,7 +40,7 @@ export default defineConfig(({ mode }) => {
         output: {
           entryFileNames: 'assets/[name].js', // Format du nom pour les fichiers d'entrée
           chunkFileNames: 'assets/[name].[hash].js', // Format pour les chunks
-          assetFileNames: 'assets/[name].[hash].[ext]', // Format pour les autres assets
+          assetFileNames: 'assets/[name].[ext]', // Retirer le hash pour éviter les problèmes de cache
         },
       },
       // Activer la génération des sources maps pour le débogage

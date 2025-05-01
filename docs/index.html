@@ -11,17 +11,36 @@
     <meta property="og:description" content="Spécialiste du carrelage et de la rénovation clé en main dans l'Ouest Lyonnais et l'Ain." />
     <meta property="og:type" content="website" />
     
-    <!-- Favicon -->
+    <!-- Favicon avec chemin relatif -->
     <link rel="icon" type="image/png" href="./lovable-uploads/8d86e4df-9559-4d2e-a51e-e1ca7622720d.png">
     
     <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap">
     
-    <!-- Script for GPT Engineer -->
+    <!-- Script for GPT Engineer - Important pour la fonctionnalité de sélection -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" crossorigin src="./assets/index.js"></script>
   </head>
   <body>
     <div id="root"></div>
+    
+    <!-- Script de débogage pour afficher des erreurs éventuelles -->
+    <script>
+      window.onerror = function(message, source, lineno, colno, error) {
+        console.error('Erreur détectée:', message, 'à', source, lineno, colno);
+        const errorDiv = document.createElement('div');
+        errorDiv.style.position = 'fixed';
+        errorDiv.style.bottom = '10px';
+        errorDiv.style.left = '10px';
+        errorDiv.style.backgroundColor = 'rgba(255,0,0,0.8)';
+        errorDiv.style.color = 'white';
+        errorDiv.style.padding = '10px';
+        errorDiv.style.borderRadius = '5px';
+        errorDiv.style.zIndex = '9999';
+        errorDiv.textContent = `Erreur: ${message}`;
+        document.body.appendChild(errorDiv);
+        return false;
+      };
+    </script>
   </body>
 </html>

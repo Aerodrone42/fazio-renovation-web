@@ -39,10 +39,39 @@ jobs:
         run: |
           echo "www.sarlfaziolorenzo.fr" > docs/CNAME
           touch docs/.nojekyll
-          # Ensure 404.html is copied correctly
-          cp public/404.html docs/404.html
+          
+          # Vérifier si 404.html existe dans public et le copier si nécessaire
+          if [ -f "public/404.html" ]; then
+            cp public/404.html docs/404.html
+            echo "✅ 404.html copied from public to docs"
+          else
+            # Créer un fichier 404.html minimal si nécessaire
+            cat > docs/404.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SARL FAZIO Lorenzo | Redirection</title>
+  <script type="text/javascript">
+    window.location.replace(window.location.origin);
+  </script>
+</head>
+<body>
+  <div style="text-align: center; padding-top: 50px;">
+    <h2>Redirection en cours...</h2>
+    <p>Vous allez être redirigé vers la page d'accueil.</p>
+    <p>Si la redirection ne fonctionne pas, <a href="/">cliquez ici</a></p>
+  </div>
+</body>
+</html>
+EOF
+            echo "⚠️ Created a new 404.html file in docs"
+          fi
+          
           echo "Verifying build output structure..."
           ls -la docs/
+          
+          # Vérification et création du répertoire assets
           echo "Checking for assets directory:"
           if [ ! -d "docs/assets" ]; then
             echo "❌ Assets directory NOT found, creating directory"
@@ -57,14 +86,22 @@ jobs:
             fi
           fi
 
-          # Ensure the gptengineer script is in the index.html file
+          # S'assurer que le script gptengineer est présent dans index.html
           if ! grep -q "gptengineer.js" docs/index.html; then
             echo "⚠️ gptengineer.js script not found in docs/index.html, adding it"
             sed -i 's|<head>|<head>\n    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>|' docs/index.html
+          else
+            echo "✅ gptengineer.js script found in docs/index.html"
           fi
+          
+          # Ajouter un script de diagnostic en bas du fichier index.html
+          sed -i 's|</body>|<script>console.log("Site chargé: " + new Date().toString());</script></body>|' docs/index.html
+          echo "✅ Added diagnostic script to index.html"
           
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: docs
           branch: gh-pages
+          clean: false  # Pour éviter de supprimer des fichiers importants
+
