@@ -34,6 +34,13 @@ jobs:
       - name: Create .nojekyll file 📄
         run: touch docs/.nojekyll
         
+      - name: Copy lovable-uploads folder if exists
+        run: |
+          if [ -d "public/lovable-uploads" ]; then
+            mkdir -p docs/lovable-uploads
+            cp -r public/lovable-uploads/* docs/lovable-uploads/
+          fi
+        
       - name: Debug directory content
         run: |
           echo "Content of docs directory:"

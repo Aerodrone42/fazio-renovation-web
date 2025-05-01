@@ -16,6 +16,8 @@ if (rootElement) {
         const src = img.getAttribute('src');
         if (src && src.startsWith('/lovable-uploads')) {
           img.setAttribute('src', `${baseUrl}${src.substring(1)}`);
+        } else if (src && !src.startsWith('http') && !src.startsWith(baseUrl) && !src.startsWith('./') && !src.startsWith('../')) {
+          img.setAttribute('src', `${baseUrl}${src}`);
         }
       });
     }
