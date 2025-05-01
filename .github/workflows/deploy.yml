@@ -27,27 +27,19 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
-          BASE_URL: "./"  # Utiliser des chemins relatifs
           
-      - name: Copy index.html to 404.html 🔄
-        run: cp dist/index.html dist/404.html
-        
-      - name: Add redirect script to 404.html 🔧
-        run: |
-          sed -i -e 's|<head>|<head>\n  <script type="text/javascript">sessionStorage.redirect = location.href;</script>|' dist/404.html
-        
       - name: Copy CNAME 📋
-        run: cp CNAME dist/ || echo "www.sarlfaziolorenzo.fr" > dist/CNAME
+        run: cp CNAME docs/ || echo "www.sarlfaziolorenzo.fr" > docs/CNAME
         
       - name: Create .nojekyll file 📄
-        run: touch dist/.nojekyll
+        run: touch docs/.nojekyll
         
       - name: Debug directory content
-        run: ls -la dist/
+        run: ls -la docs/
         
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist
+          folder: docs
           branch: gh-pages
           clean: true

@@ -5,6 +5,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
+  base: '/fazio-renovation-web/', // Changer à '/' si vous utilisez un domaine personnalisé
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
@@ -14,12 +15,8 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  server: {
-    host: "::",
-    port: 8080,
-  },
   build: {
-    outDir: 'dist',
+    outDir: 'docs', // Important : change le dossier de sortie en 'docs'
     emptyOutDir: true,
   },
 }));
