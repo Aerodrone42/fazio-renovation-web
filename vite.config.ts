@@ -5,7 +5,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: '/',
+  base: './', // Use relative paths instead of absolute paths
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
@@ -22,5 +22,12 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: 'docs',
     emptyOutDir: true,
+    assetsDir: 'assets', // Ensure assets are in the assets directory
+    manifest: true, // Generate a manifest file
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
   },
 }));

@@ -29,12 +29,13 @@ jobs:
         env:
           NODE_ENV: production
           
-      - name: Ensure CNAME exists 📋
-        run: echo "www.sarlfaziolorenzo.fr" > docs/CNAME
-        
-      - name: Ensure .nojekyll exists 📄
-        run: touch docs/.nojekyll
-        
+      - name: Ensure directories and files exist 📋
+        run: |
+          echo "www.sarlfaziolorenzo.fr" > docs/CNAME
+          touch docs/.nojekyll
+          echo "Verifying build output structure..."
+          ls -la docs/
+          
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
