@@ -5,13 +5,14 @@
   <meta charset="utf-8">
   <title>SARL FAZIO Lorenzo | Redirection</title>
   <script type="text/javascript">
-    // Configuration pour Single Page Apps
+    // Single Page App configuration
     var pathSegmentsToKeep = 0;
     var l = window.location;
     
-    // Récupère le chemin de base du site
+    // Get the site's base path
     var basePath = '/';
     
+    // Redirect with proper path handling
     l.replace(
       l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
       basePath + '?/' +
