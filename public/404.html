@@ -5,13 +5,17 @@
   <meta charset="utf-8">
   <title>SARL FAZIO Lorenzo | Redirection</title>
   <script type="text/javascript">
-    // Configuration pour Single Page Apps sur GitHub Pages
-    sessionStorage.redirect = location.href;
+    // Configuration pour Single Page Apps
+    var pathSegmentsToKeep = 0;
     
-    // Redirection immédiate vers la page d'accueil
     var l = window.location;
-    var origin = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
-    window.location.href = origin;
+    l.replace(
+      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+      l.hash
+    );
   </script>
 </head>
 <body>
