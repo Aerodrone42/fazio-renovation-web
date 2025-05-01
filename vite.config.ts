@@ -5,7 +5,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: "", // Utiliser une base vide pour les chemins absolus
+  base: "", // Utiliser une base vide pour les chemins relatifs
   server: {
     host: "::",
     port: 8080,
@@ -24,5 +24,11 @@ export default defineConfig(({ mode }) => ({
     emptyOutDir: true,
     assetsInlineLimit: 0,
     chunkSizeWarningLimit: 1600,
+    // Assurer que les chemins générés sont relatifs
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
   },
 }));

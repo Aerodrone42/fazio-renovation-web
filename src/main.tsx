@@ -18,6 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
   }(window.location));
+
+  // Récupération du chemin depuis localStorage si disponible (pour la redirection depuis 404.html)
+  const redirectPath = localStorage.getItem('redirect_path');
+  if (redirectPath) {
+    localStorage.removeItem('redirect_path');
+    window.history.replaceState(null, null, redirectPath);
+  }
   
   // Montage de l'application React
   const rootElement = document.getElementById("root");

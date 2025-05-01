@@ -27,6 +27,7 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
+          BASE_URL: ""  # Assurer que les chemins sont relatifs
 
       - name: Copy index.html to 404.html 🔄
         run: cp dist/index.html dist/404.html
