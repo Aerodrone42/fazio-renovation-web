@@ -6,7 +6,7 @@ import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => {
   return {
-    base: './', // Utiliser des chemins relatifs pour GitHub Pages
+    base: './', // Chemins relatifs pour GitHub Pages
     plugins: [
       react(),
       mode === 'development' && componentTagger(),
@@ -21,17 +21,25 @@ export default defineConfig(({ mode }) => {
       host: "::"
     },
     build: {
-      outDir: 'dist', // Dossier standard de build Vite
-      emptyOutDir: true, // Vider le dossier de sortie avant le build
-      assetsDir: 'assets', // Dossier pour les assets compilés
+      outDir: 'dist',
+      emptyOutDir: true,
+      assetsDir: 'assets',
+      sourcemap: false, // Désactiver les sourcemaps pour réduire la taille
+      minify: 'terser', // Utiliser terser pour une meilleure minification
+      terserOptions: {
+        compress: {
+          drop_console: false, // Garder les console.log pour le débogage
+        },
+      },
       rollupOptions: {
         input: {
           main: path.resolve(__dirname, 'index.html'),
         },
         output: {
-          entryFileNames: 'assets/[name].js', // Format des noms de fichiers d'entrée
-          chunkFileNames: 'assets/[name]-[hash].js', // Format des noms de chunks
-          assetFileNames: 'assets/[name]-[hash].[ext]', // Format des noms d'assets
+          entryFileNames: 'assets/[name].js',
+          chunkFileNames: 'assets/[name].[hash].js',
+          assetFileNames: 'assets/[name].[hash].[ext]',
+          manualChunks: undefined, // Désactiver le chunking manuel
         },
       },
     },

@@ -24,117 +24,61 @@ jobs:
       - name: Install dependencies 📦
         run: npm ci || npm install
         
-      - name: Configure Vite for GitHub Pages 🔧
-        run: |
-          # Create or modify .env file for production
-          echo "VITE_BASE_URL=\${GITHUB_REPOSITORY#*/}" > .env.production
-        
       - name: Build 🔧
-        run: npm run build
-        env:
-          NODE_ENV: production
+        run: |
+          # Créer un fichier .env.production simple
+          echo "NODE_ENV=production" > .env.production
           
-      - name: Prepare for deployment 📝
+          # Build avec les variables d'environnement correctes
+          npm run build
+          
+      - name: Préparer le déploiement 📝
         run: |
           # Créer les fichiers nécessaires pour GitHub Pages
           touch dist/.nojekyll
           echo "www.sarlfaziolorenzo.fr" > dist/CNAME
-          cp public/404.html dist/404.html || echo "No 404.html to copy"
           
-          # Inspecter le contenu généré
+          # Copier les fichiers statiques si nécessaires
+          cp -r public/lovable-uploads dist/lovable-uploads || echo "Dossier lovable-uploads déjà présent"
+          
+          # Debug - Lister le contenu généré
           echo "Contenu du dossier dist:"
           ls -la dist/
           echo "Contenu du dossier dist/assets:"
           ls -la dist/assets/ || echo "Le dossier assets n'existe pas"
           
-          # Vérifier le contenu actuel de index.html 
-          echo "Contenu de index.html avant modification:"
-          cat dist/index.html
-          
-          # Corriger les chemins dans index.html
-          sed -i 's|src="/|src="./|g' dist/index.html
-          sed -i 's|href="/|href="./|g' dist/index.html
-          
-          # Remplacer explicitement les chemins vers src/main.tsx par le bundle JS généré
-          if grep -q 'src="./src/main.tsx"' dist/index.html; then
-            # Vérifier quels fichiers JS sont disponibles
-            echo "Recherche de fichiers bundle JS..."
-            BUNDLE_FILES=$(find dist/assets -name "*.js" | head -n 1)
-            
-            if [ -n "$BUNDLE_FILES" ]; then
-              # Extraire juste le nom du fichier relatif
-              BUNDLE_PATH=$(echo $BUNDLE_FILES | sed 's|dist/||')
-              echo "Bundle trouvé: $BUNDLE_PATH"
-              # Remplacer le chemin src/main.tsx par le bundle trouvé
-              sed -i "s|src=\"./src/main.tsx\"|src=\"./$BUNDLE_PATH\"|g" dist/index.html
-            else
-              echo "ATTENTION: Aucun bundle JS trouvé!"
-              # Créer un script de secours
-              mkdir -p dist/assets
-              echo "console.log('Script de secours chargé');" > dist/assets/fallback.js
-              sed -i 's|src="./src/main.tsx"|src="./assets/fallback.js"|g' dist/index.html
-            fi
-          fi
-          
-          # Créer un script d'initialisation spécifique pour corriger les problèmes de chargement
-          cat > dist/init.js << 'EOL'
+          # Créer un script de secours pour GitHub Pages
+          cat > dist/gh-pages-redirect.js << 'EOL'
+          // Script de redirection pour GitHub Pages
           (function() {
-            console.log("Script d'initialisation chargé");
-            const loadApp = () => {
-              const paths = [
-                './assets/index.js',
-                './assets/main.js'
-              ];
-              
-              // Recherche de tous les fichiers .js dans le dossier assets
-              fetch('./assets/')
-                .then(response => response.text())
-                .then(html => {
-                  const parser = new DOMParser();
-                  const doc = parser.parseFromString(html, 'text/html');
-                  const links = Array.from(doc.querySelectorAll('a'));
-                  const jsFiles = links
-                    .map(link => link.href)
-                    .filter(href => href.endsWith('.js'))
-                    .map(href => href.split('/').pop());
-                  
-                  if (jsFiles.length > 0) {
-                    jsFiles.forEach(file => {
-                      const script = document.createElement('script');
-                      script.type = 'module';
-                      script.src = `./assets/${file}`;
-                      document.body.appendChild(script);
-                    });
-                  } else {
-                    throw new Error("Aucun fichier JS trouvé");
-                  }
-                })
-                .catch(error => {
-                  console.error("Erreur de chargement automatique:", error);
-                  
-                  // Essayer les chemins prédéfinis
-                  paths.forEach(path => {
-                    const script = document.createElement('script');
-                    script.type = 'module';
-                    script.src = path;
-                    document.body.appendChild(script);
-                  });
-                });
-            };
+            console.log("Script de redirection GitHub Pages chargé");
+            // Vérifier si nous sommes sur GitHub Pages
+            const isGitHubPages = window.location.hostname.includes('github.io');
             
-            if (document.readyState === "loading") {
-              document.addEventListener('DOMContentLoaded', loadApp);
-            } else {
-              loadApp();
+            if (isGitHubPages) {
+              // S'assurer que tous les chemins sont relatifs
+              const base = document.createElement('base');
+              base.href = window.location.pathname.replace(/\/[^\/]*$/, '/');
+              document.head.prepend(base);
             }
           })();
           EOL
           
-          # Ajouter le script d'initialisation à index.html
-          sed -i '/<\/body>/i <script src="./init.js"></script>' dist/index.html
+          # Ajouter le script de redirection à index.html
+          sed -i '/<head>/a <script src="./gh-pages-redirect.js"></script>' dist/index.html
           
-          # Vérifier le contenu après modification
-          echo "Contenu de index.html après modification:"
+          # Créer un fichier 404.html pour SPA routing
+          cp dist/index.html dist/404.html
+          
+          # S'assurer que tous les chemins de scripts sont corrects
+          sed -i 's|src="/assets/|src="./assets/|g' dist/index.html
+          sed -i 's|href="/assets/|href="./assets/|g' dist/index.html
+          
+          # S'assurer que les chemins des uploads sont corrects
+          sed -i 's|/lovable-uploads/|./lovable-uploads/|g' dist/index.html
+          
+          # Vérifier le contenu final de index.html
+          echo "Contenu final de index.html:"
           cat dist/index.html
           
       - name: Deploy to GitHub Pages 🚀
