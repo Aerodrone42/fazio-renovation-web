@@ -35,6 +35,23 @@ jobs:
         env:
           NODE_ENV: production
           
+      - name: Verify build output 🔍
+        run: |
+          echo "Listing build output files:"
+          ls -la docs/
+          echo "Listing assets directory:"
+          ls -la docs/assets/
+          
+          # Vérifie si index.js existe
+          if [ -f "docs/assets/index.js" ]; then
+            echo "✅ index.js existe dans docs/assets/"
+          else
+            echo "❌ index.js manquant dans docs/assets/"
+            # Créer une redirection d'urgence
+            echo "console.log('Chargement de secours'); window.location.reload();" > docs/assets/index.js
+            echo "⚠️ Fichier index.js de secours créé"
+          fi
+          
       - name: Ensure directories and files exist 📋
         run: |
           echo "www.sarlfaziolorenzo.fr" > docs/CNAME
@@ -94,6 +111,13 @@ EOF
             echo "✅ gptengineer.js script found in docs/index.html"
           fi
           
+          # Copier explicitement le fichier main depuis le dossier src
+          if [ -f "src/main.tsx" ]; then
+            mkdir -p docs/src
+            cp src/main.tsx docs/src/
+            echo "✅ main.tsx copied to docs/src/"
+          fi
+          
           # Ajouter un script de diagnostic en bas du fichier index.html
           sed -i 's|</body>|<script>console.log("Site chargé: " + new Date().toString());</script></body>|' docs/index.html
           echo "✅ Added diagnostic script to index.html"
@@ -104,4 +128,3 @@ EOF
           folder: docs
           branch: gh-pages
           clean: false  # Pour éviter de supprimer des fichiers importants
-

@@ -19,7 +19,26 @@
     
     <!-- Script for GPT Engineer - Important pour la fonctionnalité de sélection -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" crossorigin src="./assets/index.js"></script>
+    
+    <!-- Utilisation d'un script de chargement conditionnel -->
+    <script type="text/javascript">
+      // Ajouter dynamiquement le script principal
+      const mainScript = document.createElement('script');
+      mainScript.type = 'module';
+      mainScript.src = './assets/index.js';
+      document.head.appendChild(mainScript);
+
+      // Fallback si le script ne se charge pas
+      mainScript.onerror = function() {
+        console.error("Erreur de chargement du script principal");
+        const errorDiv = document.createElement('div');
+        errorDiv.innerHTML = `
+          <h1>Erreur de chargement</h1>
+          <p>Le script principal n'a pas pu être chargé. Essayez de rafraîchir la page.</p>
+        `;
+        document.getElementById('root').appendChild(errorDiv);
+      };
+    </script>
   </head>
   <body>
     <div id="root"></div>
