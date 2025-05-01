@@ -39,6 +39,7 @@ jobs:
         run: |
           echo "www.sarlfaziolorenzo.fr" > docs/CNAME
           touch docs/.nojekyll
+          # Ensure 404.html is copied correctly
           cp public/404.html docs/404.html
           echo "Verifying build output structure..."
           ls -la docs/
