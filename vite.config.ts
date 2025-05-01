@@ -27,9 +27,7 @@ export default defineConfig(({ mode }) => ({
     emptyOutDir: true,
     rollupOptions: {
       output: {
-        entryFileNames: 'index.js',
-        chunkFileNames: '[name].[hash].js',
-        assetFileNames: '[name].[hash].[ext]',
+        manualChunks: undefined,
       },
     },
     assetsInlineLimit: 0,
