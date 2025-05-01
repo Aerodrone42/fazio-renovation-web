@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
         console.warn("Fichier CNAME non trouvé à la racine du projet");
       }
       
-      // Copie explicite du fichier 404.html
+      // Copie du fichier 404.html
       const notFoundPath = path.join(__dirname, 'public', '404.html');
       if (fs.existsSync(notFoundPath)) {
         fs.copyFileSync(notFoundPath, path.join(outDir, '404.html'));
@@ -35,13 +35,31 @@ export default defineConfig(({ mode }) => {
       } else {
         console.warn("Fichier 404.html non trouvé dans public/");
       }
+
+      // Création d'un fichier test.html pour vérifier le déploiement
+      const testHtmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test de déploiement</title>
+</head>
+<body>
+  <h1>Test de déploiement réussi</h1>
+  <p>Si vous voyez cette page, le déploiement fonctionne correctement.</p>
+  <p>Date de génération: ${new Date().toISOString()}</p>
+</body>
+</html>
+`;
+      fs.writeFileSync(path.join(outDir, 'test.html'), testHtmlContent);
+      console.log("Fichier test.html créé avec succès");
+      
     } catch (err) {
       console.error('Erreur lors de la création des fichiers:', err);
     }
   }
 
   return {
-    base: '/', // Base URL pour tous les assets
+    base: './', // Utilisation de chemins relatifs pour tous les assets
     server: {
       host: "::",
       port: 8080,
