@@ -5,13 +5,9 @@
   <meta charset="utf-8">
   <title>SARL FAZIO Lorenzo | Redirection</title>
   <script type="text/javascript">
-    // Vérifier si nous sommes sur le domaine racine et rediriger vers www si nécessaire
-    if (window.location.hostname === "sarlfaziolorenzo.fr") {
-      window.location.href = "https://www.sarlfaziolorenzo.fr" + window.location.pathname;
-    } else {
-      // Sinon, redirection normale vers la page d'accueil
-      window.location.href = '/';
-    }
+    // Simple redirection to home page while preserving any path
+    var baseUrl = "/";
+    window.location.href = baseUrl + (window.location.hash || "");
   </script>
 </head>
 <body>

@@ -26,12 +26,8 @@ const NotFound = () => {
         <h1 className="text-6xl font-bold mb-6 text-gray-800">404</h1>
         <p className="text-xl text-gray-600 mb-8">Oups ! Cette page n'existe pas</p>
         <a 
-          href="/#/" 
+          href="/" 
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300"
-          onClick={(e) => {
-            e.preventDefault();
-            window.location.href = window.location.origin + '/#/';
-          }}
         >
           Retour à l'accueil
         </a>
