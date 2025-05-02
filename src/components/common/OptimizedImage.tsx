@@ -33,19 +33,22 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   // Create a unique ID for this image instance
   const id = useRef(`opt-img-${Math.random().toString(36).substring(2, 15)}`);
 
-  // Set up initial source immediately for all images (removed lazy loading)
+  // Set up initial source immediately and force image cache refresh
   useEffect(() => {
-    // Load image immediately
-    setImgSrc(src);
+    // Add a cache busting parameter to force refresh
+    const cacheBuster = `?t=${new Date().getTime()}`;
+    setImgSrc(`${src}${cacheBuster}`);
     
     if (priority) {
-      // Preload the image in the browser cache
+      // Preload the image in the browser cache with cache buster
       const preloadLink = document.createElement('link');
       preloadLink.rel = 'preload';
       preloadLink.as = 'image';
-      preloadLink.href = src;
+      preloadLink.href = `${src}${cacheBuster}`;
       preloadLink.id = `preload-${id.current}`;
       document.head.appendChild(preloadLink);
+      
+      console.log(`Préchargement de l'image avec cache buster: ${src}${cacheBuster}`);
       
       return () => {
         // Clean up the preload link when component unmounts

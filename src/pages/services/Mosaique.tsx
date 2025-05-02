@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -27,7 +26,7 @@ const Mosaique = () => {
       <ServicePageHeader 
         title="Pose de carreaux ciment"
         description="Les carreaux ciment apportent caractère et authenticité à vos espaces. Découvrez notre expertise pour sublimer votre intérieur."
-        imagePath="/lovable-uploads/cdfc9eb7-b9b7-4c7f-b8a5-143288a35b85.png"
+        imagePath="/lovable-uploads/1f93f581-6aee-4ef0-9e21-4cfcc2ff55f0.png"
       />
       
       {/* Description du service */}
