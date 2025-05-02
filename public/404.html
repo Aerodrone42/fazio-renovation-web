@@ -10,7 +10,7 @@
     var path = window.location.pathname;
     
     // Special handling for sitemap.xml - redirect to specific HTML version if directly accessed
-    if (path === '/sitemap.xml') {
+    if (path === '/sitemap.xml' || path === '/sitemap') {
       window.location.href = window.location.origin + '/sitemap.html';
     } else {
       // Regular SPA redirect handling
