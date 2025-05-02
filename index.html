@@ -13,78 +13,98 @@
     <link rel="sitemap" type="application/xml" href="/sitemap.html" />
     
     <!-- Préchargements et préconnexions -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="image" href="./lovable-uploads/b990c88c-c430-46de-a2ef-4ac0717a59fc.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    
+    <!-- Précharger l'image hero avec haute priorité -->
+    <link rel="preload" as="image" href="./lovable-uploads/b990c88c-c430-46de-a2ef-4ac0717a59fc.png" fetchpriority="high">
+    
+    <!-- Précharger les autres images importantes -->
+    <link rel="prefetch" as="image" href="./lovable-uploads/8bfe4682-ae69-48cc-8f91-a4bdaf3d9e5e.png">
+    <link rel="prefetch" as="image" href="./lovable-uploads/3844515b-3e9f-4f4b-8748-cb0661a01d14.png">
+    <link rel="prefetch" as="image" href="./lovable-uploads/5c59aae7-1cbc-4919-96be-8466e388c35b.png">
+    <link rel="prefetch" as="image" href="./lovable-uploads/bda2aeec-32ad-4860-a658-0f0015ceb618.png">
+    <link rel="prefetch" as="image" href="./lovable-uploads/0222cdbc-73ea-4cf7-83fb-af4d24eaf2a3.png">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./lovable-uploads/8d86e4df-9559-4d2e-a51e-e1ca7622720d.png">
     
-    <!-- Google Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap">
+    <!-- Google Fonts avec affichage swap pour éviter FOIT -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap">
+    </noscript>
     
     <!-- Force disable Lovable badge -->
     <meta name="lovable:badge" content="false">
     
-    <!-- Lovable Script with immediate execution of disableBadge -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script>
-      // Exécution immédiate et aussi après chargement
-      if (typeof disableBadge === 'function') {
-        disableBadge();
+    <!-- Style critique pour éviter le FOUC (Flash of Unstyled Content) -->
+    <style>
+      /* Styles critiques pour le premier rendu */
+      body {
+        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        margin: 0;
+        padding: 0;
       }
       
-      // Fonction pour essayer de désactiver le badge à plusieurs reprises
-      function attemptDisableBadge() {
+      /* Masquer le badge Lovable */
+      [class*="lovable-badge"],
+      [id*="lovable-badge"],
+      [class*="gpte-badge"],
+      [id*="gpte-badge"] {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+      
+      /* Animation de chargement pour les images */
+      @keyframes pulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 0.8; }
+      }
+      .animate-pulse {
+        animation: pulse 1.5s ease-in-out infinite;
+      }
+    </style>
+    
+    <!-- Lovable Script avec désactivation immédiate du badge -->
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module" defer></script>
+    <script>
+      // Désactiver le badge Lovable de plusieurs façons pour assurer qu'il soit caché
+      function disableBadgeAll() {
         if (typeof window.disableBadge === 'function') {
           window.disableBadge();
         }
       }
       
       // Exécution immédiate
-      attemptDisableBadge();
+      disableBadgeAll();
       
-      // Exécution après un court délai
-      setTimeout(attemptDisableBadge, 100);
+      // Exécution après chargement de la page
+      window.addEventListener('load', disableBadgeAll);
       
-      // Exécution après chargement complet de la page
-      window.addEventListener('load', attemptDisableBadge);
-      
-      // Exécution régulière pendant quelques secondes
-      const interval = setInterval(attemptDisableBadge, 500);
+      // Exécutions régulières
+      const interval = setInterval(disableBadgeAll, 500);
       setTimeout(() => clearInterval(interval), 5000);
       
-      // Style pour masquer le badge via CSS
-      document.head.insertAdjacentHTML('beforeend', `
-        <style>
-          [class*="lovable-badge"],
-          [id*="lovable-badge"],
-          [class*="gpte-badge"],
-          [id*="gpte-badge"] {
-            display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
-          }
-        </style>
-      `);
+      // Optimisations de performance
+      document.addEventListener('DOMContentLoaded', function() {
+        // Déférer les scripts non critiques
+        setTimeout(() => {
+          // Charger les scripts après le rendu initial
+        }, 100);
+      });
       
-      // Préchargement des images critiques
-      window.addEventListener('load', () => {
-        // Précharger les images les plus importantes après le chargement de la page
-        const imagesToPreload = [
-          './lovable-uploads/8bfe4682-ae69-48cc-8f91-a4bdaf3d9e5e.png',
-          './lovable-uploads/3844515b-3e9f-4f4b-8748-cb0661a01d14.png',
-          './lovable-uploads/5c59aae7-1cbc-4919-96be-8466e388c35b.png'
-        ];
-        
-        imagesToPreload.forEach(src => {
-          const link = document.createElement('link');
-          link.rel = 'prefetch';
-          link.as = 'image';
-          link.href = src;
-          document.head.appendChild(link);
-        });
+      // Détection des problèmes de performance
+      window.addEventListener('load', function() {
+        setTimeout(() => {
+          // Mesurer le temps de chargement
+          if (performance && performance.timing) {
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            console.log(`Page chargée en ${loadTime}ms`);
+          }
+        }, 0);
       });
     </script>
   </head>

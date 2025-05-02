@@ -49,7 +49,33 @@ export const imageExists = async (src: string): Promise<boolean> => {
  * @returns URL optimisée
  */
 export const optimizeImagePath = (src: string, width?: number, height?: number): string => {
-  // Cette fonction peut être adaptée selon votre service d'images
-  // Pour l'instant, elle renvoie simplement le chemin d'origine
-  return src;
+  // Ne rien faire sur les data URLs
+  if (src.startsWith('data:')) return src;
+  
+  // Ajoute un paramètre de cache pour empêcher les problèmes de cache
+  const cacheBuster = `v=${Date.now().toString(36).substring(0, 5)}`;
+  
+  // Ajoute un timestamp pour éviter le cache entre les déploiements
+  return src.includes('?') ? `${src}&${cacheBuster}` : `${src}?${cacheBuster}`;
+};
+
+/**
+ * Retourne une petite version base64 d'un pixel transparent
+ * @returns Base64 string d'un pixel transparent
+ */
+export const getTransparentPixel = (): string => {
+  return 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+};
+
+/**
+ * Génère un placeholder coloré pour une image
+ * @param width Largeur du placeholder
+ * @param height Hauteur du placeholder
+ * @param color Couleur hexadécimale du placeholder
+ * @returns Data URL du placeholder
+ */
+export const generateColorPlaceholder = (width: number, height: number, color: string = '#e5e7eb'): string => {
+  // Cette fonction pourrait être utilisée pour générer des placeholders SVG colorés
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><rect width="${width}" height="${height}" fill="${color}"/></svg>`;
+  return `data:image/svg+xml;base64,${btoa(svg)}`;
 };
