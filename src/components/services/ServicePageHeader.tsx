@@ -7,16 +7,9 @@ interface ServicePageHeaderProps {
   description: string;
   imagePath: string;
   customImage?: string;
-  priority?: boolean; // Added the priority prop as optional
 }
 
-const ServicePageHeader: React.FC<ServicePageHeaderProps> = ({ 
-  title, 
-  description, 
-  imagePath, 
-  customImage,
-  priority = false // Set default value to false
-}) => {
+const ServicePageHeader: React.FC<ServicePageHeaderProps> = ({ title, description, imagePath, customImage }) => {
   // Utiliser l'image personnalisée si elle est fournie, sinon utiliser l'image par défaut
   const displayImage = customImage || imagePath;
   
@@ -35,7 +28,7 @@ const ServicePageHeader: React.FC<ServicePageHeaderProps> = ({
           src={displayImage}
           alt={`Image d'en-tête pour ${title}`}
           className="w-full h-full object-cover object-center" 
-          priority={priority}
+          priority={true}
         />
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
