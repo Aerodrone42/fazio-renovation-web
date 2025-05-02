@@ -20,6 +20,16 @@
     
     <!-- Lovable Script - Required for new features -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    
+    <!-- Script to disable Lovable badge -->
+    <script>
+      window.addEventListener('load', function() {
+        // Disable Lovable badge
+        if (window.disableBadge) {
+          window.disableBadge();
+        }
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>
