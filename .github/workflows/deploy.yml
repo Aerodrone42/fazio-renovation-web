@@ -53,32 +53,44 @@ jobs:
           # Créer une page 404 identique
           cp dist/index.html dist/404.html
           
-          # Correction AGRESSIVE des chemins
-          echo "CORRECTION AGRESSIVE DES CHEMINS"
+          # SUPER CORRECTION DES SCRIPTS
+          echo "CORRECTION COMPLÈTE DES SCRIPTS"
           
-          # Premièrement, identifier tous les fichiers générés
-          MAIN_JS=$(find dist/assets -name "*.js" -not -name "*chunk*" | head -n 1)
-          MAIN_JS_BASENAME=$(basename $MAIN_JS)
+          # 1. Identifier TOUS les scripts JavaScript importants générés
+          MAIN_JS_FILES=$(find dist/assets -name "*.js" | sort)
+          echo "Fichiers JavaScript trouvés:"
+          echo "$MAIN_JS_FILES"
           
-          # Ensuite, remplacer systématiquement toutes les références à des scripts
+          # 2. Extraction du nom du script principal
+          MAIN_JS=$(find dist/assets -name "index-*.js" 2>/dev/null || find dist/assets -name "main-*.js" 2>/dev/null || find dist/assets -name "*.js" | head -n 1)
+          MAIN_JS_BASENAME=$(basename "$MAIN_JS")
+          echo "Script principal identifié: $MAIN_JS_BASENAME"
+          
+          # 3. Mettre à jour TOUS les fichiers HTML pour assurer le bon chargement des scripts
           for HTML_FILE in dist/*.html; do
             echo "Traitement de $HTML_FILE"
             
-            # 1. Remplacement de toute référence à index.js par le fichier principal
-            sed -i "s|src=\"[^\"]*index[^\"]*\.js\"|src=\"./assets/$MAIN_JS_BASENAME\"|g" $HTML_FILE
+            # Réécrire complètement la section script dans le HTML
+            SCRIPTS_REPLACED=$(sed -E "s|<script[^>]*src=\"[^\"]*\.(js|tsx)\"[^>]*>.*?</script>|<script type=\"module\" src=\"./assets/$MAIN_JS_BASENAME\"></script>|g" "$HTML_FILE")
             
-            # 2. S'assurer que tous les chemins sont relatifs
-            sed -i 's|src="/|src="./|g' $HTML_FILE
-            sed -i 's|href="/|href="./|g' $HTML_FILE
+            # Si aucun script n'a été trouvé, ajouter manuellement le script avant la fermeture du body
+            if ! echo "$SCRIPTS_REPLACED" | grep -q "<script.*src=\"./assets/$MAIN_JS_BASENAME\""; then
+              echo "Aucun script trouvé, ajout manuel du script principal"
+              SCRIPTS_REPLACED=$(sed -E "s|</body>|  <script type=\"module\" src=\"./assets/$MAIN_JS_BASENAME\"></script>\n</body>|g" "$HTML_FILE")
+            fi
             
-            # 3. Vérifier si le fichier HTML contient encore des références à des scripts qui n'existent pas
-            echo "Vérification finale du fichier:"
-            grep -o 'src="[^"]*"' $HTML_FILE
+            # Écrire les changements dans le fichier
+            echo "$SCRIPTS_REPLACED" > "$HTML_FILE"
+            
+            # Vérifier une dernière fois les chemins relatifs
+            sed -i 's|src="/|src="./|g' "$HTML_FILE"
+            sed -i 's|href="/|href="./|g' "$HTML_FILE"
           done
           
-          # Vérifier que index.html est correct
+          # Vérification finale
           echo "Contenu final de index.html:"
           cat dist/index.html
+          echo "\nScript final utilisé: ./assets/$MAIN_JS_BASENAME"
           
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
@@ -86,3 +98,4 @@ jobs:
           folder: dist
           branch: gh-pages
           clean: true
+

@@ -23,5 +23,31 @@
   <body>
     <div id="root"></div>
     <script type="module" src="./src/main.tsx"></script>
+    
+    <!-- Script de secours en cas d'erreur -->
+    <script>
+      // Vérifier si l'application est chargée après 5 secondes
+      setTimeout(function() {
+        if (document.getElementById('root').children.length === 0) {
+          console.error("L'application n'a pas réussi à se charger automatiquement");
+          
+          // Tenter de charger manuellement
+          const script = document.createElement('script');
+          script.type = 'module';
+          script.src = './assets/index.js';  // Tente le chemin par défaut
+          document.body.appendChild(script);
+          
+          // Si cela échoue aussi, essayer un autre chemin commun
+          setTimeout(function() {
+            if (document.getElementById('root').children.length === 0) {
+              const scriptAlt = document.createElement('script');
+              scriptAlt.type = 'module';
+              scriptAlt.src = './assets/main.js'; // Alternative
+              document.body.appendChild(scriptAlt);
+            }
+          }, 2000);
+        }
+      }, 5000);
+    </script>
   </body>
 </html>

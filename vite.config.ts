@@ -25,10 +25,10 @@ export default defineConfig(({ mode }) => {
       emptyOutDir: true,
       sourcemap: mode === 'development',
       minify: 'esbuild',
-      assetsDir: 'assets', // Spécifier explicitement où les assets seront générés
+      assetsDir: 'assets', 
       rollupOptions: {
         output: {
-          entryFileNames: 'assets/[name].js', // Nom de fichier cohérent
+          entryFileNames: 'assets/index.js', // Nom de fichier FIXE sans hash
           chunkFileNames: 'assets/[name].js',
           assetFileNames: 'assets/[name].[ext]'
         }
