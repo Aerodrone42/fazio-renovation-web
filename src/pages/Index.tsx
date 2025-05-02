@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { PhoneIcon, MapPin } from 'lucide-react';
+import { PhoneIcon, MapPin, Star } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import InterventionMap from '@/components/maps/InterventionMap';
 import { Card, CardContent } from '@/components/ui/card';
@@ -20,6 +21,7 @@ const Index = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const presentationRef = useRef<HTMLDivElement>(null);
+  const testimonialsRef = useRef<HTMLDivElement>(null);
   
   // Observer pour les animations au défilement
   useEffect(() => {
@@ -38,17 +40,20 @@ const Index = () => {
     const mapElement = mapRef.current;
     const ctaElement = ctaRef.current;
     const presentationElement = presentationRef.current;
+    const testimonialsElement = testimonialsRef.current;
     
     if (servicesElement) observer.observe(servicesElement);
     if (mapElement) observer.observe(mapElement);
     if (ctaElement) observer.observe(ctaElement);
     if (presentationElement) observer.observe(presentationElement);
+    if (testimonialsElement) observer.observe(testimonialsElement);
     
     return () => {
       if (servicesElement) observer.unobserve(servicesElement);
       if (mapElement) observer.unobserve(mapElement);
       if (ctaElement) observer.unobserve(ctaElement);
       if (presentationElement) observer.unobserve(presentationElement);
+      if (testimonialsElement) observer.unobserve(testimonialsElement);
     };
   }, []);
 
@@ -107,6 +112,56 @@ const Index = () => {
       title: "Rénovation de salle de bain",
       description: "Rénovation complète de salle de bain, de la conception à la réalisation.",
       link: "/services/renovation-salle-de-bain"
+    }
+  ];
+
+  const testimonials = [
+    {
+      name: "Cindy",
+      reviewCount: "7 avis · 5 photos",
+      rating: 5,
+      date: "il y a une semaine",
+      isNew: true,
+      comment: "Nous avons choisi de remplacer notre carrelage par du travertin. Nous sommes enchantés du résultat et du déroulement du chantier. Les délais annoncés ont été respecté, la pose est parfaite, même dans les détails :-) Je recommande sans hésiter Lorenzo qui est un très bon artisan.",
+      avatar: "/lovable-uploads/7f0aab32-2bdf-4fe9-adcb-64c5e212c993.png"
+    },
+    {
+      name: "Sébastien Leveaux",
+      reviewCount: "6 avis · 2 photos",
+      rating: 5,
+      date: "il y a 6 jours",
+      isNew: true,
+      comment: "Un pro tant dans l'ouvrage que dans le conseil. Un artisan qui respecte ses délais, fait du travail de qualité au prix juste. Je recommande à 100% !",
+      visitDate: "Visité en avril",
+      avatar: "/lovable-uploads/dab6b5ba-7faf-4e86-bdea-2effd60518ba.png"
+    },
+    {
+      name: "Danièle ROBERTO",
+      reviewCount: "6 avis · 6 photos",
+      rating: 5,
+      date: "il y a un an",
+      comment: "Besoin d'un carreleur ? Un bon ? un très bon ? Ne cherchez plus ! c'est Lorenzo (seulement pour les intimes) Mr FAZIO - exceptionnel - un vrai talent !",
+      avatar: "/lovable-uploads/5ba25a96-5513-41cc-9901-4e618b0d4dd5.png"
+    },
+    {
+      name: "Céline",
+      reviewCount: "2 avis",
+      rating: 5,
+      date: "il y a 6 mois",
+      comment: "Travail très soigné et appliqué, parfaitement dans les temps. Lorenzo a su nous accompagner dans notre projet et sa réalisation avec la pose de carrelage en 120x120 notamment, ainsi que la réalisation de salles de bain et toilettes en ...",
+      visitDate: "Visité en octobre 2024",
+      hasMore: true,
+      avatar: "/lovable-uploads/e5de28cd-3c00-4f43-bf79-db3fc7651b3a.png"
+    },
+    {
+      name: "Blandin Rafaële",
+      reviewCount: "3 avis",
+      rating: 5,
+      date: "il y a 7 mois",
+      comment: "Très professionnel, chantier réalisé en temps en en heure malgré une dépose de carreaux très difficile ;;;;je remercie Lorenzo qui a transformé ma \"petite terrasse de ville \"en un lieu super agréable et accueillant. ...",
+      visitDate: "Visité en juillet 2024",
+      hasMore: true,
+      avatar: "/lovable-uploads/679ba1af-3648-401a-b77c-2798744be8aa.png"
     }
   ];
 
@@ -234,6 +289,66 @@ const Index = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Témoignages Section */}
+      <section ref={testimonialsRef} className="py-16 bg-white animate-on-scroll">
+        <div className="container">
+          <h2 className="text-3xl font-bold text-fazio-dark-green mb-8 text-center">Avis de nos clients</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow border border-gray-100">
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="rounded-full overflow-hidden w-12 h-12 shrink-0">
+                    <img 
+                      src={testimonial.avatar} 
+                      alt={`Photo de ${testimonial.name}`} 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900">{testimonial.name}</h3>
+                    <p className="text-sm text-gray-500">{testimonial.reviewCount}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 mb-2">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                  <span className="text-sm text-gray-500 ml-2 flex items-center gap-2">
+                    {testimonial.date}
+                    {testimonial.isNew && (
+                      <span className="bg-blue-600 text-white text-xs px-2 py-0.5 rounded-md">NOUVEAU</span>
+                    )}
+                  </span>
+                </div>
+                <p className="text-gray-700 mb-2">{testimonial.comment}</p>
+                {testimonial.hasMore && (
+                  <button className="text-blue-600 hover:text-blue-800 text-sm font-semibold">Plus</button>
+                )}
+                {testimonial.visitDate && (
+                  <p className="text-sm text-gray-500 mt-2">{testimonial.visitDate}</p>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Button 
+              asChild 
+              className="bg-fazio-red hover:bg-fazio-light-red transition-all duration-300 hover:scale-105"
+            >
+              <a 
+                href="https://www.google.com/search?sa=X&sca_esv=613adaf9b5e05094&biw=1707&bih=791&tbm=lcl&sxsrf=AHTn8zpzyTjmcXnpJIqqjos5cYCjTawcUg:1746170832217&q=avis%20sur%20sarl%20fazio%20lorenzo%20dagneux&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxNDI1NjEysTAysjS0MDA2MzQxttjAyPiKUTmxLLNYobi0SKE4sShHIS2xKjNfISe_KDWvKl8hJTE9L7W0YhErMaoAqJc4A2cAAAA&rldimm=12534248229180361438&hl=fr-FR&ved=0CAgQ5foLahcKEwjw9JihoYSNAxUAAAAAHQAAAAAQCg#lkt=LocalPoiReviews&arid=ChdDSUhNMG9nS0VJQ0FnTURvb3F2YjdRRRAB" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2"
+              >
+                <Star className="h-5 w-5" />
+                Laisser un avis
+              </a>
+            </Button>
           </div>
         </div>
       </section>
