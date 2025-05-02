@@ -1,5 +1,6 @@
 
 import React from 'react';
+import OptimizedImage from '@/components/common/OptimizedImage';
 
 interface ServicePageHeaderProps {
   title: string;
@@ -11,10 +12,13 @@ const ServicePageHeader: React.FC<ServicePageHeaderProps> = ({ title, descriptio
   return (
     <section className="relative h-[350px] md:h-[400px] overflow-hidden flex">
       {/* Image de fond avec un overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${imagePath})` }}
-      >
+      <div className="absolute inset-0">
+        <OptimizedImage
+          src={imagePath}
+          alt={`Image d'en-tête pour ${title}`}
+          className="w-full h-full object-cover"
+          priority={true}
+        />
         <div className="absolute inset-0 bg-black/50"></div>
       </div>
       

@@ -1,6 +1,7 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import ServiceCard from './ServiceCard';
+import { preloadImages } from '@/utils/imageUtils';
 
 const ProjectShowcaseSection = () => {
   const showcaseItems = [
@@ -17,6 +18,24 @@ const ProjectShowcaseSection = () => {
       imageAlt: "Salle de bain terminée avec carrelage gris clair"
     }
   ];
+
+  // Précharger les images immédiatement au montage du composant
+  useEffect(() => {
+    const imagePaths = showcaseItems.map(item => item.image);
+    // Préchargement synchrone
+    preloadImages(imagePaths)
+      .then(() => console.log('Images showcase préchargées avec succès'))
+      .catch(err => console.error('Erreur préchargement showcase:', err));
+      
+    // Précharger directement avec des éléments link
+    imagePaths.forEach(path => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = path;
+      document.head.appendChild(link);
+    });
+  }, []);
 
   return (
     <section className="py-16 bg-gray-50">

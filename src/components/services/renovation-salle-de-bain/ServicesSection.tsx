@@ -25,12 +25,22 @@ const ServicesSection = () => {
     }
   ];
 
-  // Précharger les images pour améliorer l'affichage
+  // Précharger les images immédiatement au montage du composant
   useEffect(() => {
     const imagePaths = services.map(service => service.image);
+    // Préchargement synchrone
     preloadImages(imagePaths)
       .then(() => console.log('Images préchargées avec succès'))
       .catch(err => console.error('Erreur préchargement:', err));
+      
+    // Précharger directement avec des éléments link
+    imagePaths.forEach(path => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = path;
+      document.head.appendChild(link);
+    });
   }, []);
 
   return (

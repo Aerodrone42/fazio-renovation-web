@@ -12,7 +12,7 @@ interface ServiceCardProps {
 const ServiceCard = ({ image, title, description, imageAlt }: ServiceCardProps) => {
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-md h-full flex flex-col">
-      <div className="h-64">
+      <div className="h-64 relative">
         <OptimizedImage 
           src={image}
           alt={imageAlt} 

@@ -29,29 +29,26 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const [error, setError] = useState(false);
   const [imgSrc, setImgSrc] = useState<string>('');
   const imgRef = useRef<HTMLImageElement | null>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
   
   // Create a unique ID for this image instance
   const id = useRef(`opt-img-${Math.random().toString(36).substring(2, 15)}`);
 
-  // Set up initial source immediately for priority images
+  // Set up initial source immediately for all images (removed lazy loading)
   useEffect(() => {
-    // Charger immédiatement toutes les images
-    const imagePath = src;
-    console.log(`Chargement de l'image: ${imagePath}`);
-    setImgSrc(imagePath);
+    // Load image immediately
+    setImgSrc(src);
     
     if (priority) {
-      // Précharger l'image dans le cache du navigateur
+      // Preload the image in the browser cache
       const preloadLink = document.createElement('link');
       preloadLink.rel = 'preload';
       preloadLink.as = 'image';
-      preloadLink.href = imagePath;
+      preloadLink.href = src;
       preloadLink.id = `preload-${id.current}`;
       document.head.appendChild(preloadLink);
       
       return () => {
-        // Nettoyer le lien de préchargement lorsque le composant se démonte
+        // Clean up the preload link when component unmounts
         const linkEl = document.getElementById(`preload-${id.current}`);
         if (linkEl) document.head.removeChild(linkEl);
       };
@@ -69,7 +66,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const handleError = () => {
     console.error(`Échec du chargement de l'image: ${src}`);
     setError(true);
-    setIsLoaded(true); // Considérer comme "chargée" pour que nous cachions le placeholder
+    setIsLoaded(true); // Consider as "loaded" so we hide the placeholder
     if (onError) onError();
   };
 
@@ -78,9 +75,9 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
   return (
     <div 
-      className={`relative overflow-hidden bg-gray-100 ${isLoaded && !error ? 'bg-transparent' : ''}`}
+      className={`relative overflow-hidden ${isLoaded && !error ? '' : 'bg-gray-100'}`}
       style={{ 
-        backgroundColor: placeholderColor,
+        backgroundColor: isLoaded && !error ? 'transparent' : placeholderColor,
         width: width ? `${width}px` : '100%',
         height: height ? `${height}px` : 'auto',
       }}
@@ -107,7 +104,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         onError={handleError}
         width={width}
         height={height}
-        loading={priority ? 'eager' : 'lazy'}
+        loading="eager" // Always load eagerly to fix the display issues
       />
       
       {/* Error state */}
