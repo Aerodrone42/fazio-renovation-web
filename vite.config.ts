@@ -26,6 +26,13 @@ export default defineConfig(({ mode }) => {
       sourcemap: mode === 'development',
       minify: 'esbuild',
       assetsDir: 'assets', // Spécifier explicitement où les assets seront générés
+      rollupOptions: {
+        output: {
+          entryFileNames: 'assets/[name].js', // Nom de fichier cohérent
+          chunkFileNames: 'assets/[name].js',
+          assetFileNames: 'assets/[name].[ext]'
+        }
+      }
     },
   };
 });

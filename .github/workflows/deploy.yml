@@ -38,8 +38,8 @@ jobs:
         run: |
           echo "Contenu du fichier index.html généré:"
           cat dist/index.html
-          echo "\nVérification des chemins des scripts:"
-          grep -o '<script[^>]*src="[^"]*"[^>]*>' dist/index.html
+          echo "\nListe des fichiers JavaScript générés:"
+          find dist/assets -name "*.js" | sort
           
       - name: Préparer le déploiement 📝
         run: |
@@ -53,39 +53,30 @@ jobs:
           # Créer une page 404 identique
           cp dist/index.html dist/404.html
           
-          # Correction agressive des chemins absolus en chemins relatifs
-          echo "Correction des chemins dans les fichiers HTML"
-          find dist -name "*.html" -type f -exec sed -i 's|src="/|src="./|g' {} \;
-          find dist -name "*.html" -type f -exec sed -i 's|href="/|href="./|g' {} \;
+          # Correction AGRESSIVE des chemins
+          echo "CORRECTION AGRESSIVE DES CHEMINS"
           
-          # Correction directe pour les scripts
+          # Premièrement, identifier tous les fichiers générés
+          MAIN_JS=$(find dist/assets -name "*.js" -not -name "*chunk*" | head -n 1)
+          MAIN_JS_BASENAME=$(basename $MAIN_JS)
+          
+          # Ensuite, remplacer systématiquement toutes les références à des scripts
           for HTML_FILE in dist/*.html; do
-            # Identifier le JS principal généré par Vite
-            JS_FILE=$(find dist/assets -name "index-*.js" | head -n 1 | sed 's|dist/||')
-            CSS_FILE=$(find dist/assets -name "index-*.css" | head -n 1 | sed 's|dist/||')
+            echo "Traitement de $HTML_FILE"
             
-            if [ -n "$JS_FILE" ]; then
-              echo "Script principal trouvé: $JS_FILE"
-              # Remplacer toutes les références à index.js ou similaire
-              sed -i "s|src=\"./assets/index.js\"|src=\"./$JS_FILE\"|g" "$HTML_FILE"
-              sed -i "s|src=\"./assets/index-[a-zA-Z0-9]*.js\"|src=\"./$JS_FILE\"|g" "$HTML_FILE"
-              sed -i "s|src=\"/assets/index.js\"|src=\"./$JS_FILE\"|g" "$HTML_FILE"
-            else
-              echo "ATTENTION: Aucun fichier JavaScript principal trouvé"
-            fi
+            # 1. Remplacement de toute référence à index.js par le fichier principal
+            sed -i "s|src=\"[^\"]*index[^\"]*\.js\"|src=\"./assets/$MAIN_JS_BASENAME\"|g" $HTML_FILE
             
-            if [ -n "$CSS_FILE" ]; then
-              echo "CSS principal trouvé: $CSS_FILE"
-              # Remplacer toutes les références CSS
-              sed -i "s|href=\"./assets/index.css\"|href=\"./$CSS_FILE\"|g" "$HTML_FILE"
-              sed -i "s|href=\"/assets/index.css\"|href=\"./$CSS_FILE\"|g" "$HTML_FILE"
-            fi
+            # 2. S'assurer que tous les chemins sont relatifs
+            sed -i 's|src="/|src="./|g' $HTML_FILE
+            sed -i 's|href="/|href="./|g' $HTML_FILE
             
-            echo "Contenu final de $HTML_FILE après corrections:"
-            cat "$HTML_FILE"
+            # 3. Vérifier si le fichier HTML contient encore des références à des scripts qui n'existent pas
+            echo "Vérification finale du fichier:"
+            grep -o 'src="[^"]*"' $HTML_FILE
           done
           
-          # Vérifier un dernier fois 
+          # Vérifier que index.html est correct
           echo "Contenu final de index.html:"
           cat dist/index.html
           
