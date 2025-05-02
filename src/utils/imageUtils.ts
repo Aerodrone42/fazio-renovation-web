@@ -10,6 +10,8 @@ export const preloadImage = (src: string): Promise<HTMLImageElement> => {
     img.onload = () => resolve(img);
     img.onerror = reject;
     img.src = src;
+    // Forcer le cache des images pour éviter les problèmes de CORS
+    img.crossOrigin = "anonymous";
   });
 };
 
@@ -20,6 +22,7 @@ export const preloadImage = (src: string): Promise<HTMLImageElement> => {
  */
 export const preloadImages = async (srcs: string[]): Promise<HTMLImageElement[]> => {
   try {
+    console.log('Préchargement des images:', srcs);
     return await Promise.all(srcs.map(src => preloadImage(src)));
   } catch (error) {
     console.error('Erreur lors de la précharge des images:', error);
@@ -37,6 +40,7 @@ export const imageExists = async (src: string): Promise<boolean> => {
     await preloadImage(src);
     return true;
   } catch {
+    console.error(`Image non trouvée: ${src}`);
     return false;
   }
 };
@@ -52,11 +56,9 @@ export const optimizeImagePath = (src: string, width?: number, height?: number):
   // Ne rien faire sur les data URLs
   if (src.startsWith('data:')) return src;
   
-  // Ajoute un paramètre de cache pour empêcher les problèmes de cache
-  const cacheBuster = `v=${Date.now().toString(36).substring(0, 5)}`;
-  
-  // Ajoute un timestamp pour éviter le cache entre les déploiements
-  return src.includes('?') ? `${src}&${cacheBuster}` : `${src}?${cacheBuster}`;
+  // Ne plus ajouter de cacheBuster pour éviter des problèmes de cache
+  // Retourner directement le chemin de l'image
+  return src;
 };
 
 /**

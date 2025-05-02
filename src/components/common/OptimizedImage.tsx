@@ -30,83 +30,50 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const [imgSrc, setImgSrc] = useState<string>('');
   const imgRef = useRef<HTMLImageElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
-
+  
   // Create a unique ID for this image instance
   const id = useRef(`opt-img-${Math.random().toString(36).substring(2, 15)}`);
 
-  // Set up initial source and preload high priority images
+  // Set up initial source immediately for priority images
   useEffect(() => {
+    // Charger immédiatement toutes les images
+    const imagePath = src;
+    console.log(`Chargement de l'image: ${imagePath}`);
+    setImgSrc(imagePath);
+    
     if (priority) {
-      // Priority images load immediately
-      setImgSrc(optimizeImagePath(src, width, height));
-      
-      // Preload image in browser cache
+      // Précharger l'image dans le cache du navigateur
       const preloadLink = document.createElement('link');
       preloadLink.rel = 'preload';
       preloadLink.as = 'image';
-      preloadLink.href = src;
+      preloadLink.href = imagePath;
       preloadLink.id = `preload-${id.current}`;
       document.head.appendChild(preloadLink);
       
       return () => {
-        // Clean up preload link when component unmounts
+        // Nettoyer le lien de préchargement lorsque le composant se démonte
         const linkEl = document.getElementById(`preload-${id.current}`);
         if (linkEl) document.head.removeChild(linkEl);
       };
     }
-  }, [src, priority, width, height]);
-
-  // Set up intersection observer for lazy loading
-  useEffect(() => {
-    if (priority) return; // Skip for priority images
-    
-    // Only create a new observer if we don't have one yet
-    if (!observerRef.current && imgRef.current) {
-      observerRef.current = new IntersectionObserver(
-        (entries) => {
-          const firstEntry = entries[0];
-          if (firstEntry.isIntersecting) {
-            // Wait a tiny bit to not block other resources
-            setTimeout(() => {
-              setImgSrc(optimizeImagePath(src, width, height));
-            }, 10);
-            // Disconnect once we've triggered the load
-            observerRef.current?.disconnect();
-          }
-        }, 
-        { 
-          rootMargin: '200px', // Load images when within 200px of viewport
-          threshold: 0.01 
-        }
-      );
-      
-      // Start observing
-      observerRef.current.observe(imgRef.current);
-    }
-    
-    return () => {
-      // Clean up observer when component unmounts
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, [src, width, height, priority]);
+  }, [src, priority]);
 
   // Handle successful image load
   const handleLoad = () => {
+    console.log(`Image chargée avec succès: ${src}`);
     setIsLoaded(true);
     if (onLoad) onLoad();
   };
 
   // Handle image load error
   const handleError = () => {
-    console.error(`Failed to load image: ${src}`);
+    console.error(`Échec du chargement de l'image: ${src}`);
     setError(true);
-    setIsLoaded(true); // Consider it "loaded" so we hide the placeholder
+    setIsLoaded(true); // Considérer comme "chargée" pour que nous cachions le placeholder
     if (onError) onError();
   };
 
-  // Tiny transparent 1x1 pixel placeholder
+  // Placeholder transparent 1x1 pixel
   const blankPlaceholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
 
   return (
@@ -118,6 +85,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         height: height ? `${height}px` : 'auto',
       }}
       data-loaded={isLoaded ? 'true' : 'false'}
+      data-src={src}
     >
       {/* Low quality placeholder or loading animation */}
       {!isLoaded && (

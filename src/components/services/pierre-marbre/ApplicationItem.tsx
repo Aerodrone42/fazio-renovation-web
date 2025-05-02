@@ -25,7 +25,8 @@ const ApplicationItem: React.FC<ApplicationItemProps> = ({
           src={imageSrc}
           alt={imageAlt} 
           className="w-full h-full object-cover"
-          placeholderColor="#f3f4f6" 
+          placeholderColor="#f3f4f6"
+          priority={true}
         />
       </AspectRatio>
     </div>

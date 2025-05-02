@@ -18,7 +18,7 @@ const ServiceCard = ({ image, title, description, imageAlt }: ServiceCardProps) 
           alt={imageAlt} 
           className="w-full h-full object-cover"
           placeholderColor="#f3f4f6"
-          priority={false}
+          priority={true}
         />
       </div>
       <div className="p-6 flex-grow">

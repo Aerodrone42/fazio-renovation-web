@@ -1,6 +1,7 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import ServiceCard from './ServiceCard';
+import { preloadImages } from '@/utils/imageUtils';
 
 const ServicesSection = () => {
   const services = [
@@ -23,6 +24,14 @@ const ServicesSection = () => {
       imageAlt: "Pose de carrelage mural moderne"
     }
   ];
+
+  // Précharger les images pour améliorer l'affichage
+  useEffect(() => {
+    const imagePaths = services.map(service => service.image);
+    preloadImages(imagePaths)
+      .then(() => console.log('Images préchargées avec succès'))
+      .catch(err => console.error('Erreur préchargement:', err));
+  }, []);
 
   return (
     <section className="py-16 bg-gray-50">
