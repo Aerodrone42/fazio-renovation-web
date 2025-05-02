@@ -5,9 +5,8 @@
   <meta charset="utf-8">
   <title>SARL FAZIO Lorenzo | Redirection</title>
   <script type="text/javascript">
-    // Simple redirection to home page while preserving any path
-    var baseUrl = "/";
-    window.location.href = baseUrl + (window.location.hash || "");
+    // Redirection simple tout en préservant le hash pour le routage
+    window.location.href = window.location.origin + (window.location.hash || "/#/");
   </script>
 </head>
 <body>

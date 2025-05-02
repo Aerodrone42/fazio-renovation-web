@@ -1,7 +1,8 @@
 
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { Helmet } from 'react-helmet-async';
+import { Button } from '@/components/ui/button';
 
 const NotFound = () => {
   const location = useLocation();
@@ -25,12 +26,11 @@ const NotFound = () => {
       <div className="text-center p-8">
         <h1 className="text-6xl font-bold mb-6 text-gray-800">404</h1>
         <p className="text-xl text-gray-600 mb-8">Oups ! Cette page n'existe pas</p>
-        <a 
-          href="/" 
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300"
-        >
-          Retour à l'accueil
-        </a>
+        <Button asChild className="bg-blue-500 hover:bg-blue-700 text-white font-bold">
+          <Link to="/">
+            Retour à l'accueil
+          </Link>
+        </Button>
       </div>
     </div>
   );
