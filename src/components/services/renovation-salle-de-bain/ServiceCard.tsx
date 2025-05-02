@@ -1,5 +1,6 @@
 
 import React from 'react';
+import OptimizedImage from '@/components/common/OptimizedImage';
 
 interface ServiceCardProps {
   image: string;
@@ -12,7 +13,7 @@ const ServiceCard = ({ image, title, description, imageAlt }: ServiceCardProps) 
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-md">
       <div className="h-64">
-        <img 
+        <OptimizedImage 
           src={image}
           alt={imageAlt} 
           className="w-full h-full object-cover"

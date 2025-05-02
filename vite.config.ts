@@ -26,6 +26,24 @@ export default defineConfig(({ mode }) => {
       sourcemap: false,
       minify: 'esbuild',
       assetsDir: 'assets',
+      assetsInlineLimit: 4096, // 4kb - les fichiers plus petits seront inlinés en base64
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            react: ['react', 'react-dom'],
+            router: ['react-router-dom'],
+            ui: [
+              '@radix-ui/react-aspect-ratio',
+              '@radix-ui/react-dialog',
+              '@radix-ui/react-slot'
+            ],
+          },
+        },
+      },
+      chunkSizeWarningLimit: 1000, // Augmente la limite d'avertissement de taille de chunk
+    },
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react-router-dom'],
     },
   };
 });

@@ -12,6 +12,11 @@
     <meta property="og:type" content="website" />
     <link rel="sitemap" type="application/xml" href="/sitemap.html" />
     
+    <!-- Préchargements et préconnexions -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="./lovable-uploads/b990c88c-c430-46de-a2ef-4ac0717a59fc.png">
+    
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./lovable-uploads/8d86e4df-9559-4d2e-a51e-e1ca7622720d.png">
     
@@ -63,6 +68,24 @@
           }
         </style>
       `);
+      
+      // Préchargement des images critiques
+      window.addEventListener('load', () => {
+        // Précharger les images les plus importantes après le chargement de la page
+        const imagesToPreload = [
+          './lovable-uploads/8bfe4682-ae69-48cc-8f91-a4bdaf3d9e5e.png',
+          './lovable-uploads/3844515b-3e9f-4f4b-8748-cb0661a01d14.png',
+          './lovable-uploads/5c59aae7-1cbc-4919-96be-8466e388c35b.png'
+        ];
+        
+        imagesToPreload.forEach(src => {
+          const link = document.createElement('link');
+          link.rel = 'prefetch';
+          link.as = 'image';
+          link.href = src;
+          document.head.appendChild(link);
+        });
+      });
     </script>
   </head>
   <body>
