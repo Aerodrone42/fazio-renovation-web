@@ -26,6 +26,7 @@ const DoucheItalienne = () => {
         title="Création de douches à l'italienne"
         description="L'élégance et le confort d'une douche à l'italienne pour une salle de bain moderne et accessible."
         imagePath="/lovable-uploads/27809564-436c-47f4-8190-73ce5d6c6403.png"
+        customImage="/lovable-uploads/1bd715bf-98b7-4f54-a554-caed7d7ac8c9.png"
       />
 
       {/* Description du service */}

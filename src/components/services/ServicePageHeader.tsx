@@ -6,20 +6,24 @@ interface ServicePageHeaderProps {
   title: string;
   description: string;
   imagePath: string;
+  customImage?: string;
 }
 
-const ServicePageHeader: React.FC<ServicePageHeaderProps> = ({ title, description, imagePath }) => {
+const ServicePageHeader: React.FC<ServicePageHeaderProps> = ({ title, description, imagePath, customImage }) => {
+  // Utiliser l'image personnalisée si elle est fournie, sinon utiliser l'image par défaut
+  const displayImage = customImage || imagePath;
+  
   return (
-    <section className="relative h-[350px] md:h-[400px] overflow-hidden">
-      {/* Image de fond avec un overlay - fixed positioning to ensure proper centering */}
+    <section className="relative h-[350px] md:h-[400px] lg:h-[450px] overflow-hidden">
+      {/* Image de fond avec un overlay */}
       <div className="absolute inset-0">
         <OptimizedImage
-          src={imagePath}
+          src={displayImage}
           alt={`Image d'en-tête pour ${title}`}
           className="w-full h-full object-cover object-center" 
           priority={true}
         />
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
       </div>
       
       {/* Contenu texte */}

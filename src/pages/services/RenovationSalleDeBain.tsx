@@ -30,6 +30,7 @@ const RenovationSalleDeBain = () => {
         title="Rénovation de salle de bain"
         description="Transformation complète de votre salle de bain, de la conception à la réalisation."
         imagePath="/lovable-uploads/8bfe4682-ae69-48cc-8f91-a4bdaf3d9e5e.png"
+        customImage="/lovable-uploads/1bd715bf-98b7-4f54-a554-caed7d7ac8c9.png"
       />
       
       <IntroSection />
