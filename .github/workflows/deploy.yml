@@ -41,7 +41,8 @@ jobs:
       - name: Préparer le déploiement 📝
         run: |
           touch dist/.nojekyll
-          echo "www.sarlfaziolorenzo.fr" > dist/CNAME
+          # Utiliser le domaine principal sans www
+          echo "sarlfaziolorenzo.fr" > dist/CNAME
           
           # Copier les ressources
           mkdir -p dist/lovable-uploads
