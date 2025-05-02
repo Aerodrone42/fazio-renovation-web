@@ -39,7 +39,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <ServicePageHeader 
           title="SARL FAZIO Lorenzo"
           description="Votre expert en carrelage et rénovation dans l'Ain et la Côte d'Azur"
-          imagePath="/lovable-uploads/345deac2-67fc-4bb0-9da4-3f6ab1e0363c.png"
+          imagePath="/lovable-uploads/1b698327-244b-4402-afd9-efbcc347ea6f.png"
           priority={true}
         />
       )}
