@@ -10,13 +10,13 @@ interface ServicePageHeaderProps {
 
 const ServicePageHeader: React.FC<ServicePageHeaderProps> = ({ title, description, imagePath }) => {
   return (
-    <section className="relative h-[350px] md:h-[400px] overflow-hidden flex">
-      {/* Image de fond avec un overlay */}
+    <section className="relative h-[350px] md:h-[400px] overflow-hidden">
+      {/* Image de fond avec un overlay - fixed positioning to ensure proper centering */}
       <div className="absolute inset-0">
         <OptimizedImage
           src={imagePath}
           alt={`Image d'en-tête pour ${title}`}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-center" 
           priority={true}
         />
         <div className="absolute inset-0 bg-black/50"></div>
