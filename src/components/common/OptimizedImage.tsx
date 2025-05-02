@@ -35,7 +35,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
   // Set up initial source immediately and force image cache refresh
   useEffect(() => {
-    // Stronger cache buster with unique ID to ensure refresh
+    // Stronger cache buster with unique ID and timestamp to ensure refresh
     const cacheBuster = `?refresh=${new Date().getTime()}-${id.current}`;
     const fullSrc = `${src}${cacheBuster}`;
     setImgSrc(fullSrc);
@@ -49,7 +49,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
       preloadLink.id = `preload-${id.current}`;
       document.head.appendChild(preloadLink);
       
-      console.log(`Préchargement de l'image avec cache buster renforcé: ${fullSrc}`);
+      console.log(`Préchargement de l'image avec cache buster: ${fullSrc}`);
       
       return () => {
         // Clean up the preload link when component unmounts
