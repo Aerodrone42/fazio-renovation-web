@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -7,6 +6,7 @@ import { Helmet } from 'react-helmet-async';
 import InterventionMap from '@/components/maps/InterventionMap';
 import { Card, CardContent } from '@/components/ui/card';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const Index = () => {
   console.log("Rendering Index page");
@@ -117,50 +117,45 @@ const Index = () => {
 
   const testimonials = [
     {
-      name: "Cindy",
-      reviewCount: "7 avis · 5 photos",
+      quote: "Nous avons choisi de remplacer notre carrelage par du travertin. Nous sommes enchantés du résultat et du déroulement du chantier. Les délais annoncés ont été respecté, la pose est parfaite, même dans les détails :-) Je recommande sans hésiter Lorenzo qui est un très bon artisan.",
+      author: "Cindy",
+      location: "Ain (01)",
       rating: 5,
       date: "il y a une semaine",
       isNew: true,
-      comment: "Nous avons choisi de remplacer notre carrelage par du travertin. Nous sommes enchantés du résultat et du déroulement du chantier. Les délais annoncés ont été respecté, la pose est parfaite, même dans les détails :-) Je recommande sans hésiter Lorenzo qui est un très bon artisan.",
       avatar: "/lovable-uploads/7f0aab32-2bdf-4fe9-adcb-64c5e212c993.png"
     },
     {
-      name: "Sébastien Leveaux",
-      reviewCount: "6 avis · 2 photos",
+      quote: "Un pro tant dans l'ouvrage que dans le conseil. Un artisan qui respecte ses délais, fait du travail de qualité au prix juste. Je recommande à 100% !",
+      author: "Sébastien Leveaux",
+      location: "Lyon (69)",
       rating: 5,
       date: "il y a 6 jours",
       isNew: true,
-      comment: "Un pro tant dans l'ouvrage que dans le conseil. Un artisan qui respecte ses délais, fait du travail de qualité au prix juste. Je recommande à 100% !",
-      visitDate: "Visité en avril",
       avatar: "/lovable-uploads/dab6b5ba-7faf-4e86-bdea-2effd60518ba.png"
     },
     {
-      name: "Danièle ROBERTO",
-      reviewCount: "6 avis · 6 photos",
+      quote: "Besoin d'un carreleur ? Un bon ? un très bon ? Ne cherchez plus ! c'est Lorenzo (seulement pour les intimes) Mr FAZIO - exceptionnel - un vrai talent !",
+      author: "Danièle ROBERTO",
+      location: "Rhône (69)",
       rating: 5,
       date: "il y a un an",
-      comment: "Besoin d'un carreleur ? Un bon ? un très bon ? Ne cherchez plus ! c'est Lorenzo (seulement pour les intimes) Mr FAZIO - exceptionnel - un vrai talent !",
       avatar: "/lovable-uploads/5ba25a96-5513-41cc-9901-4e618b0d4dd5.png"
     },
     {
-      name: "Céline",
-      reviewCount: "2 avis",
+      quote: "Travail très soigné et appliqué, parfaitement dans les temps. Lorenzo a su nous accompagner dans notre projet et sa réalisation avec la pose de carrelage en 120x120 notamment, ainsi que la réalisation de salles de bain et toilettes...",
+      author: "Céline",
+      location: "Ouest Lyonnais",
       rating: 5,
       date: "il y a 6 mois",
-      comment: "Travail très soigné et appliqué, parfaitement dans les temps. Lorenzo a su nous accompagner dans notre projet et sa réalisation avec la pose de carrelage en 120x120 notamment, ainsi que la réalisation de salles de bain et toilettes en ...",
-      visitDate: "Visité en octobre 2024",
-      hasMore: true,
       avatar: "/lovable-uploads/e5de28cd-3c00-4f43-bf79-db3fc7651b3a.png"
     },
     {
-      name: "Blandin Rafaële",
-      reviewCount: "3 avis",
+      quote: "Très professionnel, chantier réalisé en temps en en heure malgré une dépose de carreaux très difficile. Je remercie Lorenzo qui a transformé ma \"petite terrasse de ville\" en un lieu super agréable et accueillant.",
+      author: "Blandin Rafaële",
+      location: "Ain (01)",
       rating: 5,
       date: "il y a 7 mois",
-      comment: "Très professionnel, chantier réalisé en temps en en heure malgré une dépose de carreaux très difficile ;;;;je remercie Lorenzo qui a transformé ma \"petite terrasse de ville \"en un lieu super agréable et accueillant. ...",
-      visitDate: "Visité en juillet 2024",
-      hasMore: true,
       avatar: "/lovable-uploads/679ba1af-3648-401a-b77c-2798744be8aa.png"
     }
   ];
@@ -301,16 +296,13 @@ const Index = () => {
             {testimonials.map((testimonial, index) => (
               <div key={index} className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow border border-gray-100">
                 <div className="flex items-start gap-3 mb-3">
-                  <div className="rounded-full overflow-hidden w-12 h-12 shrink-0">
-                    <img 
-                      src={testimonial.avatar} 
-                      alt={`Photo de ${testimonial.name}`} 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src={testimonial.avatar} alt={`Photo de ${testimonial.author}`} />
+                    <AvatarFallback>{testimonial.author[0]}</AvatarFallback>
+                  </Avatar>
                   <div>
-                    <h3 className="font-bold text-gray-900">{testimonial.name}</h3>
-                    <p className="text-sm text-gray-500">{testimonial.reviewCount}</p>
+                    <h3 className="font-bold text-gray-900">{testimonial.author}</h3>
+                    <p className="text-sm text-gray-500">{testimonial.location}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-1 mb-2">
@@ -324,13 +316,7 @@ const Index = () => {
                     )}
                   </span>
                 </div>
-                <p className="text-gray-700 mb-2">{testimonial.comment}</p>
-                {testimonial.hasMore && (
-                  <button className="text-blue-600 hover:text-blue-800 text-sm font-semibold">Plus</button>
-                )}
-                {testimonial.visitDate && (
-                  <p className="text-sm text-gray-500 mt-2">{testimonial.visitDate}</p>
-                )}
+                <p className="text-gray-700 mb-2">"{testimonial.quote}"</p>
               </div>
             ))}
           </div>
