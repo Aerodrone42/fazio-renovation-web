@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import OptimizedImage from '@/components/common/OptimizedImage';
 
 interface ServicePageHeaderProps {
@@ -12,6 +12,13 @@ interface ServicePageHeaderProps {
 const ServicePageHeader: React.FC<ServicePageHeaderProps> = ({ title, description, imagePath, customImage }) => {
   // Utiliser l'image personnalisée si elle est fournie, sinon utiliser l'image par défaut
   const displayImage = customImage || imagePath;
+  
+  // Précharger l'image pour s'assurer qu'elle est chargée
+  useEffect(() => {
+    const img = new Image();
+    img.src = displayImage;
+    console.log("Chargement de l'image d'en-tête:", displayImage);
+  }, [displayImage]);
   
   return (
     <section className="relative h-[350px] md:h-[400px] lg:h-[450px] overflow-hidden">
