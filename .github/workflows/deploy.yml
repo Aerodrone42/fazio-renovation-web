@@ -24,8 +24,7 @@ jobs:
       - name: Install dependencies 📦
         run: |
           npm ci || npm install
-          npm install terser --save-dev
-        
+          
       - name: Build 🔧
         run: |
           echo "NODE_ENV=production" > .env.production
@@ -53,49 +52,13 @@ jobs:
           # Créer une page 404 identique
           cp dist/index.html dist/404.html
           
-          # SUPER CORRECTION DES SCRIPTS
-          echo "CORRECTION COMPLÈTE DES SCRIPTS"
-          
-          # 1. Identifier TOUS les scripts JavaScript importants générés
-          MAIN_JS_FILES=$(find dist/assets -name "*.js" | sort)
-          echo "Fichiers JavaScript trouvés:"
-          echo "$MAIN_JS_FILES"
-          
-          # 2. Extraction du nom du script principal
-          MAIN_JS=$(find dist/assets -name "index-*.js" 2>/dev/null || find dist/assets -name "main-*.js" 2>/dev/null || find dist/assets -name "*.js" | head -n 1)
-          MAIN_JS_BASENAME=$(basename "$MAIN_JS")
-          echo "Script principal identifié: $MAIN_JS_BASENAME"
-          
-          # 3. Mettre à jour TOUS les fichiers HTML pour assurer le bon chargement des scripts
-          for HTML_FILE in dist/*.html; do
-            echo "Traitement de $HTML_FILE"
-            
-            # Réécrire complètement la section script dans le HTML
-            SCRIPTS_REPLACED=$(sed -E "s|<script[^>]*src=\"[^\"]*\.(js|tsx)\"[^>]*>.*?</script>|<script type=\"module\" src=\"./assets/$MAIN_JS_BASENAME\"></script>|g" "$HTML_FILE")
-            
-            # Si aucun script n'a été trouvé, ajouter manuellement le script avant la fermeture du body
-            if ! echo "$SCRIPTS_REPLACED" | grep -q "<script.*src=\"./assets/$MAIN_JS_BASENAME\""; then
-              echo "Aucun script trouvé, ajout manuel du script principal"
-              SCRIPTS_REPLACED=$(sed -E "s|</body>|  <script type=\"module\" src=\"./assets/$MAIN_JS_BASENAME\"></script>\n</body>|g" "$HTML_FILE")
-            fi
-            
-            # Écrire les changements dans le fichier
-            echo "$SCRIPTS_REPLACED" > "$HTML_FILE"
-            
-            # Vérifier une dernière fois les chemins relatifs
-            sed -i 's|src="/|src="./|g' "$HTML_FILE"
-            sed -i 's|href="/|href="./|g' "$HTML_FILE"
-          done
-          
-          # Vérification finale
-          echo "Contenu final de index.html:"
-          cat dist/index.html
-          echo "\nScript final utilisé: ./assets/$MAIN_JS_BASENAME"
-          
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist
           branch: gh-pages
           clean: true
-
+          
+      - name: Vérifier l'index.html final
+        run: |
+          echo "Déploiement terminé. L'index.html final sera disponible à https://www.sarlfaziolorenzo.fr/index.html"

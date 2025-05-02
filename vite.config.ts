@@ -25,14 +25,7 @@ export default defineConfig(({ mode }) => {
       emptyOutDir: true,
       sourcemap: mode === 'development',
       minify: 'esbuild',
-      assetsDir: 'assets', 
-      rollupOptions: {
-        output: {
-          entryFileNames: 'assets/index.js', // Nom de fichier FIXE sans hash
-          chunkFileNames: 'assets/[name].js',
-          assetFileNames: 'assets/[name].[ext]'
-        }
-      }
+      assetsDir: 'assets',
     },
   };
 });
