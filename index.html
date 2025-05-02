@@ -18,17 +18,51 @@
     <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap">
     
-    <!-- Lovable Script - Required for new features -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    <!-- Force disable Lovable badge -->
+    <meta name="lovable:badge" content="false">
     
-    <!-- Script to disable Lovable badge -->
+    <!-- Lovable Script with immediate execution of disableBadge -->
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script>
-      window.addEventListener('load', function() {
-        // Disable Lovable badge
-        if (window.disableBadge) {
+      // Exécution immédiate et aussi après chargement
+      if (typeof disableBadge === 'function') {
+        disableBadge();
+      }
+      
+      // Fonction pour essayer de désactiver le badge à plusieurs reprises
+      function attemptDisableBadge() {
+        if (typeof window.disableBadge === 'function') {
           window.disableBadge();
         }
-      });
+      }
+      
+      // Exécution immédiate
+      attemptDisableBadge();
+      
+      // Exécution après un court délai
+      setTimeout(attemptDisableBadge, 100);
+      
+      // Exécution après chargement complet de la page
+      window.addEventListener('load', attemptDisableBadge);
+      
+      // Exécution régulière pendant quelques secondes
+      const interval = setInterval(attemptDisableBadge, 500);
+      setTimeout(() => clearInterval(interval), 5000);
+      
+      // Style pour masquer le badge via CSS
+      document.head.insertAdjacentHTML('beforeend', `
+        <style>
+          [class*="lovable-badge"],
+          [id*="lovable-badge"],
+          [class*="gpte-badge"],
+          [id*="gpte-badge"] {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+          }
+        </style>
+      `);
     </script>
   </head>
   <body>
