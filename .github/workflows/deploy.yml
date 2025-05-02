@@ -58,39 +58,35 @@ jobs:
           find dist -name "*.html" -type f -exec sed -i 's|src="/|src="./|g' {} \;
           find dist -name "*.html" -type f -exec sed -i 's|href="/|href="./|g' {} \;
           
-          # Correction spécifique pour le script index.js
-          if grep -q 'src="./assets/index.js"' dist/index.html; then
-            echo "Correction de la référence incorrecte à index.js"
-            JS_FILE=$(ls dist/assets/*.js | grep -v chunk | head -n 1 | xargs basename)
-            sed -i "s|src=\"./assets/index.js\"|src=\"./assets/$JS_FILE\"|g" dist/index.html
-            sed -i "s|src=\"./assets/index.js\"|src=\"./assets/$JS_FILE\"|g" dist/404.html
-          fi
-          
-          # Correction générique pour tous les scripts
+          # Correction directe pour les scripts
           for HTML_FILE in dist/*.html; do
-            echo "Vérifiant $HTML_FILE pour des références de script incorrectes"
-            for SCRIPT_REF in $(grep -o 'src="[^"]*\.js"' "$HTML_FILE" | sed 's/src="//;s/"//'); do
-              SCRIPT_PATH="${SCRIPT_REF#./}"
-              if [[ "$SCRIPT_PATH" == /* ]]; then
-                SCRIPT_PATH="${SCRIPT_PATH#/}"
-              fi
-              
-              if [ ! -f "dist/$SCRIPT_PATH" ]; then
-                echo "Référence de script incorrecte trouvée: $SCRIPT_REF"
-                POSSIBLE_FILE=$(find dist/assets -name "*.js" -type f | head -n 1 | sed 's|dist/||')
-                if [ -n "$POSSIBLE_FILE" ]; then
-                  echo "Remplacement par: ./$POSSIBLE_FILE"
-                  sed -i "s|src=\"$SCRIPT_REF\"|src=\"./$POSSIBLE_FILE\"|g" "$HTML_FILE"
-                fi
-              fi
-            done
+            # Identifier le JS principal généré par Vite
+            JS_FILE=$(find dist/assets -name "index-*.js" | head -n 1 | sed 's|dist/||')
+            CSS_FILE=$(find dist/assets -name "index-*.css" | head -n 1 | sed 's|dist/||')
+            
+            if [ -n "$JS_FILE" ]; then
+              echo "Script principal trouvé: $JS_FILE"
+              # Remplacer toutes les références à index.js ou similaire
+              sed -i "s|src=\"./assets/index.js\"|src=\"./$JS_FILE\"|g" "$HTML_FILE"
+              sed -i "s|src=\"./assets/index-[a-zA-Z0-9]*.js\"|src=\"./$JS_FILE\"|g" "$HTML_FILE"
+              sed -i "s|src=\"/assets/index.js\"|src=\"./$JS_FILE\"|g" "$HTML_FILE"
+            else
+              echo "ATTENTION: Aucun fichier JavaScript principal trouvé"
+            fi
+            
+            if [ -n "$CSS_FILE" ]; then
+              echo "CSS principal trouvé: $CSS_FILE"
+              # Remplacer toutes les références CSS
+              sed -i "s|href=\"./assets/index.css\"|href=\"./$CSS_FILE\"|g" "$HTML_FILE"
+              sed -i "s|href=\"/assets/index.css\"|href=\"./$CSS_FILE\"|g" "$HTML_FILE"
+            fi
+            
+            echo "Contenu final de $HTML_FILE après corrections:"
+            cat "$HTML_FILE"
           done
           
-          echo "Contenu du dossier dist après correction:"
-          ls -la dist/
-          echo "Contenu du dossier dist/assets:"
-          ls -la dist/assets/ || echo "Le dossier assets n'existe pas"
-          echo "Version finale de index.html après toutes les corrections:"
+          # Vérifier un dernier fois 
+          echo "Contenu final de index.html:"
           cat dist/index.html
           
       - name: Deploy to GitHub Pages 🚀
