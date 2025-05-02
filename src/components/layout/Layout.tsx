@@ -5,6 +5,7 @@ import { Footer } from './Footer';
 import { CookieBanner } from '../common/CookieBanner';
 import { ScrollToTop } from './ScrollToTop';
 import { useLocation } from 'react-router-dom';
+import ServicePageHeader from '@/components/services/ServicePageHeader';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -12,6 +13,9 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
+  
+  // Check if we're on the home page
+  const isHomePage = location.pathname === '/';
   
   // Add animation reset when route changes
   useEffect(() => {
@@ -31,7 +35,15 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className="flex min-h-screen flex-col">
       <ScrollToTop />
       <Navbar />
-      <main id="main-content" className="flex-1 animate-fade-in flex flex-col">
+      {isHomePage && (
+        <ServicePageHeader 
+          title="SARL FAZIO Lorenzo"
+          description="Votre expert en carrelage et rénovation dans l'Ain et la Côte d'Azur"
+          imagePath="/lovable-uploads/1b698327-244b-4402-afd9-efbcc347ea6f.png"
+          priority={true}
+        />
+      )}
+      <main id="main-content" className={`flex-1 animate-fade-in flex flex-col ${isHomePage ? '' : 'pt-16'}`}>
         {children}
       </main>
       <Footer />

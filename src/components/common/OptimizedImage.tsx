@@ -35,20 +35,21 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
   // Set up initial source immediately and force image cache refresh
   useEffect(() => {
-    // Add a cache busting parameter to force refresh
-    const cacheBuster = `?t=${new Date().getTime()}`;
-    setImgSrc(`${src}${cacheBuster}`);
+    // Stronger cache buster with unique ID to ensure refresh
+    const cacheBuster = `?refresh=${new Date().getTime()}-${id.current}`;
+    const fullSrc = `${src}${cacheBuster}`;
+    setImgSrc(fullSrc);
     
     if (priority) {
-      // Preload the image in the browser cache with cache buster
+      // Preload the image in the browser cache with enhanced cache buster
       const preloadLink = document.createElement('link');
       preloadLink.rel = 'preload';
       preloadLink.as = 'image';
-      preloadLink.href = `${src}${cacheBuster}`;
+      preloadLink.href = fullSrc;
       preloadLink.id = `preload-${id.current}`;
       document.head.appendChild(preloadLink);
       
-      console.log(`Préchargement de l'image avec cache buster: ${src}${cacheBuster}`);
+      console.log(`Préchargement de l'image avec cache buster renforcé: ${fullSrc}`);
       
       return () => {
         // Clean up the preload link when component unmounts
@@ -107,7 +108,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         onError={handleError}
         width={width}
         height={height}
-        loading="eager" // Always load eagerly to fix the display issues
+        loading={priority ? "eager" : "lazy"}
       />
       
       {/* Error state */}
