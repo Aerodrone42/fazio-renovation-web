@@ -1,5 +1,6 @@
 
 User-agent: *
 Allow: /
-Sitemap: https://sarlfaziolorenzo.fr/sitemap.html
+Disallow: /404.html
 
+Sitemap: https://sarlfaziolorenzo.fr/sitemap.xml
