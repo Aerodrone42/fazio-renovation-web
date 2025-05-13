@@ -1,12 +1,11 @@
 
 import React, { useState } from 'react';
 import { MapContainer, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
-import 'leaflet-defaulticon-compatibility';
+// Fix CSS imports to use relative paths that Vite can resolve correctly
 import styles from './InterventionMap.module.css';
 import L from 'leaflet';
 import { useIsMobile } from '@/hooks/use-mobile';
+import 'leaflet-defaulticon-compatibility';
 
 // Define marker icon to fix missing icon issue
 const customIcon = L.icon({
@@ -32,6 +31,29 @@ interface LocationMarker {
   title: string;
   description: string;
 }
+
+// Add leaflet CSS directly in the component
+const leafletStyles = `
+  .leaflet-container {
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    position: relative;
+  }
+  
+  .leaflet-div-icon {
+    background: none;
+    border: none;
+  }
+  
+  .leaflet-control-container {
+    z-index: 15;
+  }
+  
+  .leaflet-control-attribution {
+    display: none;
+  }
+`;
 
 const InterventionMap: React.FC = () => {
   const isMobile = useIsMobile();
@@ -93,6 +115,9 @@ const InterventionMap: React.FC = () => {
 
   return (
     <div className="relative z-10 w-full h-full rounded-lg overflow-hidden shadow-lg">
+      {/* Add inline styles for Leaflet */}
+      <style>{leafletStyles}</style>
+      
       {/* Fallback content in case map doesn't load */}
       <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-0">
         <div className="text-center p-4">
