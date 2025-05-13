@@ -1,6 +1,10 @@
 
 User-agent: *
 Allow: /
+
+# Permettre l'indexation de toutes les pages y compris SPA routes
 Disallow: /404.html
 
+# Sitemap direct sans hash
 Sitemap: https://sarlfaziolorenzo.fr/sitemap.xml
+
