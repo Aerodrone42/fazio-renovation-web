@@ -1,3 +1,4 @@
+
 interface Commune {
   nom: string;
   communes_voisines: string[];
@@ -260,5 +261,25 @@ export const localPagesDataVar: LocalPageData[] = [
     departement: "Var",
     titre_accroche: "entreprise de carrelage et rénovation intérieure",
     specificites: "Station balnéaire élégante aux multiples visages, Saint-Raphaël s'étend des plages aux massifs de l'Estérel. Notre expertise s'adapte aussi bien aux villas Belle Époque qu'aux appartements contemporains."
+  },
+  {
+    ville: {
+      nom: "Bormes-les-Mimosas",
+      communes_voisines: ["Le Lavandou", "Collobrières", "La Londe-les-Maures", "Hyères", "Rayol-Canadel-sur-Mer", "Cavalaire-sur-Mer"]
+    },
+    region: "Provence-Alpes-Côte d'Azur",
+    departement: "Var",
+    titre_accroche: "carreleur spécialisé dans les résidences de charme",
+    specificites: "Village fleuri perché sur les hauteurs du massif des Maures, Bormes-les-Mimosas séduit par ses ruelles médiévales et ses villas de prestige. Notre savoir-faire s'adapte parfaitement aux propriétés de caractère de cette commune touristique prisée."
+  },
+  {
+    ville: {
+      nom: "Le Cap Bénat",
+      communes_voisines: ["Bormes-les-Mimosas", "Le Lavandou", "Hyères", "La Londe-les-Maures", "Rayol-Canadel-sur-Mer"]
+    },
+    region: "Provence-Alpes-Côte d'Azur",
+    departement: "Var",
+    titre_accroche: "expert en carrelage pour propriétés d'exception",
+    specificites: "Presqu'île préservée aux paysages sauvages exceptionnels, Le Cap Bénat abrite des propriétés de grand standing. Notre entreprise met son expertise au service des résidences haut de gamme de ce site naturel d'exception entre terre et mer."
   }
 ];
